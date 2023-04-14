@@ -1,0 +1,30 @@
+.page {
+  margin: 0;
+  padding: 0;
+  background-color: #1c074d;
+  width: 100%;
+  min-height: 100vh;
+
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  color: #ff0000;
+
+  &__container {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 880px;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    /* для мобильного меню */
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+
