@@ -1,6 +1,9 @@
 function Main() {
   return (
-    <main className="content" />
+    <>
+      <main className="content" />
+      <main className="content" />
+    </>
   );
 }
 
