@@ -1,0 +1,18 @@
+.header {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100px;
+  margin: 0;
+  padding: 0;
+
+  background-color: #202020;
+
+  &_background_cyan {
+    background-color: #073042;
+  }
+
+  &__logo {
+    margin: 0;
+    padding: 0;
+  }
+}
