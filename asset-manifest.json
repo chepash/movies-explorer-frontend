@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0741dbc1.css",
+    "main.js": "/static/js/main.c13de09a.js",
+    "static/media/Inter-Regular.woff?v=3.19": "/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Regular.woff2?v=3.19": "/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/SuisseIntl-Regular.woff?v=2.50": "/static/media/SuisseIntl-Regular.597993b52778aa31c1a4.woff",
+    "static/media/SuisseIntl-Regular.woff2?v=2.50": "/static/media/SuisseIntl-Regular.c7060fcd5dafb3e85f93.woff2",
+    "static/media/Inter-Regular-500.woff?v=3.19": "/static/media/Inter-Regular-500.9e53c1968a5987de07b2.woff",
+    "static/media/Inter-Regular-500.woff2?v=3.19": "/static/media/Inter-Regular-500.8b28f471a61fc4249c51.woff2",
+    "static/media/logo.svg": "/static/media/logo.f6cab7bf9c223562857b2e4c294b9813.svg",
+    "index.html": "/index.html",
+    "main.0741dbc1.css.map": "/static/css/main.0741dbc1.css.map",
+    "main.c13de09a.js.map": "/static/js/main.c13de09a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0741dbc1.css",
+    "static/js/main.c13de09a.js"
+  ]
+}
