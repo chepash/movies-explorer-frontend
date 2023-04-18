@@ -33,6 +33,7 @@
     "prettier-stylelint": "^0.4.2",
     "stylelint": "^15.5.0",
     "stylelint-config-clean-order": "^5.0.1",
+    "stylelint-config-standard-scss": "^8.0.0",
     "stylelint-order": "^6.0.3",
     "stylelint-prettier": "^3.0.0"
   },
