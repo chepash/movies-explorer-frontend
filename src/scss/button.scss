@@ -1,0 +1,40 @@
+.button {
+  cursor: pointer;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  background: none;
+  border: none;
+  box-shadow: none;
+
+  &_type_sign-in {
+    width: 76px;
+    height: 32px;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33; // 16px
+    color: #000;
+
+    background: #3ddc84;
+    border-radius: 3px;
+
+    @media screen and (width < 400px) {
+      width: 54px;
+      height: 26px;
+      font-size: 10px;
+    }
+  }
+
+  &_type_anchor {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33; // 16px
+    color: #fff;
+
+    border: 1px solid #fff9;
+    border-radius: 3px;
+  }
+}

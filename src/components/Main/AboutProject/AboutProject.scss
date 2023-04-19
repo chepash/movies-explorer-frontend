@@ -1,0 +1,20 @@
+.about-project {
+  display: flex;
+  flex: auto; /* для липкого футера и хэдэра независимо от колтчества контента на странице */
+  flex-direction: column;
+  align-items: center;
+
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  &__container {
+    width: 100%;
+    max-width: 1140px;
+
+    @media screen and (width < 1280px) {
+      max-width: 90%;
+    }
+  }
+}

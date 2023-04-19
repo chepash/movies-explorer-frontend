@@ -1,0 +1,58 @@
+.promo {
+  display: flex;
+  flex: auto; /* для липкого футера и хэдэра независимо от колтчества контента на странице */
+  flex-direction: column;
+  align-items: center;
+
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  background-color: #073042;
+
+  &__container {
+    display: grid;
+    width: 100%;
+    max-width: 1140px;
+
+    @media screen and (width < 1280px) {
+      max-width: 90%;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    padding: 0;
+
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 1.16;
+    text-align: left;
+    letter-spacing: 0;
+  }
+
+  &__subtitle {
+    margin: 0;
+    padding: 0;
+
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.23;
+    text-align: left;
+    letter-spacing: 0;
+
+    opacity: 0.5;
+    mix-blend-mode: normal;
+  }
+
+  &__button {
+    width: 129px;
+    height: 36px;
+  }
+
+  &__image {
+    margin: 0;
+    padding: 0;
+  }
+}
