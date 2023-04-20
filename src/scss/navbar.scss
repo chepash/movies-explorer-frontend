@@ -1,7 +1,6 @@
 .navbar {
   display: grid;
   grid-template-columns: min-content min-content;
-  column-gap: 30px;
   align-items: center;
 
   width: min-content;
@@ -27,11 +26,13 @@
     }
 
     &_type_sign-up {
+      margin-right: 30px;
       font-size: 12px;
       font-weight: 500;
       line-height: 1.33; // 16px
 
       @media screen and (width < 400px) {
+        margin-right: 14px;
         font-size: 10px;
       }
     }

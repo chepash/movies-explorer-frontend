@@ -14,9 +14,25 @@
   &__container {
     width: 100%;
     max-width: 1140px;
+    margin: 0;
+    padding: 100px 0;
 
     @media screen and (width < 1280px) {
       max-width: 90%;
+    }
+
+    @media screen and (width <= 768px) {
+      max-width: 668px; // 86.97%
+      padding: 90px 0;
+    }
+
+    @media screen and (width < 768px) {
+      max-width: 88%;
+    }
+
+    @media screen and (width <= 320px) {
+      max-width: 284px; // 88.75%
+      // padding: 70px 0;
     }
   }
 }

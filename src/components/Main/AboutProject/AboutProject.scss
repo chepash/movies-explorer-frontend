@@ -1,6 +1,5 @@
 .about-project {
   display: flex;
-  flex: auto; /* для липкого футера и хэдэра независимо от колтчества контента на странице */
   flex-direction: column;
   align-items: center;
 
@@ -12,9 +11,179 @@
   &__container {
     width: 100%;
     max-width: 1140px;
+    margin: 0;
+    padding: 110px 0 141px;
 
     @media screen and (width < 1280px) {
       max-width: 90%;
+    }
+
+    @media screen and (width <= 768px) {
+      max-width: 668px; // 86.97%
+      padding: 90px 0;
+    }
+
+    @media screen and (width < 768px) {
+      max-width: 88%;
+    }
+
+    @media screen and (width <= 320px) {
+      max-width: 284px; // 88.75%
+      padding: 70px 0;
+    }
+  }
+
+  &__title {
+    width: 100%;
+    margin: 0 0 70px;
+    padding: 0 0 23px;
+
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.23; // 27px
+    text-align: left;
+    letter-spacing: -0.04em;
+
+    border-bottom: 1px solid #dadada;
+
+    @media screen and (width <= 320px) {
+      margin: 0 0 60px;
+      padding: 0 0 28px;
+      font-size: 18px;
+      line-height: 1.22; // 22px
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(284px, 1fr));
+    row-gap: 56px;
+    column-gap: 40px;
+
+    margin: 0 0 110px;
+
+    @media screen and (width <= 768px) {
+      column-gap: 30px;
+      margin: 0 0 93px;
+    }
+
+    @media screen and (width <= 320px) {
+      margin: 0 0 60px;
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    row-gap: 26px;
+    justify-content: space-between;
+
+    margin: 0;
+    padding: 0;
+
+    @media screen and (width <= 768px) {
+      row-gap: 22px;
+    }
+
+    @media screen and (width <= 320px) {
+      row-gap: 16px;
+    }
+  }
+
+  &__heading {
+    margin: 0;
+    padding: 0;
+
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2; // 24px
+    text-align: left;
+    letter-spacing: -0.04em;
+
+    @media screen and (width <= 320px) {
+      font-size: 18px;
+    }
+  }
+
+  &__text {
+    margin: 0;
+    padding: 0;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42; // 20px
+    text-align: left;
+    letter-spacing: 0;
+
+    @media screen and (width <= 768px) {
+      font-size: 12px;
+      line-height: 1.5; // 18px
+    }
+
+    @media screen and (width <= 320px) {
+      font-size: 11px;
+      line-height: 1.46; // 16px
+    }
+  }
+
+  &__timeline {
+    display: grid;
+    grid-template-columns: minmax(100px, 1fr) 4fr;
+
+    margin: 0;
+    padding: 0;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.21; // 17px
+    letter-spacing: 0;
+
+    @media screen and (width <= 320px) {
+      font-size: 11px;
+      line-height: 1.18; // 13px
+    }
+  }
+
+  &__timeframe {
+    display: grid;
+    grid-template-rows: 36px min-content;
+    justify-items: center;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    &_color {
+      &_green {
+        color: #000;
+        background-color: #3ddc84;
+      }
+
+      &_gray {
+        background-color: #303030;
+      }
+    }
+  }
+
+  &__caption {
+    margin: 14px 0 0;
+    padding: 0;
+    /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+    font-family: SuisseIntl;
+    color: #a0a0a0;
+
+    @media screen and (width <= 320px) {
+      margin: 10px 0 0;
     }
   }
 }
