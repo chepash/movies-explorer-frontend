@@ -1,6 +1,9 @@
 function Techs() {
   return (
-    <section className="techs">
+    <section
+      className="techs"
+      aria-label="Информация об используемых технологиях"
+    >
       <div className="techs__container page__container page__container_narrow">
         <h2 className="techs__title page__title">Технологии</h2>
         <h3 className="techs__heading">7 технологий</h3>

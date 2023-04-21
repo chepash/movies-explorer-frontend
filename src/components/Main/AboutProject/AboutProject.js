@@ -1,6 +1,6 @@
 function AboutProject() {
   return (
-    <section className="about-project">
+    <section className="about-project" aria-label="Информация о проекте">
       <div className="about-project__container page__container page__container_narrow">
         <h2 className="about-project__title page__title">О проекте</h2>
 

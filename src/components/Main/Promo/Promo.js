@@ -2,7 +2,7 @@ import promoImage from '../../../images/promo__image.svg';
 
 function Promo() {
   return (
-    <section className="promo">
+    <section className="promo" aria-label="Заглавная">
       <div className="promo__container page__container page__container_narrow">
         <h1 className="promo__title">
           Учебный проект студента факультета Веб-разработки.
