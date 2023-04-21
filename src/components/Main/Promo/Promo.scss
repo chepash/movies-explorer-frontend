@@ -14,29 +14,15 @@
   &__container {
     display: grid;
     grid-template-columns: auto min-content;
-
-    width: 100%;
-    max-width: 1140px;
-    margin: 0;
     padding: 75px 0 50px;
-
-    @media screen and (width < 1280px) {
-      max-width: 90%;
-    }
 
     @media screen and (width <= 768px) {
       grid-template-columns: auto;
       justify-items: center;
-      max-width: 668px; // 86.97%
       padding: 140px 0 66px;
     }
 
-    @media screen and (width < 768px) {
-      max-width: 89%;
-    }
-
     @media screen and (width <= 320px) {
-      max-width: 284px; // 88.75%
       padding: 70px 0 0;
     }
   }
@@ -83,7 +69,7 @@
     text-align: left;
     letter-spacing: 0;
 
-    @media screen and (width <= 920px) {
+    @media screen and (width <= 930px) {
       max-width: 420px;
       font-size: 40px;
     }

@@ -3,7 +3,7 @@
 function Header() {
   return (
     <header className="header header_background_cyan">
-      <div className="header__container">
+      <div className="header__container page__container">
         <div to="/" alt="Логотип" className="logo header__logo" />
         <nav className="navbar">
           <button

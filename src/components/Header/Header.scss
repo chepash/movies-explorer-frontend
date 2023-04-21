@@ -23,25 +23,6 @@
     display: flex;
     flex: auto;
     justify-content: space-between;
-
-    width: 100%;
-    max-width: 1140px;
-
-    @media screen and (width < 1280px) {
-      max-width: 90%;
-    }
-
-    @media screen and (width = 768px) {
-      max-width: 708px; // 92.18%
-    }
-
-    @media screen and (width < 768px) {
-      max-width: 91%;
-    }
-
-    @media screen and (width = 320px) {
-      max-width: 292px; // 91.25%
-    }
   }
 
   &__logo {
