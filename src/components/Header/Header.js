@@ -4,11 +4,11 @@ function Header() {
   return (
     <header className="header header_background_cyan">
       <div className="header__container page__container">
-        <div to="/" alt="Логотип" className="logo header__logo" />
+        <div to="/" alt="Логотип" className="header__logo" />
         <nav className="navbar">
           <button
             type="button"
-            className="button navbar__link navbar__link_type_sign-up"
+            className="button navbar__link page__link navbar__link_type_sign-up"
           >
             Регистрация
           </button>

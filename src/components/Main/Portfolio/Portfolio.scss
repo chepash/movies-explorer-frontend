@@ -72,15 +72,12 @@
     justify-content: space-between;
 
     width: 100%;
-    margin: 0;
-    padding: 0;
 
     font-size: 30px;
     font-weight: 400;
     line-height: 1.67; // 50px
     color: #fff;
     text-align: left;
-    text-decoration: none;
     letter-spacing: -0.04em;
 
     @media screen and (width <= 768px) {

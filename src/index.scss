@@ -1,18 +1,15 @@
 @import "vendor/normalize.css";
 @import "vendor/fonts/fonts.css";
 
-@import "scss/logo";
-
 @import "scss/page";
-
-@import "./components/Header/Header";
 
 @import "scss/button";
 
 @import "scss/navbar";
 
-@import "./components/Main/Main";
+@import "./components/Header/Header";
 
+@import "./components/Main/Main";
 @import "./components/Main/Promo/Promo";
 @import "./components/Main/AboutProject/AboutProject";
 @import "./components/Main/Techs/Techs";

@@ -2,9 +2,8 @@ import profilePhoto from '../../../images/profile_photo.jpg';
 
 function AboutMe() {
   function calculateAge(birthday) {
-    const ageDifference = Date.now() - birthday.getTime();
-    const ageDate = new Date(ageDifference);
-    const ageYears = Math.abs(ageDate.getUTCFullYear() - 1970);
+    const ageDifference = new Date(Date.now() - birthday);
+    const ageYears = Math.abs(ageDifference.getUTCFullYear() - 1970);
     let ageText = `${ageYears} лет`;
     const lastDigit = ageYears % 10;
     if (lastDigit === 1 && ageYears !== 11) {
@@ -42,7 +41,10 @@ function AboutMe() {
               Продолжение&nbsp;следует...
             </p>
 
-            <a href="https://github.com/chepash" className="about-me__link">
+            <a
+              href="https://github.com/chepash"
+              className="about-me__link page__link"
+            >
               Github
             </a>
           </div>
@@ -50,7 +52,7 @@ function AboutMe() {
             <img
               className="about-me__image"
               src={profilePhoto}
-              alt="Изображение планеты"
+              alt="Фотография студента"
             />
           </div>
         </div>

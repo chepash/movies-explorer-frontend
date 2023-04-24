@@ -6,7 +6,7 @@ function Portfolio() {
         <ul className="portfolio__list page__list">
           <li className="portfolio__item">
             <a
-              className="portfolio__link"
+              className="portfolio__link page__link"
               href="https://github.com/chepash/how-to-learn"
             >
               <p className="portfolio__link-name">Статичный сайт</p>
@@ -15,7 +15,7 @@ function Portfolio() {
           </li>
           <li className="portfolio__item">
             <a
-              className="portfolio__link"
+              className="portfolio__link page__link"
               href="https://github.com/chepash/russian-travel"
             >
               <p className="portfolio__link-name">Адаптивный сайт</p>
@@ -24,7 +24,7 @@ function Portfolio() {
           </li>
           <li className="portfolio__item">
             <a
-              className="portfolio__link"
+              className="portfolio__link page__link"
               href="https://github.com/chepash/react-mesto-api-full-gha"
             >
               <p className="portfolio__link-name">Одностраничное приложение</p>

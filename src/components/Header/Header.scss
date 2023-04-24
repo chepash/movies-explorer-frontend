@@ -1,6 +1,6 @@
 .header {
   display: flex;
-  flex: 0; /* для липкого хэдера */
+  flex: 0; /* sticky header */
   flex: auto;
   flex-direction: column;
   align-items: center;
@@ -26,7 +26,25 @@
   }
 
   &__logo {
+    cursor: pointer;
+
     align-self: center;
+
+    width: 38px;
     height: min-content;
+    height: 38px;
+    min-height: 38px;
+    margin: 0;
+    padding: 0;
+
+    background-image: url("../../images/logo.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 50%;
+
+    &:hover {
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+    }
   }
 }

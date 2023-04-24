@@ -76,4 +76,16 @@
     padding: 0;
     list-style: none;
   }
+
+  &__link {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+    }
+  }
 }

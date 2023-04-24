@@ -37,4 +37,9 @@
     border: 1px solid #fff9;
     border-radius: 3px;
   }
+
+  &:hover {
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
 }

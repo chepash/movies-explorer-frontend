@@ -1,6 +1,6 @@
 .main {
   display: flex;
-  flex: auto; /* для липкого футера и хэдэра независимо от колтчества контента на странице */
+  flex: auto; /* sticky header and footer */
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
