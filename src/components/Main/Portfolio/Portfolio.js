@@ -1,30 +1,34 @@
 function Portfolio() {
   return (
     <section className="portfolio" aria-label="Ссылки на другие проекты">
-      <div className="portfolio__container">
-        <ul className="about-me__projects">
-          <li className="about-me__project">
+      <div className="portfolio__container page__container page__container_narrow">
+        <h2 className="portfolio__title">Портфолио</h2>
+        <ul className="portfolio__list page__list">
+          <li className="portfolio__item">
             <a
-              className="about-me__link"
-              href="https://github.com/chepash/react-native-starter-kit"
+              className="portfolio__link"
+              href="https://github.com/chepash/how-to-learn"
             >
-              Статичный сайт ↗
+              <p className="portfolio__link-name">Статичный сайт</p>
+              <p className="portfolio__link-icon">↗</p>
             </a>
           </li>
-          <li className="about-me__project">
+          <li className="portfolio__item">
             <a
-              className="about-me__link"
-              href="https://github.com/chepash/react-native-starter-kit"
+              className="portfolio__link"
+              href="https://github.com/chepash/russian-travel"
             >
-              Адаптивный сайт ↗
+              <p className="portfolio__link-name">Адаптивный сайт</p>
+              <p className="portfolio__link-icon">↗</p>
             </a>
           </li>
-          <li className="about-me__project">
+          <li className="portfolio__item">
             <a
-              className="about-me__link"
-              href="https://github.com/chepash/react-native-starter-kit"
+              className="portfolio__link"
+              href="https://github.com/chepash/react-mesto-api-full-gha"
             >
-              Одностраничное приложение ↗
+              <p className="portfolio__link-name">Одностраничное приложение</p>
+              <p className="portfolio__link-icon">↗</p>
             </a>
           </li>
         </ul>
