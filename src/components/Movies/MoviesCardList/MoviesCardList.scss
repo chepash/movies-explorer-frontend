@@ -1,0 +1,28 @@
+.elements {
+  width: 100%;
+  height: min-content;
+  margin: 0;
+  padding: 70px 0 10px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    justify-content: flex-start;
+
+    width: 100%;
+
+    @media screen and (width <= 320px) {
+      row-gap: 20px;
+    }
+  }
+
+  @media screen and (width <= 768px) {
+    padding: 60px 0 30px;
+  }
+
+  @media screen and (width <= 320px) {
+    row-gap: 20px;
+    padding: 40px 0 20px;
+  }
+}

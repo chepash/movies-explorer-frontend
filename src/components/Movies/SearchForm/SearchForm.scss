@@ -156,6 +156,8 @@
   }
 
   &__toggle-label {
+    cursor: pointer;
+
     display: inline-block;
 
     width: 36px;
@@ -167,6 +169,11 @@
     border-radius: 20px;
 
     transition: 0.2s ease all;
+
+    &:hover {
+      opacity: 0.6;
+      transition: opacity 0.2s ease;
+    }
   }
 
   &__toggle-knob {
