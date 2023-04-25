@@ -38,6 +38,28 @@
     border-radius: 3px;
   }
 
+  &_type_like {
+    width: 14px;
+    height: 12px;
+
+    background-image: url("../images/like-heart_empty.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &_active {
+      background-image: url("../images/like-heart_full.svg");
+    }
+  }
+
+  &_type_remove {
+    width: 14px;
+    height: 12px;
+
+    background-image: url("../images/delete-cross.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   &_type_more {
     font-size: 12px;
     font-weight: 500;
