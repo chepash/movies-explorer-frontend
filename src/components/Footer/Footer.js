@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer className="footer">
-      <div className="footer__container page__container">
+      <div className="footer__container page__container page__container_wide">
         <h2 className="footer__heading">
           Учебный проект Яндекс.Практикум х BeatFilm.
         </h2>

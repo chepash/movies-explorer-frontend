@@ -1,15 +1,14 @@
 .header {
   display: flex;
-  flex: 0; /* sticky header */
-  flex: auto;
+
+  // flex: 0; /* sticky header */
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
 
   box-sizing: border-box;
   width: 100%;
-  height: 74px;
-  max-height: 74px;
+  max-height: min-content;
   margin: 0;
   padding: 0;
 
@@ -22,7 +21,11 @@
   &__container {
     display: flex;
     flex: auto;
+    align-items: center;
     justify-content: space-between;
+
+    height: min-content;
+    max-height: min-content;
   }
 
   &__logo {
@@ -31,10 +34,9 @@
     align-self: center;
 
     width: 38px;
-    height: min-content;
     height: 38px;
     min-height: 38px;
-    margin: 0;
+    margin: 18px 0;
     padding: 0;
 
     background-image: url("../../images/logo.svg");

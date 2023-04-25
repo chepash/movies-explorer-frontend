@@ -5,7 +5,7 @@
 
 @import "scss/button";
 
-@import "scss/navbar";
+@import "./components/Navigation/Navigation";
 
 @import "./components/Header/Header";
 
@@ -15,6 +15,9 @@
 @import "./components/Main/Techs/Techs";
 @import "./components/Main/AboutMe/AboutMe";
 @import "./components/Main/Portfolio/Portfolio";
+
+@import "./components/Movies/Movies";
+@import "./components/Movies/SearchForm/SearchForm";
 
 @import "./components/Footer/Footer";
 

@@ -1,0 +1,12 @@
+.movies {
+  display: flex;
+  flex: auto; /* sticky header and footer */
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
