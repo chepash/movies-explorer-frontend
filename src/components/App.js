@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import Header from './Header/Header';
 import Main from './Main/Main';
@@ -7,6 +8,23 @@ import Movies from './Movies/Movies';
 import Footer from './Footer/Footer';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  // Временная функция для переключения между состояниями loggedIn
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.code === 'KeyL' || event.code === 'KeyД') {
+        setLoggedIn(!loggedIn);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [loggedIn]);
+
   function scrollToSection() {
     const section = document.querySelector(`.about-project`);
 
@@ -20,7 +38,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header loggedIn={loggedIn} />
 
       <Routes>
         <Route path="/" element={<Main onAnchorBtnClick={scrollToSection} />} />

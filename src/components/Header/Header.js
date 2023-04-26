@@ -3,7 +3,7 @@ import logoImage from '../../images/header__logo.svg';
 import HamburgerButton from '../HamburgerButton/HamburgerButton';
 import Navigation from '../Navigation/Navigation';
 
-function Header() {
+function Header({ loggedIn }) {
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
@@ -19,8 +19,8 @@ function Header() {
           alt="Логотип"
           title="Вернуться на главную"
         />
-        <Navigation />
-        <HamburgerButton />
+        <Navigation loggedIn={loggedIn} />
+        {loggedIn && <HamburgerButton />}
       </div>
     </header>
   );

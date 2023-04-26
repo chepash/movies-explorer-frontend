@@ -1,11 +1,9 @@
 import { NavLink } from 'react-router-dom';
 
-function Navigation() {
-  const isLoggedIn = true;
-
+function Navigation({ loggedIn }) {
   return (
     <>
-      {!isLoggedIn && (
+      {!loggedIn && (
         <nav className="nav">
           <NavLink
             className="page__link nav__link nav__link_type_sign-up"
@@ -22,7 +20,7 @@ function Navigation() {
         </nav>
       )}
 
-      {isLoggedIn && (
+      {loggedIn && (
         <nav className="nav nav_hidden">
           <div className="nav__wrapper">
             <NavLink
