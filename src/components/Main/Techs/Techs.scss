@@ -92,8 +92,10 @@
     grid-template-columns: repeat(auto-fit, 90px);
     grid-template-rows: repeat(auto-fit, 60px);
     gap: 10px;
+    justify-content: center;
 
     box-sizing: border-box;
+    width: 100%;
     max-width: 100%;
 
     @media screen and (width <= 768px) {

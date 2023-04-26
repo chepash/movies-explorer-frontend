@@ -1,7 +1,5 @@
 .header {
   display: flex;
-
-  // flex: 0; /* sticky header */
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -19,17 +17,23 @@
   }
 
   &__container {
+    position: relative;
+
     display: flex;
     flex: auto;
     align-items: center;
     justify-content: space-between;
 
+    box-sizing: border-box;
+    width: 100%;
     height: min-content;
     max-height: min-content;
   }
 
   &__logo {
     cursor: pointer;
+
+    z-index: 1;
 
     align-self: center;
 
@@ -39,9 +43,6 @@
     margin: 18px 0;
     padding: 0;
 
-    background-image: url("../../images/logo.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
     border-radius: 50%;
 
     &:hover {

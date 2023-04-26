@@ -1,19 +1,62 @@
+import { NavLink } from 'react-router-dom';
+
 function Navigation() {
+  const isLoggedIn = true;
+
   return (
-    <nav className="navigation">
-      <button
-        type="button"
-        className="button navigation__link page__link navigation__link_type_sign-up"
-      >
-        Регистрация
-      </button>
-      <button
-        type="button"
-        className="button navigation__button button_type_sign-in"
-      >
-        Войти
-      </button>
-    </nav>
+    <>
+      {!isLoggedIn && (
+        <nav className="nav">
+          <NavLink
+            className="page__link nav__link nav__link_type_sign-up"
+            to="/signup"
+          >
+            Регистрация
+          </NavLink>
+          <button
+            type="button"
+            className="button nav__button button_type_sign-in"
+          >
+            Войти
+          </button>
+        </nav>
+      )}
+
+      {isLoggedIn && (
+        <nav className="nav nav_hidden">
+          <div className="nav__wrapper">
+            <NavLink
+              className={({ isActive }) =>
+                `page__link nav__link nav__link_type_movies${
+                  isActive ? ' nav__link_active' : ''
+                }`
+              }
+              to="/movies"
+            >
+              Фильмы
+            </NavLink>
+
+            <NavLink
+              className={({ isActive }) =>
+                `page__link nav__link nav__link_type_saved-movies${
+                  isActive ? ' nav__link_active' : ''
+                }`
+              }
+              to="/saved-movies"
+            >
+              Сохранённые фильмы
+            </NavLink>
+          </div>
+
+          <button
+            type="button"
+            className="button nav__button button_type_account"
+          >
+            Аккаунт
+          </button>
+        </nav>
+      )}
+    </>
   );
 }
 
