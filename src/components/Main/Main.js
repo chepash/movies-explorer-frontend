@@ -4,10 +4,10 @@ import Techs from './Techs/Techs';
 import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
 
-function Main() {
+function Main({ onAnchorBtnClick }) {
   return (
     <main className="main">
-      <Promo />
+      <Promo onAnchorBtnClick={onAnchorBtnClick} />
       <AboutProject />
       <Techs />
       <AboutMe />

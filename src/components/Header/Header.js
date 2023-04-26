@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 
 function Header() {
@@ -8,7 +8,8 @@ function Header() {
   return (
     <header className={`header${isHomePage ? ' header_background_cyan' : ''}`}>
       <div className="header__container page__container">
-        <div to="/" alt="Логотип" className="header__logo" />
+        <NavLink className="header__logo" to="/" alt="Логотип" />
+
         <Navigation />
       </div>
     </header>

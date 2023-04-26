@@ -147,6 +147,8 @@
     height: 36px;
     margin-bottom: 25px;
 
+    text-decoration: none;
+
     @media screen and (width <= 768px) {
       grid-row: 4;
       margin-bottom: 10px;

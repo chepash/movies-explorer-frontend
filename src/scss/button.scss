@@ -29,6 +29,10 @@
   }
 
   &_type_anchor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     font-size: 12px;
     font-weight: 500;
     line-height: 1.33; // 16px
@@ -36,6 +40,20 @@
 
     border: 1px solid #fff9;
     border-radius: 3px;
+  }
+
+  &_type_search {
+    width: 80px;
+    min-width: 80px;
+    height: 34px;
+    min-height: 34px;
+
+    background-color: #4285f4;
+    background-image: url("../images/search-form__submit-button.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 13px;
+    border-radius: 48px;
   }
 
   &_type_like {

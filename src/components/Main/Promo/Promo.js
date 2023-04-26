@@ -1,6 +1,6 @@
 import promoImage from '../../../images/promo__image.svg';
 
-function Promo() {
+function Promo({ onAnchorBtnClick }) {
   return (
     <section className="promo" aria-label="Заглавная">
       <div className="promo__container page__container page__container_narrow">
@@ -13,6 +13,7 @@ function Promo() {
         <button
           type="button"
           className="button promo__button button_type_anchor"
+          onClick={onAnchorBtnClick}
         >
           Узнать больше
         </button>

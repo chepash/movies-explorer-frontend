@@ -6,12 +6,12 @@ function SearchForm() {
 
         <div className="search-form__icon" />
 
-        <input
-          className="search-form__input"
-          value="Some movie Some movie Some movie Some movie Some movie Some movie Some movie Some movie"
-        />
+        <input className="search-form__input" />
 
-        <button className="search-form__button button" type="submit" />
+        <button
+          className="search-form__button button button_type_search"
+          type="submit"
+        />
 
         <div className="search-form__filter">
           <input id="toggle" type="checkbox" className="search-form__toggle" />

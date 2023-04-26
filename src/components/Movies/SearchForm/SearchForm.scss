@@ -107,19 +107,8 @@
     grid-row: 1 / span 1;
     align-self: center;
 
-    width: 80px;
-    min-width: 80px;
-    height: 34px;
-    min-height: 34px;
     margin: 0 19px;
     padding: 0;
-
-    background-color: #4285f4;
-    background-image: url("../../../images/search-form__submit-button.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 13px;
-    border-radius: 48px;
   }
 
   &__filter {
