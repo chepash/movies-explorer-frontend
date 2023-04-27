@@ -1,6 +1,13 @@
+import { useLocation } from 'react-router-dom';
+
 function Footer() {
+  const location = useLocation();
+  const isHidden = ['/profile', '/signin', '/signup'].includes(
+    location.pathname
+  );
+
   return (
-    <footer className="footer">
+    <footer className={`footer${isHidden ? ' footer_hidden' : ''}`}>
       <div className="footer__container page__container page__container_wide">
         <h2 className="footer__heading">
           Учебный проект Яндекс.Практикум х BeatFilm.
