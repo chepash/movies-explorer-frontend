@@ -6,6 +6,8 @@ import Main from './Main/Main';
 import Movies from './Movies/Movies';
 
 import Footer from './Footer/Footer';
+import MobileMenu from './MobileMenu/MobileMenu';
+import HamburgerButton from './HamburgerButton/HamburgerButton';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -39,6 +41,8 @@ function App() {
   return (
     <>
       <Header loggedIn={loggedIn} />
+      {loggedIn && <HamburgerButton />}
+      {loggedIn && <MobileMenu />}
 
       <Routes>
         <Route path="/" element={<Main onAnchorBtnClick={scrollToSection} />} />

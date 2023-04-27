@@ -48,14 +48,13 @@
   }
 
   @media screen and (width <= 768px) {
-    // .page__toggle:checked ~ .navbar_type_mobile {
-    //   margin: 0;
-    // }
-  }
+    &:checked ~ .button_type_hamburger {
+      position: fixed;
+    }
 
-  @media screen and (width <= 540px) {
-    // .page__toggle:checked ~ .navbar_type_mobile {
-    //   margin: 0;
-    // }
+    &:checked ~ .mobile-menu {
+      margin: 0;
+      visibility: visible;
+    }
   }
 }

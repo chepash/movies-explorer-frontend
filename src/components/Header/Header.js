@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import logoImage from '../../images/header__logo.svg';
-import HamburgerButton from '../HamburgerButton/HamburgerButton';
 import Navigation from '../Navigation/Navigation';
 
 function Header({ loggedIn }) {
@@ -20,7 +19,6 @@ function Header({ loggedIn }) {
           title="Вернуться на главную"
         />
         <Navigation loggedIn={loggedIn} />
-        {loggedIn && <HamburgerButton />}
       </div>
     </header>
   );

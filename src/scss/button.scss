@@ -117,31 +117,35 @@
 
   &_type_hamburger {
     user-select: none;
-    display: none;
+
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 74px;
+    margin: 0 4% 0 0;
+    padding: 0;
+
+    transition: all 0.2s ease-in;
 
     -webkit-tap-highlight-color: #0000;
 
-    /* чтобы текст кнопки не выделялся при нажатии на неё пальцем в mobile-view */
+    /* forbid text selection of button mobile-view */
     -webkit-touch-callout: none;
 
-    @media screen and (width <= 768px) {
-      display: block;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      width: 44px;
-      height: 44px;
-      margin: 0;
-      padding: 0;
-
-      transition: all 0.2s ease-in;
+    @media screen and (width > 768px) {
+      display: none;
     }
 
     @media screen and (width <= 320px) {
       width: 40px;
-      height: 43px;
     }
   }
 
