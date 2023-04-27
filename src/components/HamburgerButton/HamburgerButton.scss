@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
 
-  &:checked + .button_type_hamburger .top-bun {
+  &:checked + .button_type_hamburger &__top-bun {
     top: 10px;
     transform: rotateZ(45deg);
     width: 28px;
@@ -13,12 +13,12 @@
     }
   }
 
-  &:checked + .button_type_hamburger .bottom-bun {
+  &:checked + .button_type_hamburger &__bottom-bun {
     transform: rotate(45deg);
     opacity: 0;
   }
 
-  &:checked + .button_type_hamburger .meat {
+  &:checked + .button_type_hamburger &__meat {
     top: 0;
     transform: rotateZ(-45deg);
     width: 28px;
