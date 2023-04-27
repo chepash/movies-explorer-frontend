@@ -7,7 +7,7 @@ function Portfolio() {
           <li className="portfolio__item">
             <a
               className="portfolio__link page__link"
-              href="https://github.com/chepash/how-to-learn"
+              href="https://chepash.github.io/how-to-learn/"
             >
               <p className="portfolio__link-name">Статичный сайт</p>
               <p className="portfolio__link-icon">↗</p>
@@ -16,7 +16,7 @@ function Portfolio() {
           <li className="portfolio__item">
             <a
               className="portfolio__link page__link"
-              href="https://github.com/chepash/russian-travel"
+              href="https://chepash.github.io/russian-travel/"
             >
               <p className="portfolio__link-name">Адаптивный сайт</p>
               <p className="portfolio__link-icon">↗</p>
@@ -25,7 +25,7 @@ function Portfolio() {
           <li className="portfolio__item">
             <a
               className="portfolio__link page__link"
-              href="https://github.com/chepash/react-mesto-api-full-gha"
+              href="https://chepash.github.io/mesto-react/"
             >
               <p className="portfolio__link-name">Одностраничное приложение</p>
               <p className="portfolio__link-icon">↗</p>
