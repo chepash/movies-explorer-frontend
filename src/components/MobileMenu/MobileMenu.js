@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
-function MobileMenu() {
+function MobileMenu({ onAccountBtnClick }) {
   return (
-    <nav className="nav mobile-menu">
+    <nav className="mobile-menu">
       <div className="mobile-menu__container">
         <ul className="mobile-menu__list page__list">
           <li className="mobile-menu__item">
@@ -44,6 +44,7 @@ function MobileMenu() {
           <li className="mobile-menu__item">
             <button
               type="button"
+              onClick={onAccountBtnClick}
               className="button nav__button button_type_account"
             >
               Аккаунт

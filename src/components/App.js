@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import Header from './Header/Header';
@@ -10,9 +10,11 @@ import MobileMenu from './MobileMenu/MobileMenu';
 import HamburgerButton from './HamburgerButton/HamburgerButton';
 
 function App() {
+  const navigate = useNavigate();
+
   const [loggedIn, setLoggedIn] = useState(false);
 
-  // Временная функция для переключения между состояниями loggedIn
+  // Временная функция для переключения между состояниями loggedIn при нажатии L
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.code === 'KeyL' || event.code === 'KeyД') {
@@ -27,6 +29,14 @@ function App() {
     };
   }, [loggedIn]);
 
+  function handleNavigateToMain() {
+    navigate('/');
+  }
+
+  function handleNavigateToProfile() {
+    navigate('/profile');
+  }
+
   function scrollToSection() {
     const section = document.querySelector(`.about-project`);
 
@@ -40,9 +50,13 @@ function App() {
 
   return (
     <>
-      <Header loggedIn={loggedIn} />
+      <Header
+        onAccountBtnClick={handleNavigateToProfile}
+        onLogoClick={handleNavigateToMain}
+        loggedIn={loggedIn}
+      />
       {loggedIn && <HamburgerButton />}
-      {loggedIn && <MobileMenu />}
+      {loggedIn && <MobileMenu onAccountBtnClick={handleNavigateToProfile} />}
 
       <Routes>
         <Route path="/" element={<Main onAnchorBtnClick={scrollToSection} />} />

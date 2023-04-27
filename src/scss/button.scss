@@ -135,9 +135,8 @@
 
     transition: all 0.2s ease-in;
 
-    -webkit-tap-highlight-color: #0000;
-
     /* forbid text selection of button mobile-view */
+    -webkit-tap-highlight-color: #0000;
     -webkit-touch-callout: none;
 
     @media screen and (width > 768px) {

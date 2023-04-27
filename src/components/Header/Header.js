@@ -1,10 +1,9 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import logoImage from '../../images/header__logo.svg';
 import Navigation from '../Navigation/Navigation';
 
-function Header({ loggedIn }) {
+function Header({ loggedIn, onLogoClick, onAccountBtnClick }) {
   const location = useLocation();
-  const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
 
   return (
@@ -12,13 +11,13 @@ function Header({ loggedIn }) {
       <div className="header__container page__container">
         <img
           src={logoImage}
-          onClick={() => navigate('/')}
+          onClick={onLogoClick}
           className="header__logo"
           to="/"
           alt="Логотип"
           title="Вернуться на главную"
         />
-        <Navigation loggedIn={loggedIn} />
+        <Navigation onAccountBtnClick={onAccountBtnClick} loggedIn={loggedIn} />
       </div>
     </header>
   );
