@@ -35,6 +35,10 @@
       @media screen and (width <= 320px) {
         flex-direction: column;
       }
+
+      @media screen and (width <= 487px) {
+        max-width: 81%;
+      }
     }
   }
 
@@ -69,9 +73,5 @@
       opacity: 0.6;
       transition: opacity 0.2s ease;
     }
-  }
-
-  @media screen and (width <= 487px) {
-    max-width: 81%;
   }
 }
