@@ -70,4 +70,8 @@
       transition: opacity 0.2s ease;
     }
   }
+
+  @media screen and (width <= 487px) {
+    max-width: 81%;
+  }
 }

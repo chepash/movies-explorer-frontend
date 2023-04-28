@@ -5,6 +5,7 @@ import Header from './Header/Header';
 import Main from './Main/Main';
 import Movies from './Movies/Movies';
 import Profile from './Profile/Profile';
+import Register from './Register/Register';
 
 import Footer from './Footer/Footer';
 import MobileMenu from './MobileMenu/MobileMenu';
@@ -64,6 +65,7 @@ function App() {
         <Route path="/movies" element={<Movies />} />
         <Route path="/saved-movies" element={<Movies />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/signup" element={<Register />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 

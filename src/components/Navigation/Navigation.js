@@ -13,7 +13,7 @@ function Navigation({ loggedIn, onAccountBtnClick }) {
           </NavLink>
           <button
             type="button"
-            className="button nav__button button_type_sign-in"
+            className="button nav__button button_type_signin"
           >
             Войти
           </button>

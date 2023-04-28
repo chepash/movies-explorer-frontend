@@ -1,9 +1,9 @@
 @import "vendor/normalize.css";
 @import "vendor/fonts/fonts.css";
 
-@import "sass_mixes/page";
-
-@import "sass_mixes/button";
+@import "sass/mixes/page";
+@import "sass/mixes/button";
+@import "sass/form";
 
 @import "./components/Navigation/Navigation";
 @import "./components/HamburgerButton/HamburgerButton";
@@ -24,6 +24,7 @@
 @import "./components/Movies/MoviesCard/MoviesCard";
 
 @import "./components/Profile/Profile";
+@import "./components/Register/Register";
 
 @import "./components/Footer/Footer";
 
