@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-function Navigation({ loggedIn, onAccountBtnClick }) {
+function Navigation({ loggedIn, onAccountBtnClick, onSignInBtnClick }) {
   return (
     <>
       {!loggedIn && (
@@ -11,7 +11,11 @@ function Navigation({ loggedIn, onAccountBtnClick }) {
           >
             Регистрация
           </NavLink>
-          <button type="button" className="button button_type_signin">
+          <button
+            type="button"
+            className="button button_type_signin"
+            onClick={onSignInBtnClick}
+          >
             Войти
           </button>
         </nav>

@@ -40,6 +40,10 @@ function App() {
     navigate('/profile');
   }
 
+  function handleNavigateToSignIn() {
+    navigate('/signin');
+  }
+
   function scrollToSection() {
     const section = document.querySelector(`.about-project`);
 
@@ -55,6 +59,7 @@ function App() {
     <>
       <Header
         onAccountBtnClick={handleNavigateToProfile}
+        onSignInBtnClick={handleNavigateToSignIn}
         onLogoClick={handleNavigateToMain}
         loggedIn={loggedIn}
       />

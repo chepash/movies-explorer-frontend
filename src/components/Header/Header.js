@@ -2,7 +2,12 @@ import { useLocation } from 'react-router-dom';
 import logoImage from '../../images/header__logo.svg';
 import Navigation from '../Navigation/Navigation';
 
-function Header({ loggedIn, onLogoClick, onAccountBtnClick }) {
+function Header({
+  loggedIn,
+  onLogoClick,
+  onAccountBtnClick,
+  onSignInBtnClick,
+}) {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const isAuthPage = ['/signup', '/signin'].includes(location.pathname);
@@ -27,6 +32,7 @@ function Header({ loggedIn, onLogoClick, onAccountBtnClick }) {
               title="Вернуться на главную"
             />
             <Navigation
+              onSignInBtnClick={onSignInBtnClick}
               onAccountBtnClick={onAccountBtnClick}
               loggedIn={loggedIn || isProtectedRoute} // заглушка логина
             />
