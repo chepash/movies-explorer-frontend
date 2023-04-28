@@ -45,7 +45,7 @@ function MobileMenu({ onAccountBtnClick }) {
             <button
               type="button"
               onClick={onAccountBtnClick}
-              className="button nav__button button_type_account"
+              className="button button_type_account"
             >
               Аккаунт
             </button>

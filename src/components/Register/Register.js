@@ -30,7 +30,7 @@ function Register() {
 
         <div className="form__controls">
           <button
-            className="form__button button button_type_signup"
+            className="form__button button button_type_auth"
             type="submit"
           >
             Зарегистрироваться

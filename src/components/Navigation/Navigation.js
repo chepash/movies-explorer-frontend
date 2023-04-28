@@ -11,10 +11,7 @@ function Navigation({ loggedIn, onAccountBtnClick }) {
           >
             Регистрация
           </NavLink>
-          <button
-            type="button"
-            className="button nav__button button_type_signin"
-          >
+          <button type="button" className="button button_type_signin">
             Войти
           </button>
         </nav>
@@ -49,7 +46,7 @@ function Navigation({ loggedIn, onAccountBtnClick }) {
           <button
             type="button"
             onClick={onAccountBtnClick}
-            className="button nav__button button_type_account"
+            className="button button_type_account"
           >
             Аккаунт
           </button>
