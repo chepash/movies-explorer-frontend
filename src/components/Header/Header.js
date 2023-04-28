@@ -5,9 +5,10 @@ import Navigation from '../Navigation/Navigation';
 function Header({ loggedIn, onLogoClick, onAccountBtnClick }) {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const isNavigationHidden = ['/signup', '/signin'].includes(location.pathname);
 
   // заглушка вместо протектед роутс. тут navigation обязан быть в состоянии loggedIn = true
-  const isProtectedRout = ['/profile', '/movies', '/saved-movies'].includes(
+  const isProtectedRoute = ['/profile', '/movies', '/saved-movies'].includes(
     location.pathname
   );
 
@@ -21,10 +22,12 @@ function Header({ loggedIn, onLogoClick, onAccountBtnClick }) {
           alt="Логотип"
           title="Вернуться на главную"
         />
-        <Navigation
-          onAccountBtnClick={onAccountBtnClick}
-          loggedIn={loggedIn || isProtectedRout} // заглушка логина
-        />
+        {!isNavigationHidden && (
+          <Navigation
+            onAccountBtnClick={onAccountBtnClick}
+            loggedIn={loggedIn || isProtectedRoute} // заглушка логина
+          />
+        )}
       </div>
     </header>
   );
