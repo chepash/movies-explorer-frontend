@@ -12,6 +12,8 @@ function Footer() {
               <a
                 href="https://practicum.yandex.ru/"
                 className="footer__link page__link"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Яндекс.Практикум
               </a>
@@ -19,6 +21,8 @@ function Footer() {
             <li className="footer__item">
               <a
                 href="https://github.com/chepash/movies-explorer-frontend"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="footer__link page__link"
               >
                 Github

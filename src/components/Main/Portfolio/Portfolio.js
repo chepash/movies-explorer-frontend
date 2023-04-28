@@ -8,6 +8,8 @@ function Portfolio() {
             <a
               className="portfolio__link page__link"
               href="https://chepash.github.io/how-to-learn/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <p className="portfolio__link-name">Статичный сайт</p>
               <p className="portfolio__link-icon">↗</p>
@@ -17,6 +19,8 @@ function Portfolio() {
             <a
               className="portfolio__link page__link"
               href="https://chepash.github.io/russian-travel/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <p className="portfolio__link-name">Адаптивный сайт</p>
               <p className="portfolio__link-icon">↗</p>
@@ -26,6 +30,8 @@ function Portfolio() {
             <a
               className="portfolio__link page__link"
               href="https://chepash.github.io/mesto-react/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <p className="portfolio__link-name">Одностраничное приложение</p>
               <p className="portfolio__link-icon">↗</p>

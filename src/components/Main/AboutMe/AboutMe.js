@@ -44,6 +44,8 @@ function AboutMe() {
             <a
               href="https://github.com/chepash"
               className="about-me__link page__link"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Github
             </a>
