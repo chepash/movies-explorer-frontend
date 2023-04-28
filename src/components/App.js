@@ -1,4 +1,10 @@
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import Header from './Header/Header';
@@ -7,6 +13,7 @@ import Movies from './Movies/Movies';
 import Profile from './Profile/Profile';
 import Register from './Register/Register';
 import Login from './Login/Login';
+import NotFound from './NotFound/NotFound';
 
 import Footer from './Footer/Footer';
 import MobileMenu from './MobileMenu/MobileMenu';
@@ -14,6 +21,11 @@ import HamburgerButton from './HamburgerButton/HamburgerButton';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHeaderHidden = location.pathname === '/error';
+  const isFooterHidden = ['/profile', '/signin', '/signup', '/error'].includes(
+    location.pathname
+  );
 
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -31,6 +43,10 @@ function App() {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [loggedIn]);
+
+  function handleGoBack() {
+    navigate(-1);
+  }
 
   function handleNavigateToMain() {
     navigate('/');
@@ -57,12 +73,14 @@ function App() {
 
   return (
     <>
-      <Header
-        onAccountBtnClick={handleNavigateToProfile}
-        onSignInBtnClick={handleNavigateToSignIn}
-        onLogoClick={handleNavigateToMain}
-        loggedIn={loggedIn}
-      />
+      {!isHeaderHidden && (
+        <Header
+          onAccountBtnClick={handleNavigateToProfile}
+          onSignInBtnClick={handleNavigateToSignIn}
+          onLogoClick={handleNavigateToMain}
+          loggedIn={loggedIn}
+        />
+      )}
       {loggedIn && <HamburgerButton />}
       {loggedIn && <MobileMenu onAccountBtnClick={handleNavigateToProfile} />}
 
@@ -73,10 +91,15 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+
+        <Route
+          path="/error"
+          element={<NotFound onGoBackClick={handleGoBack} />}
+        />
+        <Route path="*" element={<Navigate to="/error" replace />} />
       </Routes>
 
-      <Footer />
+      {!isFooterHidden && <Footer />}
     </>
   );
 }

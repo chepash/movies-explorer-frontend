@@ -18,41 +18,35 @@ function Header({
   );
 
   return (
-    <>
+    <header className={`header${isHomePage ? ' header_background_cyan' : ''}`}>
       {!isAuthPage && (
-        <header
-          className={`header${isHomePage ? ' header_background_cyan' : ''}`}
-        >
-          <div className="header__container page__container">
-            <img
-              src={logoImage}
-              onClick={onLogoClick}
-              className="header__logo"
-              alt="Логотип"
-              title="Вернуться на главную"
-            />
-            <Navigation
-              onSignInBtnClick={onSignInBtnClick}
-              onAccountBtnClick={onAccountBtnClick}
-              loggedIn={loggedIn || isProtectedRoute} // заглушка логина
-            />
-          </div>
-        </header>
+        <div className="header__container page__container">
+          <img
+            src={logoImage}
+            onClick={onLogoClick}
+            className="header__logo"
+            alt="Логотип"
+            title="Вернуться на главную"
+          />
+          <Navigation
+            onSignInBtnClick={onSignInBtnClick}
+            onAccountBtnClick={onAccountBtnClick}
+            loggedIn={loggedIn || isProtectedRoute} // заглушка логина
+          />
+        </div>
       )}
       {isAuthPage && (
-        <header className="header">
-          <div className="header__container header__container_auth">
-            <img
-              src={logoImage}
-              onClick={onLogoClick}
-              className="header__logo header__logo_auth"
-              alt="Логотип"
-              title="Вернуться на главную"
-            />
-          </div>
-        </header>
+        <div className="header__container header__container_auth">
+          <img
+            src={logoImage}
+            onClick={onLogoClick}
+            className="header__logo header__logo_auth"
+            alt="Логотип"
+            title="Вернуться на главную"
+          />
+        </div>
       )}
-    </>
+    </header>
   );
 }
 
