@@ -1,9 +1,9 @@
 @import "vendor/normalize.css";
 @import "vendor/fonts/fonts.css";
 
-@import "scss/page";
+@import "sass_mixes/page";
 
-@import "scss/button";
+@import "sass_mixes/button";
 
 @import "./components/Navigation/Navigation";
 @import "./components/HamburgerButton/HamburgerButton";
