@@ -28,6 +28,14 @@
     width: 100%;
     height: min-content;
     max-height: min-content;
+
+    &_auth {
+      max-width: 396px;
+
+      @media screen and (width <= 320px) {
+        flex-direction: column;
+      }
+    }
   }
 
   &__logo {
@@ -44,6 +52,18 @@
     padding: 0;
 
     border-radius: 50%;
+
+    &_auth {
+      margin: 70px 0 40px;
+
+      @media screen and (width <= 768px) {
+        margin: 232px 0 40px;
+      }
+
+      @media screen and (width <= 320px) {
+        margin: 56px 0 50px;
+      }
+    }
 
     &:hover {
       opacity: 0.6;
