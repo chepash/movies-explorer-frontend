@@ -15,6 +15,8 @@ import Register from './Register/Register';
 import Login from './Login/Login';
 import NotFound from './NotFound/NotFound';
 
+import Preloader from './Preloader/Preloader';
+
 import Footer from './Footer/Footer';
 import MobileMenu from './MobileMenu/MobileMenu';
 import HamburgerButton from './HamburgerButton/HamburgerButton';
@@ -91,6 +93,9 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
+
+        {/* Preloader test */}
+        <Route path="/loading" element={<Preloader />} />
 
         <Route
           path="/error"
