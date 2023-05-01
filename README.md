@@ -6,6 +6,6 @@ https://github.com/chepash/movies-explorer-frontend/tree/level-2
 
 https://chepash.github.io/movies-explorer-frontend/
 
-### Макет дибплома
+### Макет диплома
 
 https://disk.yandex.ru/d/54bpxhME6Alwog
