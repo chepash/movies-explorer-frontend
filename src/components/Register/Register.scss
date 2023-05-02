@@ -22,9 +22,12 @@
     text-align: left;
     letter-spacing: 0;
 
+    @media screen and (width <= 350px) {
+      text-align: center;
+    }
+
     @media screen and (width <= 320px) {
       margin: 0 0 80px;
-      text-align: center;
     }
   }
 
