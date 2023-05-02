@@ -28,6 +28,10 @@ function App() {
   const isFooterHidden = ['/profile', '/signin', '/signup', '/error'].includes(
     location.pathname
   );
+  const isProtectedRoute = ['/profile', '/movies', '/saved-movies'].includes(
+    location.pathname
+  );
+  const isMainRoute = location.pathname === '/';
 
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -83,7 +87,11 @@ function App() {
           loggedIn={loggedIn}
         />
       )}
-      {loggedIn && <HamburgerButton />}
+
+      {/* Временная заглушка авторизации */}
+      {isMainRoute && loggedIn && <HamburgerButton />}
+      {isProtectedRoute && <HamburgerButton />}
+
       {loggedIn && <MobileMenu onAccountBtnClick={handleNavigateToProfile} />}
 
       <Routes>
