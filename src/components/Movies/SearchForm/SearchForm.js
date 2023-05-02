@@ -23,7 +23,7 @@ function SearchForm() {
             required
           />
           <label htmlFor="toggle" className="search-form__toggle-label">
-            <div className="search-form__toggle-knob" />
+            <span className="search-form__toggle-knob" />
           </label>
           <span className="search-form__filter-name">Короткометражки</span>
         </div>

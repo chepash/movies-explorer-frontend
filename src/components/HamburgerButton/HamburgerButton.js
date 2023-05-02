@@ -3,9 +3,9 @@ function HamburgerButton() {
     <>
       <input id="burger-toggle" type="checkbox" className="burger-toggle" />
       <label htmlFor="burger-toggle" className="button button_type_hamburger">
-        <div className="burger-toggle__part burger-toggle__top-bun" />
-        <div className="burger-toggle__part burger-toggle__meat" />
-        <div className="burger-toggle__part burger-toggle__bottom-bun" />
+        <span className="burger-toggle__part burger-toggle__top-bun" />
+        <span className="burger-toggle__part burger-toggle__meat" />
+        <span className="burger-toggle__part burger-toggle__bottom-bun" />
       </label>
     </>
   );
