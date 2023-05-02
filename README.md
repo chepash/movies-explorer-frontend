@@ -8,4 +8,4 @@ https://chepash.github.io/movies-explorer-frontend/
 
 ### Макет диплома
 
-https://disk.yandex.ru/d/54bpxhME6Alwog
+https://disk.yandex.ru/d/iH5ZRgTY4Hv94g
