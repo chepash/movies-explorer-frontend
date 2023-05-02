@@ -1,7 +1,7 @@
 function SearchForm() {
   return (
-    <form className="search-form">
-      <div className="search-form__container">
+    <section className="search-form" aria-label="Поиск и фильтрация фильмов">
+      <form className="search-form__container">
         <div className="search-form__input-bar" />
 
         <div className="search-form__icon" />
@@ -22,8 +22,8 @@ function SearchForm() {
           </label>
           <span className="search-form__filter-name">Короткометражки</span>
         </div>
-      </div>
-    </form>
+      </form>
+    </section>
   );
 }
 
