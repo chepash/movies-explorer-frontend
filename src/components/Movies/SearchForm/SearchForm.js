@@ -16,7 +16,12 @@ function SearchForm() {
         />
 
         <div className="search-form__filter">
-          <input id="toggle" type="checkbox" className="search-form__toggle" />
+          <input
+            id="toggle"
+            type="checkbox"
+            className="search-form__toggle"
+            required
+          />
           <label htmlFor="toggle" className="search-form__toggle-label">
             <div className="search-form__toggle-knob" />
           </label>
