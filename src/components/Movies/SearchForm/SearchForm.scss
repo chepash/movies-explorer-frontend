@@ -159,60 +159,6 @@
     }
   }
 
-  &__toggle-label {
-    cursor: pointer;
-
-    display: inline-block;
-
-    width: 36px;
-    height: 20px;
-
-    background-color: #ebebeb;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 20px;
-
-    transition: 0.2s ease all;
-
-    &:hover {
-      opacity: 0.6;
-      transition: opacity 0.2s ease;
-    }
-  }
-
-  &__toggle-knob {
-    position: relative;
-    top: 6px;
-    left: 8px;
-
-    display: block;
-
-    width: 8px;
-    height: 8px;
-    margin: 0;
-    padding: 0;
-
-    background-color: #f5f5f5;
-    border-radius: 50%;
-
-    transition: 0.2s ease all;
-  }
-
-  &__toggle {
-    display: none;
-    margin: 0;
-    padding: 0;
-
-    &:checked + .search-form__toggle-label {
-      background-color: #2be080;
-    }
-
-    &:checked + .search-form__toggle-label .search-form__toggle-knob {
-      left: 22px;
-      background-color: #fff;
-    }
-  }
-
   &__filter-name {
     margin: 0 0 0 14px;
     padding: 0;

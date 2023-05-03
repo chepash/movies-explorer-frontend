@@ -1,3 +1,5 @@
+import ToggleButton from '../../_customButtons/ToggleButton/ToggleButton';
+
 function SearchForm() {
   return (
     <section className="search-form" aria-label="Поиск и фильтрация фильмов">
@@ -16,15 +18,7 @@ function SearchForm() {
         />
 
         <div className="search-form__filter">
-          <input
-            id="toggle"
-            type="checkbox"
-            className="search-form__toggle"
-            required
-          />
-          <label htmlFor="toggle" className="search-form__toggle-label">
-            <span className="search-form__toggle-knob" />
-          </label>
+          <ToggleButton />
           <span className="search-form__filter-name">Короткометражки</span>
         </div>
       </form>

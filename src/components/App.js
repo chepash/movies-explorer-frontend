@@ -19,7 +19,7 @@ import Preloader from './Preloader/Preloader';
 
 import Footer from './Footer/Footer';
 import MobileMenu from './MobileMenu/MobileMenu';
-import HamburgerButton from './HamburgerButton/HamburgerButton';
+import HamburgerButton from './_customButtons/HamburgerButton/HamburgerButton';
 
 function App() {
   const navigate = useNavigate();
