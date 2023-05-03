@@ -1,0 +1,116 @@
+.element {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  background-color: #2f2f2f;
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: min-content 20px min-content 23px min-content;
+
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 22px 0 22px 22px;
+
+    @media screen and (width <= 520px) {
+      grid-template-columns: auto min-content;
+      grid-template-rows: min-content 12px min-content;
+      padding: 14px 16px 10px 12px;
+    }
+  }
+
+  &__title {
+    overflow: hidden;
+
+    max-width: 95%;
+    max-height: min-content;
+    margin: 0;
+    padding: 0;
+
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.22; // 22px
+    text-align: left;
+    text-overflow: ellipsis;
+    letter-spacing: 0;
+    white-space: nowrap;
+
+    @media screen and (width <= 320px) {
+      font-size: 12px;
+      line-height: 1.25; // 15px
+    }
+  }
+
+  &__duration {
+    grid-row: 3 / span 1;
+
+    max-width: min-content;
+    margin: 0;
+    padding: 0;
+
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.18; // 13px
+    color: #8b8b8b;
+    text-align: left;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  &__button {
+    grid-row: 5 / span 1;
+    align-self: end;
+
+    @media screen and (width <= 520px) {
+      grid-column: 2;
+      grid-row: 1 / span 1;
+      align-self: center;
+    }
+  }
+
+  &__image-wrapper {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+    min-width: 220px;
+    max-width: 220px;
+    min-height: 122px;
+    max-height: 122px;
+    margin: 6px;
+    padding: 0;
+
+    @media screen and (width <= 520px) {
+      min-width: 100%;
+      max-width: 100%;
+      min-height: 168px;
+      max-height: 168px;
+      margin: 0;
+    }
+  }
+
+  &__image {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media screen and (width <= 520px) {
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+  }
+}

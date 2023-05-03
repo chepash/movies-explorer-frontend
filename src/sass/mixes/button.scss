@@ -1,0 +1,200 @@
+.button {
+  cursor: pointer;
+
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  background: none;
+  border: none;
+  box-shadow: none;
+
+  &_type_signin {
+    width: 76px;
+    height: 32px;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33; // 16px
+    color: #000;
+
+    background: #3ddc84;
+    border-radius: 3px;
+
+    @media screen and (width < 400px) {
+      width: 54px;
+      height: 26px;
+      font-size: 10px;
+    }
+  }
+
+  &_type_auth {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.21; // 17px
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0;
+
+    background-color: #4285f4;
+    border-radius: 3px;
+
+    @media screen and (width <= 320px) {
+      font-size: 12px;
+      line-height: 1.25; // 15px
+    }
+  }
+
+  &_type_account {
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100px;
+    height: 32px;
+    padding-left: 30px;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.14; // 16px
+    color: #fff;
+    text-align: left;
+    letter-spacing: 0;
+
+    background-image: url("../../images/btn_account_icon.svg");
+    background-repeat: no-repeat;
+    background-position: left 10px top 6px;
+    border: 2px solid #aaa3;
+    border-radius: 50px;
+  }
+
+  &_type_anchor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33; // 16px
+    color: #fff;
+
+    border: 1px solid #fff9;
+    border-radius: 3px;
+  }
+
+  &_type_search {
+    width: 80px;
+    min-width: 80px;
+    height: 34px;
+    min-height: 34px;
+
+    background-color: #4285f4;
+    background-image: url("../../images/btn_search_icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 13px;
+    border-radius: 48px;
+  }
+
+  &_type_like {
+    width: 14px;
+    height: 12px;
+
+    background-image: url("../../images/btn_like_heart-empty_icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &_active {
+      background-image: url("../../images/btn_like_heart-full_icon.svg");
+    }
+  }
+
+  &_type_remove {
+    width: 14px;
+    height: 12px;
+
+    background-image: url("../../images/btn_delete_icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &_type_more {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.25; // 15px
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0;
+
+    border: 1px solid #424242;
+    border-radius: 3px;
+  }
+
+  &_type_hamburger {
+    user-select: none;
+
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 74px;
+    margin: 0 4% 0 0;
+    padding: 0;
+
+    transition: all 0.2s ease-in;
+
+    /* forbid text selection of button mobile-view */
+    -webkit-tap-highlight-color: #0000;
+    -webkit-touch-callout: none;
+
+    @media screen and (width > 768px) {
+      display: none;
+    }
+
+    @media screen and (width <= 320px) {
+      width: 40px;
+    }
+  }
+
+  &_type_edit {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0;
+
+    @media screen and (width <= 320px) {
+      font-size: 12px;
+      line-height: 1.25; // 15px
+    }
+  }
+
+  &_type_logout {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #ee3465;
+    text-align: center;
+    letter-spacing: 0;
+
+    @media screen and (width <= 320px) {
+      font-size: 12px;
+      line-height: 1.25; // 15px
+    }
+  }
+
+  &:hover {
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+}

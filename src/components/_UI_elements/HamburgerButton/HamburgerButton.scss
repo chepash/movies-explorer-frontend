@@ -1,0 +1,60 @@
+.burger-toggle {
+  display: none;
+  margin: 0;
+  padding: 0;
+
+  &:checked + .button_type_hamburger &__top-bun {
+    top: 10px;
+    transform: rotateZ(45deg);
+    width: 28px;
+
+    @media screen and (width <= 320px) {
+      top: 9px;
+    }
+  }
+
+  &:checked + .button_type_hamburger &__bottom-bun {
+    transform: rotate(45deg);
+    opacity: 0;
+  }
+
+  &:checked + .button_type_hamburger &__meat {
+    top: 0;
+    transform: rotateZ(-45deg);
+    width: 28px;
+  }
+
+  &__part {
+    &:first-of-type {
+      margin-top: 0;
+    }
+
+    @media screen and (width <= 768px) {
+      position: relative;
+
+      width: 28px;
+      height: 3px;
+      margin-top: 7px;
+
+      background-color: #fff;
+
+      transition: all 0.3s ease-in-out;
+    }
+
+    @media screen and (width <= 320px) {
+      width: 22px;
+      height: 2px;
+    }
+  }
+
+  @media screen and (width <= 768px) {
+    &:checked ~ .button_type_hamburger {
+      position: fixed;
+    }
+
+    &:checked ~ .mobile-menu {
+      margin: 0;
+      visibility: visible;
+    }
+  }
+}

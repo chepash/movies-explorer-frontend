@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-clean-order"
+  ],
+  "rules": {
+    "scss/double-slash-comment-whitespace-inside": "always"
+  }
+}
