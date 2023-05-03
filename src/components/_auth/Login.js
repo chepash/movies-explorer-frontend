@@ -26,7 +26,7 @@ function Login() {
             <li className="form__item">
               <Input
                 type="email"
-                label="email"
+                label="E-mail"
                 placeholder="E-mail"
                 name="email"
                 onChange={handleChange}

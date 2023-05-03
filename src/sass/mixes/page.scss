@@ -18,6 +18,10 @@
 
   background-color: #202020;
 
+  &_auth {
+    justify-content: center;
+  }
+
   &__container {
     box-sizing: border-box;
     width: 100%;

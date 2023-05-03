@@ -58,14 +58,10 @@
     border-radius: 50%;
 
     &_auth {
-      margin: 70px 0 40px;
-
-      @media screen and (width <= 768px) {
-        margin: 232px 0 40px;
-      }
+      margin: 5px 0 0;
 
       @media screen and (width <= 450px) {
-        margin: 56px 0 50px;
+        margin: 25px 0 0;
       }
     }
 

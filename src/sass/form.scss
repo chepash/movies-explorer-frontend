@@ -85,13 +85,8 @@
     }
   }
 
-  &__error-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-
-    min-height: 40px;
+  &__errors-list {
+    margin: 0 0 20px;
   }
 
   &__error {
@@ -121,16 +116,11 @@
 
     box-sizing: border-box;
     width: 100%;
-    margin: 0 0 66px;
+    margin: 0;
     padding: 0;
-
-    @media screen and (width <= 768px) {
-      margin: 0 0 15px;
-    }
 
     @media screen and (width <= 320px) {
       row-gap: 11px;
-      margin: 0 0 33px;
     }
   }
 

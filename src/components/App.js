@@ -28,6 +28,7 @@ function App() {
   const isFooterHidden = ['/profile', '/signin', '/signup', '/error'].includes(
     location.pathname
   );
+  const isAuthPage = ['/signin', '/signup'].includes(location.pathname);
   const isProtectedRoute = ['/profile', '/movies', '/saved-movies'].includes(
     location.pathname
   );
@@ -78,7 +79,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className={`page${isAuthPage ? ' page_auth' : ''}`}>
       {!isHeaderHidden && (
         <Header
           onAccountBtnClick={handleNavigateToProfile}
@@ -113,7 +114,7 @@ function App() {
       </Routes>
 
       {!isFooterHidden && <Footer />}
-    </>
+    </div>
   );
 }
 
