@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import Input from '../Input/Input';
+import Input from '../_UI_elements/Input';
 
 import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
 
@@ -18,8 +18,8 @@ function Register() {
   }
 
   return (
-    <main className="register">
-      <h1 className="register__title">Добро пожаловать!</h1>
+    <main className="auth">
+      <h1 className="auth__title">Добро пожаловать!</h1>
       <form className="form" onSubmit={handleSubmit}>
         <div className="form__wrap">
           <ul className="form__list page__list">

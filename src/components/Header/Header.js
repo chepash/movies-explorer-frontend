@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import logoImage from '../../images/header__logo.svg';
-import Navigation from '../Navigation/Navigation';
+import Navigation from '../_UI_elements/Navigation/Navigation';
 
 function Header({
   loggedIn,

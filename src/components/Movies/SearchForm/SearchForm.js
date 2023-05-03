@@ -1,4 +1,4 @@
-import ToggleButton from '../../_customButtons/ToggleButton/ToggleButton';
+import ToggleButton from '../../_UI_elements/ToggleButton/ToggleButton';
 
 function SearchForm() {
   return (

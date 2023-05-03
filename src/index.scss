@@ -1,14 +1,15 @@
-@import "vendor/normalize.css";
-@import "vendor/fonts/fonts.css";
+@import "./vendor/normalize.css";
+@import "./vendor/fonts/fonts.css";
 
-@import "sass/mixes/page";
-@import "sass/mixes/button";
-@import "sass/form";
+@import "./sass/mixes/page";
+@import "./sass/mixes/button";
+@import "./sass/form";
+@import "./sass/auth";
 
-@import "./components/Navigation/Navigation";
-@import "./components/_customButtons/HamburgerButton/HamburgerButton";
-@import "./components/_customButtons/ToggleButton/ToggleButton";
-@import "./components/MobileMenu/MobileMenu";
+@import "./components/_UI_elements/Navigation/Navigation";
+@import "./components/_UI_elements/HamburgerButton/HamburgerButton";
+@import "./components/_UI_elements/ToggleButton/ToggleButton";
+@import "./components/_UI_elements/MobileMenu/MobileMenu";
 
 @import "./components/Header/Header";
 
@@ -25,8 +26,6 @@
 @import "./components/Movies/MoviesCard/MoviesCard";
 
 @import "./components/Profile/Profile";
-@import "./components/Register/Register";
-@import "./components/Login/Login";
 
 @import "./components/Footer/Footer";
 

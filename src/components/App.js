@@ -11,15 +11,15 @@ import Header from './Header/Header';
 import Main from './Main/Main';
 import Movies from './Movies/Movies';
 import Profile from './Profile/Profile';
-import Register from './Register/Register';
-import Login from './Login/Login';
+import Register from './_auth/Register';
+import Login from './_auth/Login';
 import NotFound from './NotFound/NotFound';
 
 import Preloader from './Preloader/Preloader';
 
 import Footer from './Footer/Footer';
-import MobileMenu from './MobileMenu/MobileMenu';
-import HamburgerButton from './_customButtons/HamburgerButton/HamburgerButton';
+import MobileMenu from './_UI_elements/MobileMenu/MobileMenu';
+import HamburgerButton from './_UI_elements/HamburgerButton/HamburgerButton';
 
 function App() {
   const navigate = useNavigate();
