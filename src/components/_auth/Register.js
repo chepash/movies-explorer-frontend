@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import Input from '../_UI_elements/Input';
+import AuthFormInput from '../_UI_elements/AuthFormInput';
 
 import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
 
@@ -24,7 +24,7 @@ function Register() {
         <div className="form__wrap">
           <ul className="form__list page__list">
             <li className="form__item">
-              <Input
+              <AuthFormInput
                 type="text"
                 label="Имя"
                 placeholder="Имя"
@@ -38,7 +38,7 @@ function Register() {
               />
             </li>
             <li className="form__item">
-              <Input
+              <AuthFormInput
                 type="email"
                 label="E-mail"
                 placeholder="E-mail"
@@ -52,7 +52,7 @@ function Register() {
               />
             </li>
             <li className="form__item">
-              <Input
+              <AuthFormInput
                 type="password"
                 label="Пароль"
                 placeholder="Пароль"

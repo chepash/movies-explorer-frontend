@@ -1,4 +1,4 @@
-function Input({ label, value, type, error, onChange, ...props }) {
+function AuthFormInput({ label, value, type, error, onChange, ...props }) {
   return (
     <div className="form__input-container">
       <label className="form__input-label">{label}</label>
@@ -14,4 +14,4 @@ function Input({ label, value, type, error, onChange, ...props }) {
   );
 }
 
-export default Input;
+export default AuthFormInput;
