@@ -9,7 +9,7 @@ function SearchForm() {
         <div className="search-form__icon" />
 
         <div className="search-form__input-wrapper">
-          <input className="search-form__input" />
+          <input className="search-form__input" required />
         </div>
 
         <button
