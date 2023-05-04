@@ -22,13 +22,15 @@ function MoviesCardList({ filteredCards }) {
           />
         ))}
       </ul>
-      <button
-        className="elements__button button button_type_more"
-        type="button"
-        onClick={handleShowMoreCards}
-      >
-        Ещё
-      </button>
+      {filteredCards.length > cardsToShow && (
+        <button
+          className="elements__button button button_type_more"
+          type="button"
+          onClick={handleShowMoreCards}
+        >
+          Ещё
+        </button>
+      )}
     </section>
   );
 }
