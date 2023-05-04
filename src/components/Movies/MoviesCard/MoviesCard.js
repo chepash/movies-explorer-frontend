@@ -1,11 +1,28 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import moviePic from '../../../images/movies_pic/4.jpg';
+import MOVIES_BASE_URL from '../../../utils/constants';
 
-function MoviesCard() {
+function MoviesCard({ card }) {
   const [isLiked, setIsLiked] = useState(false);
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
+
+  const formatDuration = (duration) => {
+    const hours = Math.floor(duration / 60);
+    const minutes = duration % 60;
+
+    let formattedDuration = '';
+
+    if (hours > 0) {
+      formattedDuration += `${hours}ч `;
+    }
+
+    if (minutes > 0) {
+      formattedDuration += `${minutes}м`;
+    }
+
+    return formattedDuration;
+  };
 
   function handleLikeClick() {
     setIsLiked(!isLiked);
@@ -14,11 +31,8 @@ function MoviesCard() {
   return (
     <li className="element">
       <div className="element__wrapper">
-        <p className="element__title">
-          33 слова о дизайнеКиноальманах «100 лет дизайна»Киноальманах «100 лет
-          дизайна»Киноальманах «100 лет дизайна»
-        </p>
-        <p className="element__duration">1ч 42м</p>
+        <p className="element__title">{card.nameRU}</p>
+        <p className="element__duration">{formatDuration(card.duration)}</p>
 
         {!isSavedMoviesPage && (
           <button
@@ -37,7 +51,15 @@ function MoviesCard() {
         )}
       </div>
       <div className="element__image-wrapper">
-        <img className="element__image" src={moviePic} alt="Обложка фильма" />
+        <img
+          className="element__image"
+          src={`${MOVIES_BASE_URL}${
+            card.image.formats.small
+              ? card.image.formats.small.url
+              : card.image.formats.thumbnail.url
+          }`}
+          alt={`Обложка фильма "${card.nameRU}"`}
+        />
       </div>
     </li>
   );

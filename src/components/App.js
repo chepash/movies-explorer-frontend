@@ -21,6 +21,8 @@ import Footer from './Footer/Footer';
 import MobileMenu from './_UI_elements/MobileMenu/MobileMenu';
 import HamburgerButton from './_UI_elements/HamburgerButton/HamburgerButton';
 
+import getMoviesFromServer from '../utils/MoviesApi';
+
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,6 +37,7 @@ function App() {
   const isMainRoute = location.pathname === '/';
 
   const [loggedIn, setLoggedIn] = useState(false);
+  const [cards, setCards] = useState([]);
 
   // Временная функция для переключения между состояниями loggedIn при нажатии L
   useEffect(() => {
@@ -78,6 +81,13 @@ function App() {
     }
   }
 
+  function handleSearchFormSubmit() {
+    getMoviesFromServer().then((cardsFromServer) => {
+      console.log('cardsFromServer : ', cardsFromServer);
+      return setCards(cardsFromServer);
+    });
+  }
+
   return (
     <div className={`page${isAuthPage ? ' page_auth' : ''}`}>
       {!isHeaderHidden && (
@@ -97,7 +107,12 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Main onAnchorBtnClick={scrollToSection} />} />
-        <Route path="/movies" element={<Movies />} />
+        <Route
+          path="/movies"
+          element={
+            <Movies cards={cards} onSearchFormSubmit={handleSearchFormSubmit} />
+          }
+        />
         <Route path="/saved-movies" element={<Movies />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Register />} />

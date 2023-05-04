@@ -1,9 +1,15 @@
 import ToggleButton from '../../_UI_elements/ToggleButton/ToggleButton';
 
-function SearchForm() {
+function SearchForm({ onSearchFormSubmit }) {
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    onSearchFormSubmit();
+  }
+
   return (
     <section className="search-form" aria-label="Поиск и фильтрация фильмов">
-      <form className="search-form__container">
+      <form className="search-form__container" onSubmit={handleSubmit}>
         <div className="search-form__input-bar" />
 
         <div className="search-form__icon" />
