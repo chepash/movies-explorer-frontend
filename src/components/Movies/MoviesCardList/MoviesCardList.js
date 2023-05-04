@@ -1,10 +1,10 @@
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ cards }) {
+function MoviesCardList({ filteredCards }) {
   return (
     <section className="elements" aria-label="Список фильмов">
       <ul className="elements__list page__list">
-        {cards.map((card) => (
+        {filteredCards.map((card) => (
           <MoviesCard
             key={card.id}
             card={card}

@@ -1,10 +1,18 @@
+import { useState } from 'react';
+
 import ToggleButton from '../../_UI_elements/ToggleButton/ToggleButton';
 
 function SearchForm({ onSearchFormSubmit }) {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  function handleInputChange(e) {
+    setSearchQuery(e.target.value);
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
 
-    onSearchFormSubmit();
+    onSearchFormSubmit(searchQuery);
   }
 
   return (
@@ -15,7 +23,12 @@ function SearchForm({ onSearchFormSubmit }) {
         <div className="search-form__icon" />
 
         <div className="search-form__input-wrapper">
-          <input className="search-form__input" required />
+          <input
+            className="search-form__input"
+            value={searchQuery}
+            onChange={handleInputChange}
+            required
+          />
         </div>
 
         <button

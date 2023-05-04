@@ -38,6 +38,7 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [cards, setCards] = useState([]);
+  const [filteredCards, setFilteredCards] = useState([]);
 
   // Временная функция для переключения между состояниями loggedIn при нажатии L
   useEffect(() => {
@@ -81,10 +82,16 @@ function App() {
     }
   }
 
-  function handleSearchFormSubmit() {
-    getMoviesFromServer().then((cardsFromServer) => {
-      console.log('cardsFromServer : ', cardsFromServer);
-      return setCards(cardsFromServer);
+  function handleSearchFormSubmit(searchText) {
+    getMoviesFromServer().then((allCardsFromServer) => {
+      setCards(allCardsFromServer);
+
+      const filteredCardsFromServer = allCardsFromServer.filter((card) => {
+        const nameRU = card.nameRU ? card.nameRU.toLowerCase() : '';
+        return nameRU.toLowerCase().includes(searchText.toLowerCase());
+      });
+
+      setFilteredCards(filteredCardsFromServer);
     });
   }
 
@@ -110,10 +117,18 @@ function App() {
         <Route
           path="/movies"
           element={
+            <Movies
+              filteredCards={filteredCards}
+              onSearchFormSubmit={handleSearchFormSubmit}
+            />
+          }
+        />
+        <Route
+          path="/saved-movies"
+          element={
             <Movies cards={cards} onSearchFormSubmit={handleSearchFormSubmit} />
           }
         />
-        <Route path="/saved-movies" element={<Movies />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
