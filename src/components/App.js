@@ -37,7 +37,6 @@ function App() {
   const isMainRoute = location.pathname === '/';
 
   const [loggedIn, setLoggedIn] = useState(true);
-  const [cards, setCards] = useState([]);
   // const [isMobileView, setIsMobileView] = useState(false);
 
   const [moviesSearchState, setMoviesSearchState] = useState(() => {
@@ -95,30 +94,40 @@ function App() {
     }
   }
 
-  function handleSearchFormSubmit(searchQueryText) {
-    getMoviesFromServer().then((allCardsFromServer) => {
-      setCards(allCardsFromServer);
+  function filterCards(cards, searchQueryText) {
+    const filteredCards = cards.filter((card) => {
+      const nameRU = card.nameRU ? card.nameRU.toLowerCase() : '';
+      return nameRU.toLowerCase().includes(searchQueryText.toLowerCase());
+    });
 
-      const filteredCardsFromServer = allCardsFromServer.filter((card) => {
-        const nameRU = card.nameRU ? card.nameRU.toLowerCase() : '';
-        return nameRU.toLowerCase().includes(searchQueryText.toLowerCase());
-      });
+    setMoviesSearchState({
+      ...moviesSearchState,
+      searchQueryText,
+      foundedCards: filteredCards,
+    });
 
-      setMoviesSearchState({
+    localStorage.setItem(
+      'moviesSearchState',
+      JSON.stringify({
         ...moviesSearchState,
         searchQueryText,
-        foundedCards: filteredCardsFromServer,
-      });
+        foundedCards: filteredCards,
+      })
+    );
+  }
 
-      localStorage.setItem(
-        'moviesSearchState',
-        JSON.stringify({
-          ...moviesSearchState,
-          searchQueryText,
-          foundedCards: filteredCardsFromServer,
-        })
-      );
-    });
+  function handleSearchFormSubmit(searchQueryText) {
+    const allCards = JSON.parse(localStorage.getItem('allCards'));
+
+    if (!allCards) {
+      getMoviesFromServer().then((allCardsFromServer) => {
+        filterCards(allCardsFromServer, searchQueryText);
+
+        localStorage.setItem('allCards', JSON.stringify(allCardsFromServer));
+      });
+    } else {
+      filterCards(allCards, searchQueryText);
+    }
   }
 
   return (
@@ -151,9 +160,7 @@ function App() {
         />
         <Route
           path="/saved-movies"
-          element={
-            <Movies cards={cards} onSearchFormSubmit={handleSearchFormSubmit} />
-          }
+          element={<Movies onSearchFormSubmit={handleSearchFormSubmit} />}
         />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<Register />} />
