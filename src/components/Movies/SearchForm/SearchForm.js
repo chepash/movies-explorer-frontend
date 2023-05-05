@@ -25,7 +25,6 @@ function SearchForm({
     <section className="search-form" aria-label="Поиск и фильтрация фильмов">
       <form className="search-form__container" onSubmit={handleSubmit}>
         <div className="search-form__input-bar" />
-
         <div className="search-form__icon" />
 
         <div className="search-form__input-wrapper">

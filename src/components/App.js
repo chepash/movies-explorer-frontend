@@ -94,54 +94,57 @@ function App() {
     }
   }
 
-  function filterCards(cards, searchQueryText) {
+  function updateLocalStorage(key, newData) {
+    const data = JSON.parse(localStorage.getItem(key));
+    if (data) {
+      localStorage.setItem(key, JSON.stringify({ ...data, ...newData }));
+    }
+  }
+
+  function filterCards() {
+    const cards = JSON.parse(localStorage.getItem('allCards'));
+    const { searchQueryText, isToggleChecked } = JSON.parse(
+      localStorage.getItem('moviesSearchState')
+    );
+
     const filteredCards = cards.filter((card) => {
       const nameRU = card.nameRU ? card.nameRU.toLowerCase() : '';
+
+      if (isToggleChecked && card.duration > 40) {
+        return false;
+      }
+
       return nameRU.toLowerCase().includes(searchQueryText.toLowerCase());
     });
+
+    updateLocalStorage('moviesSearchState', { foundedCards: filteredCards });
 
     setMoviesSearchState({
       ...moviesSearchState,
       searchQueryText,
+      isToggleChecked,
       foundedCards: filteredCards,
     });
-
-    localStorage.setItem(
-      'moviesSearchState',
-      JSON.stringify({
-        ...moviesSearchState,
-        searchQueryText,
-        foundedCards: filteredCards,
-      })
-    );
   }
 
   function handleToggleCheckbox(isChecked) {
-    setMoviesSearchState({
-      ...moviesSearchState,
-      isToggleChecked: isChecked,
-    });
+    updateLocalStorage('moviesSearchState', { isToggleChecked: isChecked });
 
-    localStorage.setItem(
-      'moviesSearchState',
-      JSON.stringify({
-        ...moviesSearchState,
-        isToggleChecked: isChecked,
-      })
-    );
+    filterCards();
   }
 
   function handleSearchFormSubmit(searchQueryText) {
     const allCards = JSON.parse(localStorage.getItem('allCards'));
 
-    if (!allCards) {
-      getMoviesFromServer().then((allCardsFromServer) => {
-        filterCards(allCardsFromServer, searchQueryText);
+    updateLocalStorage('moviesSearchState', { searchQueryText });
 
-        localStorage.setItem('allCards', JSON.stringify(allCardsFromServer));
-      });
+    if (allCards) {
+      filterCards();
     } else {
-      filterCards(allCards, searchQueryText);
+      getMoviesFromServer().then((allCardsFromServer) => {
+        localStorage.setItem('allCards', JSON.stringify(allCardsFromServer));
+        filterCards();
+      });
     }
   }
 
