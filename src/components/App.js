@@ -46,7 +46,7 @@ function App() {
     return (
       lastMoviesSearchState || {
         searchQueryText: '',
-        foundedCards: [],
+        filteredCards: [],
         isToggleChecked: false,
       }
     );
@@ -117,18 +117,18 @@ function App() {
       return nameRU.toLowerCase().includes(searchQueryText.toLowerCase());
     });
 
-    updateLocalStorage('moviesSearchState', { foundedCards: filteredCards });
+    updateLocalStorage('moviesSearchState', { filteredCards });
 
     setMoviesSearchState({
       ...moviesSearchState,
       searchQueryText,
       isToggleChecked,
-      foundedCards: filteredCards,
+      filteredCards,
     });
   }
 
-  function handleToggleCheckbox(isChecked) {
-    updateLocalStorage('moviesSearchState', { isToggleChecked: isChecked });
+  function handleToggleCheckbox(isToggleChecked) {
+    updateLocalStorage('moviesSearchState', { isToggleChecked });
 
     filterCards();
   }

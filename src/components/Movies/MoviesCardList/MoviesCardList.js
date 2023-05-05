@@ -11,7 +11,7 @@ function MoviesCardList({ moviesSearchState }) {
   return (
     <section className="elements" aria-label="Список фильмов">
       <ul className="elements__list page__list">
-        {moviesSearchState.foundedCards.slice(0, cardsToShow).map((card) => (
+        {moviesSearchState.filteredCards.slice(0, cardsToShow).map((card) => (
           <MoviesCard
             key={card.id}
             card={card}
@@ -22,7 +22,7 @@ function MoviesCardList({ moviesSearchState }) {
           />
         ))}
       </ul>
-      {moviesSearchState.foundedCards.length > cardsToShow && (
+      {moviesSearchState.filteredCards.length > cardsToShow && (
         <button
           className="elements__button button button_type_more"
           type="button"
