@@ -2,7 +2,11 @@ import { useState } from 'react';
 
 import ToggleButton from '../../_UI_elements/ToggleButton/ToggleButton';
 
-function SearchForm({ moviesSearchState, onSearchFormSubmit }) {
+function SearchForm({
+  moviesSearchState,
+  onSearchFormSubmit,
+  handleToggleCheckbox,
+}) {
   const [searchQueryText, setSearchQueryText] = useState(
     moviesSearchState.searchQueryText
   );
@@ -39,7 +43,10 @@ function SearchForm({ moviesSearchState, onSearchFormSubmit }) {
         />
 
         <div className="search-form__filter">
-          <ToggleButton />
+          <ToggleButton
+            handleToggleCheckbox={handleToggleCheckbox}
+            moviesSearchState={moviesSearchState}
+          />
           <span className="search-form__filter-name">Короткометражки</span>
         </div>
       </form>

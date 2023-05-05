@@ -47,7 +47,7 @@ function App() {
       lastMoviesSearchState || {
         searchQueryText: '',
         foundedCards: [],
-        shownCards: '',
+        isToggleChecked: false,
       }
     );
   });
@@ -116,6 +116,21 @@ function App() {
     );
   }
 
+  function handleToggleCheckbox(isChecked) {
+    setMoviesSearchState({
+      ...moviesSearchState,
+      isToggleChecked: isChecked,
+    });
+
+    localStorage.setItem(
+      'moviesSearchState',
+      JSON.stringify({
+        ...moviesSearchState,
+        isToggleChecked: isChecked,
+      })
+    );
+  }
+
   function handleSearchFormSubmit(searchQueryText) {
     const allCards = JSON.parse(localStorage.getItem('allCards'));
 
@@ -155,6 +170,7 @@ function App() {
             <Movies
               moviesSearchState={moviesSearchState}
               onSearchFormSubmit={handleSearchFormSubmit}
+              handleToggleCheckbox={handleToggleCheckbox}
             />
           }
         />
