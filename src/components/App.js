@@ -48,6 +48,7 @@ function App() {
         searchQueryText: '',
         filteredCards: [],
         isToggleChecked: false,
+        error: '',
       }
     );
   });
@@ -98,33 +99,45 @@ function App() {
     const data = JSON.parse(localStorage.getItem(key));
     if (data) {
       localStorage.setItem(key, JSON.stringify({ ...data, ...newData }));
+    } else {
+      localStorage.setItem(key, JSON.stringify({ ...newData }));
     }
   }
 
   function filterCards() {
-    const cards = JSON.parse(localStorage.getItem('allCards'));
-    const { searchQueryText, isToggleChecked } = JSON.parse(
-      localStorage.getItem('moviesSearchState')
-    );
+    try {
+      const cards = JSON.parse(localStorage.getItem('allCards'));
+      const { searchQueryText, isToggleChecked } = JSON.parse(
+        localStorage.getItem('moviesSearchState')
+      );
 
-    const filteredCards = cards.filter((card) => {
-      const nameRU = card.nameRU ? card.nameRU.toLowerCase() : '';
+      const filteredCards = cards.filter((card) => {
+        const nameRU = card.nameRU ? card.nameRU.toLowerCase() : '';
 
-      if (isToggleChecked && card.duration > 40) {
-        return false;
-      }
+        if (isToggleChecked && card.duration > 40) {
+          return false;
+        }
 
-      return nameRU.toLowerCase().includes(searchQueryText.toLowerCase());
-    });
+        return nameRU.toLowerCase().includes(searchQueryText.toLowerCase());
+      });
 
-    updateLocalStorage('moviesSearchState', { filteredCards });
+      updateLocalStorage('moviesSearchState', { filteredCards, error: '' });
 
-    setMoviesSearchState({
-      ...moviesSearchState,
-      searchQueryText,
-      isToggleChecked,
-      filteredCards,
-    });
+      setMoviesSearchState({
+        ...moviesSearchState,
+        searchQueryText,
+        isToggleChecked,
+        filteredCards,
+        error: '',
+      });
+    } catch (err) {
+      console.log(`Ошибка filterCards: ${err}`);
+
+      setMoviesSearchState({
+        ...moviesSearchState,
+        error: err,
+      });
+    }
   }
 
   function handleToggleCheckbox(isToggleChecked) {
@@ -141,10 +154,23 @@ function App() {
     if (allCards) {
       filterCards();
     } else {
-      getMoviesFromServer().then((allCardsFromServer) => {
-        localStorage.setItem('allCards', JSON.stringify(allCardsFromServer));
-        filterCards();
-      });
+      getMoviesFromServer()
+        .then((allCardsFromServer) => {
+          localStorage.setItem('allCards', JSON.stringify(allCardsFromServer));
+          filterCards();
+        })
+        .catch((err) => {
+          console.log(`Ошибка MoviesApi : ${err}`);
+
+          updateLocalStorage('moviesSearchState', {
+            error: err.message,
+          });
+
+          setMoviesSearchState({
+            ...moviesSearchState,
+            error: err,
+          });
+        });
     }
   }
 

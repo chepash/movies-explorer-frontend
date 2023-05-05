@@ -16,6 +16,20 @@ function MoviesCardList({ moviesSearchState }) {
     setCardsToShow(cardsToShow + getCardsToShow());
   };
 
+  let message = null;
+
+  if (moviesSearchState.error) {
+    message = (
+      <p className="elements__message">
+        Во&nbsp;время запроса произошла ошибка. Возможно, проблема
+        с&nbsp;соединением или сервер недоступен. Подождите немного
+        и&nbsp;попробуйте ещё раз.
+      </p>
+    );
+  } else if (moviesSearchState.filteredCards.length === 0) {
+    message = <p className="elements__message">Ничего не найдено</p>;
+  }
+
   return (
     <section className="elements" aria-label="Список фильмов">
       <ul className="elements__list page__list">
@@ -39,6 +53,7 @@ function MoviesCardList({ moviesSearchState }) {
           Ещё
         </button>
       )}
+      {message}
     </section>
   );
 }
