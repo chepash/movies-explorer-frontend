@@ -36,9 +36,22 @@ function App() {
   );
   const isMainRoute = location.pathname === '/';
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [cards, setCards] = useState([]);
-  const [filteredCards, setFilteredCards] = useState([]);
+  // const [isMobileView, setIsMobileView] = useState(false);
+
+  const [moviesSearchState, setMoviesSearchState] = useState(() => {
+    const lastMoviesSearchState = JSON.parse(
+      localStorage.getItem('moviesSearchState')
+    );
+    return (
+      lastMoviesSearchState || {
+        searchQueryText: '',
+        foundedCards: [],
+        shownCards: '',
+      }
+    );
+  });
 
   // Временная функция для переключения между состояниями loggedIn при нажатии L
   useEffect(() => {
@@ -82,16 +95,29 @@ function App() {
     }
   }
 
-  function handleSearchFormSubmit(searchText) {
+  function handleSearchFormSubmit(searchQueryText) {
     getMoviesFromServer().then((allCardsFromServer) => {
       setCards(allCardsFromServer);
 
       const filteredCardsFromServer = allCardsFromServer.filter((card) => {
         const nameRU = card.nameRU ? card.nameRU.toLowerCase() : '';
-        return nameRU.toLowerCase().includes(searchText.toLowerCase());
+        return nameRU.toLowerCase().includes(searchQueryText.toLowerCase());
       });
 
-      setFilteredCards(filteredCardsFromServer);
+      setMoviesSearchState({
+        ...moviesSearchState,
+        searchQueryText,
+        foundedCards: filteredCardsFromServer,
+      });
+
+      localStorage.setItem(
+        'moviesSearchState',
+        JSON.stringify({
+          ...moviesSearchState,
+          searchQueryText,
+          foundedCards: filteredCardsFromServer,
+        })
+      );
     });
   }
 
@@ -118,7 +144,7 @@ function App() {
           path="/movies"
           element={
             <Movies
-              filteredCards={filteredCards}
+              moviesSearchState={moviesSearchState}
               onSearchFormSubmit={handleSearchFormSubmit}
             />
           }
