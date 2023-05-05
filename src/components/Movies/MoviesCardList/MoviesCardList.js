@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({ moviesSearchState }) {
-  const [cardsToShow, setCardsToShow] = useState(7);
+  const [cardsToShow, setCardsToShow] = useState(
+    window.innerWidth <= 768 ? 5 : 7
+  );
+
+  useEffect(() => {
+    setCardsToShow(window.innerWidth <= 768 ? 5 : 7);
+  }, [moviesSearchState.filteredCards]);
 
   const handleShowMoreCards = () => {
-    setCardsToShow(cardsToShow + 7);
+    setCardsToShow(cardsToShow + (window.innerWidth <= 768 ? 5 : 7));
   };
 
   return (
