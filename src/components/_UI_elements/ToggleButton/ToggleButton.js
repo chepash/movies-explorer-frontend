@@ -5,6 +5,7 @@ function ToggleButton({ moviesSearchState, handleToggleCheckbox }) {
 
   function handleToggleChange(e) {
     setIsChecked(e.target.checked);
+
     handleToggleCheckbox(e.target.checked);
   }
 
@@ -14,7 +15,7 @@ function ToggleButton({ moviesSearchState, handleToggleCheckbox }) {
         id="toggle"
         type="checkbox"
         className="toggle"
-        checked={isChecked}
+        checked={isChecked || false}
         onChange={handleToggleChange}
       />
       <label htmlFor="toggle" className="toggle__label">

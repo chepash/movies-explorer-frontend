@@ -30,9 +30,8 @@ function SearchForm({
         <div className="search-form__input-wrapper">
           <input
             className="search-form__input"
-            value={searchQueryText}
+            value={searchQueryText || ''}
             onChange={handleInputChange}
-            required
           />
         </div>
 

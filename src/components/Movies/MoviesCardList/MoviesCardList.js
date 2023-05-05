@@ -26,25 +26,37 @@ function MoviesCardList({ moviesSearchState }) {
         и&nbsp;попробуйте ещё раз.
       </p>
     );
-  } else if (moviesSearchState.filteredCards.length === 0) {
+  } else if (
+    moviesSearchState.isSearchPerformed === true &&
+    moviesSearchState.searchQueryText === ''
+  ) {
+    message = <p className="elements__message">Нужно ввести ключевое слово</p>;
+  } else if (
+    moviesSearchState.isSearchPerformed === true &&
+    moviesSearchState.filteredCards.length === 0
+  ) {
     message = <p className="elements__message">Ничего не найдено</p>;
   }
 
   return (
     <section className="elements" aria-label="Список фильмов">
-      <ul className="elements__list page__list">
-        {moviesSearchState.filteredCards.slice(0, cardsToShow).map((card) => (
-          <MoviesCard
-            key={card.id}
-            card={card}
-            // onCardClick={onCardClick}
-            // onCardLike={onCardLike}
-            // onCardDelete={onCardDelete}
-            // onDeleteBtnClick={onDeleteBtnClick}
-          />
-        ))}
-      </ul>
-      {moviesSearchState.filteredCards.length > cardsToShow && (
+      {!moviesSearchState.error && (
+        <ul className="elements__list page__list">
+          {moviesSearchState.filteredCards
+            ?.slice(0, cardsToShow)
+            .map((card) => (
+              <MoviesCard
+                key={card.id}
+                card={card}
+                // onCardClick={onCardClick}
+                // onCardLike={onCardLike}
+                // onCardDelete={onCardDelete}
+                // onDeleteBtnClick={onDeleteBtnClick}
+              />
+            ))}
+        </ul>
+      )}
+      {moviesSearchState.filteredCards?.length > cardsToShow && (
         <button
           className="elements__button button button_type_more"
           type="button"

@@ -37,7 +37,6 @@ function App() {
   const isMainRoute = location.pathname === '/';
 
   const [loggedIn, setLoggedIn] = useState(true);
-  // const [isMobileView, setIsMobileView] = useState(false);
 
   const [moviesSearchState, setMoviesSearchState] = useState(() => {
     const lastMoviesSearchState = JSON.parse(
@@ -48,6 +47,7 @@ function App() {
         searchQueryText: '',
         filteredCards: [],
         isToggleChecked: false,
+        isSearchPerformed: false,
         error: '',
       }
     );
@@ -104,34 +104,52 @@ function App() {
     }
   }
 
-  function filterCards() {
+  function filterCards(cards, searchQueryText, isToggleChecked) {
+    return cards.filter((card) => {
+      const nameRU = card.nameRU ? card.nameRU.toLowerCase() : '';
+
+      if (isToggleChecked && card.duration > 40) {
+        return false;
+      }
+
+      return nameRU.toLowerCase().includes(searchQueryText.toLowerCase());
+    });
+  }
+
+  function handleSearchCards() {
     try {
       const cards = JSON.parse(localStorage.getItem('allCards'));
       const { searchQueryText, isToggleChecked } = JSON.parse(
         localStorage.getItem('moviesSearchState')
       );
 
-      const filteredCards = cards.filter((card) => {
-        const nameRU = card.nameRU ? card.nameRU.toLowerCase() : '';
+      const filteredCards = filterCards(
+        cards,
+        searchQueryText,
+        isToggleChecked
+      );
 
-        if (isToggleChecked && card.duration > 40) {
-          return false;
-        }
-
-        return nameRU.toLowerCase().includes(searchQueryText.toLowerCase());
+      updateLocalStorage('moviesSearchState', {
+        filteredCards,
+        error: '',
+        isSearchPerformed: true,
       });
-
-      updateLocalStorage('moviesSearchState', { filteredCards, error: '' });
 
       setMoviesSearchState({
         ...moviesSearchState,
         searchQueryText,
         isToggleChecked,
         filteredCards,
+        isSearchPerformed: true,
         error: '',
       });
     } catch (err) {
       console.log(`Ошибка filterCards: ${err}`);
+
+      updateLocalStorage('moviesSearchState', {
+        filteredCards: [],
+        isSearchPerformed: false, // чтобы если обновить страницу пропала надпись
+      });
 
       setMoviesSearchState({
         ...moviesSearchState,
@@ -143,21 +161,40 @@ function App() {
   function handleToggleCheckbox(isToggleChecked) {
     updateLocalStorage('moviesSearchState', { isToggleChecked });
 
-    filterCards();
+    if (moviesSearchState.searchQueryText) {
+      handleSearchCards();
+    }
   }
 
   function handleSearchFormSubmit(searchQueryText) {
-    const allCards = JSON.parse(localStorage.getItem('allCards'));
-
     updateLocalStorage('moviesSearchState', { searchQueryText });
 
+    if (!searchQueryText) {
+      setMoviesSearchState({
+        ...moviesSearchState,
+        searchQueryText,
+        filteredCards: [],
+        isSearchPerformed: true,
+        error: '',
+      });
+
+      updateLocalStorage('moviesSearchState', {
+        filteredCards: [],
+        isSearchPerformed: false, // чтобы если обновить страницу пропала надпись
+      });
+
+      return;
+    }
+
+    const allCards = JSON.parse(localStorage.getItem('allCards'));
+
     if (allCards) {
-      filterCards();
+      handleSearchCards();
     } else {
       getMoviesFromServer()
         .then((allCardsFromServer) => {
           localStorage.setItem('allCards', JSON.stringify(allCardsFromServer));
-          filterCards();
+          handleSearchCards();
         })
         .catch((err) => {
           console.log(`Ошибка MoviesApi : ${err}`);
