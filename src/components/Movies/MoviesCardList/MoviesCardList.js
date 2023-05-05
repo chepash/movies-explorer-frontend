@@ -2,16 +2,18 @@ import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({ moviesSearchState }) {
-  const [cardsToShow, setCardsToShow] = useState(
-    window.innerWidth <= 768 ? 5 : 7
-  );
+  const getCardsToShow = () => (window.innerWidth <= 768 ? 5 : 7);
+
+  // Задание: "Проверяйте ширину устройства при монтировании компонента результатов"
+  // надеюсь пойдет такой способ без использования resize event и налепливания setTimeout
+  const [cardsToShow, setCardsToShow] = useState(getCardsToShow());
 
   useEffect(() => {
-    setCardsToShow(window.innerWidth <= 768 ? 5 : 7);
+    setCardsToShow(getCardsToShow());
   }, [moviesSearchState.filteredCards]);
 
   const handleShowMoreCards = () => {
-    setCardsToShow(cardsToShow + (window.innerWidth <= 768 ? 5 : 7));
+    setCardsToShow(cardsToShow + getCardsToShow());
   };
 
   return (
