@@ -1,10 +1,12 @@
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
+import Preloader from '../Preloader/Preloader';
 
 function Movies({
   onSearchFormSubmit,
   moviesSearchState,
   handleToggleCheckbox,
+  isLoading,
 }) {
   return (
     <main className="movies page__container page__container_wide">
@@ -13,7 +15,8 @@ function Movies({
         onSearchFormSubmit={onSearchFormSubmit}
         handleToggleCheckbox={handleToggleCheckbox}
       />
-      <MoviesCardList moviesSearchState={moviesSearchState} />
+      {isLoading && <Preloader />}
+      {!isLoading && <MoviesCardList moviesSearchState={moviesSearchState} />}
     </main>
   );
 }

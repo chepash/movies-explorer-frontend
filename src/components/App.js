@@ -37,6 +37,7 @@ function App() {
   const isMainRoute = location.pathname === '/';
 
   const [loggedIn, setLoggedIn] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   const [moviesSearchState, setMoviesSearchState] = useState(() => {
     const lastMoviesSearchState = JSON.parse(
@@ -95,7 +96,7 @@ function App() {
     }
   }
 
-  function updateLocalStorage(key, newData) {
+  function updateLocalStorageObj(key, newData) {
     const data = JSON.parse(localStorage.getItem(key));
     if (data) {
       localStorage.setItem(key, JSON.stringify({ ...data, ...newData }));
@@ -129,7 +130,7 @@ function App() {
         isToggleChecked
       );
 
-      updateLocalStorage('moviesSearchState', {
+      updateLocalStorageObj('moviesSearchState', {
         filteredCards,
         error: '',
         isSearchPerformed: true,
@@ -143,10 +144,12 @@ function App() {
         isSearchPerformed: true,
         error: '',
       });
+
+      setLoading(false);
     } catch (err) {
       console.log(`Ошибка filterCards: ${err}`);
 
-      updateLocalStorage('moviesSearchState', {
+      updateLocalStorageObj('moviesSearchState', {
         filteredCards: [],
         isSearchPerformed: false, // чтобы если обновить страницу пропала надпись
       });
@@ -155,11 +158,13 @@ function App() {
         ...moviesSearchState,
         error: err,
       });
+
+      setLoading(false);
     }
   }
 
   function handleToggleCheckbox(isToggleChecked) {
-    updateLocalStorage('moviesSearchState', { isToggleChecked });
+    updateLocalStorageObj('moviesSearchState', { isToggleChecked });
 
     if (moviesSearchState.searchQueryText) {
       handleSearchCards();
@@ -167,7 +172,8 @@ function App() {
   }
 
   function handleSearchFormSubmit(searchQueryText) {
-    updateLocalStorage('moviesSearchState', { searchQueryText });
+    setLoading(true);
+    updateLocalStorageObj('moviesSearchState', { searchQueryText });
 
     if (!searchQueryText) {
       setMoviesSearchState({
@@ -178,11 +184,11 @@ function App() {
         error: '',
       });
 
-      updateLocalStorage('moviesSearchState', {
+      updateLocalStorageObj('moviesSearchState', {
         filteredCards: [],
         isSearchPerformed: false, // чтобы если обновить страницу пропала надпись
       });
-
+      setLoading(false);
       return;
     }
 
@@ -194,12 +200,14 @@ function App() {
       getMoviesFromServer()
         .then((allCardsFromServer) => {
           localStorage.setItem('allCards', JSON.stringify(allCardsFromServer));
+        })
+        .then(() => {
           handleSearchCards();
         })
         .catch((err) => {
           console.log(`Ошибка MoviesApi : ${err}`);
 
-          updateLocalStorage('moviesSearchState', {
+          updateLocalStorageObj('moviesSearchState', {
             error: err.message,
           });
 
@@ -207,6 +215,8 @@ function App() {
             ...moviesSearchState,
             error: err,
           });
+
+          setLoading(false);
         });
     }
   }
@@ -234,6 +244,7 @@ function App() {
           path="/movies"
           element={
             <Movies
+              isLoading={isLoading}
               moviesSearchState={moviesSearchState}
               onSearchFormSubmit={handleSearchFormSubmit}
               handleToggleCheckbox={handleToggleCheckbox}
