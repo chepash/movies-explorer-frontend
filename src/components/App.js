@@ -335,9 +335,7 @@ function App() {
         />
       )}
 
-      {/* Временная заглушка авторизации */}
-      {isMainRoute && isLoggedIn && <HamburgerButton />}
-      {isProtectedRoute && isLoggedIn && <HamburgerButton />}
+      {(isMainRoute || isProtectedRoute) && isLoggedIn && <HamburgerButton />}
 
       {isLoggedIn && <MobileMenu onAccountBtnClick={handleNavigateToProfile} />}
 
