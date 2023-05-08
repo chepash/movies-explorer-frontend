@@ -37,6 +37,7 @@ function App() {
 
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
     name: '',
@@ -129,6 +130,11 @@ function App() {
 
   function handleNavigateToProfile() {
     navigate('/profile');
+    setIsMobileMenuOpen(false);
+  }
+
+  function handleMobileMenuClose() {
+    setIsMobileMenuOpen(false);
   }
 
   function handleNavigateToSignIn() {
@@ -335,9 +341,20 @@ function App() {
         />
       )}
 
-      {(isMainRoute || isProtectedRoute) && isLoggedIn && <HamburgerButton />}
+      {(isMainRoute || isProtectedRoute) && isLoggedIn && (
+        <HamburgerButton
+          isChecked={isMobileMenuOpen}
+          setIsChecked={setIsMobileMenuOpen}
+        />
+      )}
 
-      {isLoggedIn && <MobileMenu onAccountBtnClick={handleNavigateToProfile} />}
+      {isLoggedIn && (
+        <MobileMenu
+          isMobileMenuOpen={isMobileMenuOpen}
+          onNavLinkClick={handleMobileMenuClose}
+          onAccountBtnClick={handleNavigateToProfile}
+        />
+      )}
 
       <Routes>
         <Route path="/" element={<Main onAnchorBtnClick={scrollToSection} />} />
