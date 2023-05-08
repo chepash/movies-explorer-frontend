@@ -35,7 +35,7 @@ function App() {
   );
   const isMainRoute = location.pathname === '/';
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
@@ -59,6 +59,25 @@ function App() {
     );
   });
 
+  function cleanAllData() {
+    setCurrentUser({
+      name: '',
+      email: '',
+      _id: '',
+    });
+
+    setMoviesSearchState({
+      searchQueryText: '',
+      filteredCards: [],
+      isToggleChecked: false,
+      isSearchPerformed: false,
+      error: '',
+    });
+
+    localStorage.removeItem('moviesSearchState');
+    localStorage.removeItem('allCards');
+  }
+
   function tokenCheck() {
     mainApi
       .getUserInfo()
@@ -73,7 +92,11 @@ function App() {
         setLoggedIn(true);
       })
       .catch((err) => {
-        console.log(`Ошибка ошибка проверки jwt: ${err}`);
+        cleanAllData();
+        if (isProtectedRoute) {
+          navigate('/');
+        }
+        console.log('Пользователь не авторизован :', err);
       });
   }
 
@@ -85,7 +108,7 @@ function App() {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.code === 'KeyL' || event.code === 'KeyД') {
-        setLoggedIn(!loggedIn);
+        setLoggedIn(!isLoggedIn);
       }
     };
 
@@ -94,7 +117,7 @@ function App() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [loggedIn]);
+  }, [isLoggedIn]);
 
   function handleGoBack() {
     navigate(-1);
@@ -171,8 +194,6 @@ function App() {
         isSearchPerformed: true,
         error: '',
       });
-
-      setLoading(false);
     } catch (err) {
       console.log(`Ошибка filterCards: ${err}`);
 
@@ -185,8 +206,6 @@ function App() {
         ...moviesSearchState,
         error: err,
       });
-
-      setLoading(false);
     }
   }
 
@@ -223,6 +242,7 @@ function App() {
 
     if (allCards) {
       handleSearchCards();
+      setLoading(false);
     } else {
       getMoviesFromServer()
         .then((allCardsFromServer) => {
@@ -280,8 +300,6 @@ function App() {
   }
 
   function handleRegister({ name, email, password }, resetRegistrationForm) {
-    setLoading(true);
-
     mainApi
       .register(name, email, password)
       .then(() => {
@@ -297,22 +315,7 @@ function App() {
     mainApi
       .signOut()
       .then(() => {
-        setCurrentUser({
-          name: '',
-          email: '',
-          _id: '',
-        });
-
-        setMoviesSearchState({
-          searchQueryText: '',
-          filteredCards: [],
-          isToggleChecked: false,
-          isSearchPerformed: false,
-          error: '',
-        });
-
-        localStorage.removeItem('moviesSearchState');
-        localStorage.removeItem('allCards');
+        cleanAllData();
         setLoggedIn(false);
         navigate('/');
       })
@@ -328,15 +331,15 @@ function App() {
           onAccountBtnClick={handleNavigateToProfile}
           onSignInBtnClick={handleNavigateToSignIn}
           onLogoClick={handleNavigateToMain}
-          loggedIn={loggedIn}
+          loggedIn={isLoggedIn}
         />
       )}
 
       {/* Временная заглушка авторизации */}
-      {isMainRoute && loggedIn && <HamburgerButton />}
-      {isProtectedRoute && <HamburgerButton />}
+      {isMainRoute && isLoggedIn && <HamburgerButton />}
+      {isProtectedRoute && isLoggedIn && <HamburgerButton />}
 
-      {loggedIn && <MobileMenu onAccountBtnClick={handleNavigateToProfile} />}
+      {isLoggedIn && <MobileMenu onAccountBtnClick={handleNavigateToProfile} />}
 
       <Routes>
         <Route path="/" element={<Main onAnchorBtnClick={scrollToSection} />} />
