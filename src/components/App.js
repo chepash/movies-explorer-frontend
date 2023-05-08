@@ -15,13 +15,12 @@ import Register from './_auth/Register';
 import Login from './_auth/Login';
 import NotFound from './NotFound/NotFound';
 
-import Preloader from './Preloader/Preloader';
-
 import Footer from './Footer/Footer';
 import MobileMenu from './_UI_elements/MobileMenu/MobileMenu';
 import HamburgerButton from './_UI_elements/HamburgerButton/HamburgerButton';
 
 import getMoviesFromServer from '../utils/MoviesApi';
+import * as mainApi from '../utils/MainApi';
 
 function App() {
   const navigate = useNavigate();
@@ -36,8 +35,14 @@ function App() {
   );
   const isMainRoute = location.pathname === '/';
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isLoading, setLoading] = useState(false);
+
+  const [currentUser, setCurrentUser] = useState({
+    name: '',
+    email: '',
+    _id: '',
+  });
 
   const [moviesSearchState, setMoviesSearchState] = useState(() => {
     const lastMoviesSearchState = JSON.parse(
@@ -53,6 +58,28 @@ function App() {
       }
     );
   });
+
+  function tokenCheck() {
+    mainApi
+      .getUserInfo()
+      .then((userDataFromServer) => {
+        setCurrentUser({
+          ...currentUser,
+          name: userDataFromServer.name,
+          email: userDataFromServer.email,
+          _id: userDataFromServer._id,
+        });
+
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        console.log(`Ошибка ошибка проверки jwt: ${err}`);
+      });
+  }
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
 
   // Временная функция для переключения между состояниями loggedIn при нажатии L
   useEffect(() => {
@@ -215,10 +242,83 @@ function App() {
             ...moviesSearchState,
             error: err,
           });
-
+        })
+        .finally(() => {
           setLoading(false);
         });
     }
+  }
+
+  const [authError, setAuthError] = useState({ status: '', message: '' });
+
+  function handleLogin({ email, password }, resetForm) {
+    mainApi
+      .authorize(email, password)
+      .then((data) => {
+        if (data.message === 'Successful authorization') {
+          resetForm();
+          setAuthError({ status: '', message: '' });
+          setLoggedIn(true);
+          navigate('/movies');
+        }
+      })
+      .then(() =>
+        mainApi.getUserInfo().then((userDataFromServer) => {
+          console.log('userDataFromServer : ', userDataFromServer);
+          setCurrentUser({
+            ...currentUser,
+            name: userDataFromServer.name,
+            email: userDataFromServer.email,
+            _id: userDataFromServer._id,
+          });
+        })
+      )
+      .catch((err) => {
+        console.log('Ошибка при логине: ', err);
+        setAuthError({ status: err.status, message: err.message });
+      });
+  }
+
+  function handleRegister({ name, email, password }, resetRegistrationForm) {
+    setLoading(true);
+
+    mainApi
+      .register(name, email, password)
+      .then(() => {
+        handleLogin({ email, password }, resetRegistrationForm);
+      })
+      .catch((err) => {
+        console.log('Ошибка при регистрации: ', err);
+        setAuthError({ status: err.status, message: err.message });
+      });
+  }
+
+  function handleSignOut() {
+    mainApi
+      .signOut()
+      .then(() => {
+        setCurrentUser({
+          name: '',
+          email: '',
+          _id: '',
+        });
+
+        setMoviesSearchState({
+          searchQueryText: '',
+          filteredCards: [],
+          isToggleChecked: false,
+          isSearchPerformed: false,
+          error: '',
+        });
+
+        localStorage.removeItem('moviesSearchState');
+        localStorage.removeItem('allCards');
+        setLoggedIn(false);
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log('Ошибка при выходе: ', err);
+      });
   }
 
   return (
@@ -255,12 +355,34 @@ function App() {
           path="/saved-movies"
           element={<Movies onSearchFormSubmit={handleSearchFormSubmit} />}
         />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/signup" element={<Register />} />
-        <Route path="/signin" element={<Login />} />
 
-        {/* Preloader test */}
-        <Route path="/loading" element={<Preloader />} />
+        <Route
+          path="/profile"
+          element={<Profile onSignOut={handleSignOut} />}
+        />
+
+        <Route
+          path="/signup"
+          element={
+            <Register
+              handleRegister={handleRegister}
+              authError={authError}
+              setAuthError={setAuthError}
+              isAuthPage
+            />
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <Login
+              handleLogin={handleLogin}
+              authError={authError}
+              setAuthError={setAuthError}
+              isAuthPage
+            />
+          }
+        />
 
         <Route
           path="/error"

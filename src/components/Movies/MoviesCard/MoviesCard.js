@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import MOVIES_BASE_URL from '../../../utils/constants';
+import { MOVIES_API_BASE_URL } from '../../../utils/constants';
 
 function MoviesCard({ card }) {
   const [isLiked, setIsLiked] = useState(false);
@@ -53,7 +53,7 @@ function MoviesCard({ card }) {
       <div className="element__image-wrapper">
         <img
           className="element__image"
-          src={`${MOVIES_BASE_URL}${
+          src={`${MOVIES_API_BASE_URL}${
             card.image.formats.small
               ? card.image.formats.small.url
               : card.image.formats.thumbnail.url

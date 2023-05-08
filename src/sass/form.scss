@@ -55,6 +55,7 @@
 
   &__input {
     box-sizing: border-box;
+    width: 100%;
     height: 46px;
     margin: 0;
     padding: 0 15px;
@@ -83,6 +84,14 @@
         box-shadow: inset 0 0 5px #ee3465;
       }
     }
+
+    // для убирания стилей автозаполнения
+    &:-webkit-autofill {
+      box-shadow: 0 0 0 30px #2f2f2f inset;
+      transition: background-color 5000s ease-in-out 0s;
+
+      -webkit-text-fill-color: #fff;
+    }
   }
 
   &__errors-list {
@@ -103,6 +112,10 @@
     opacity: 0;
 
     transition: 0.3s;
+
+    &_center {
+      align-self: center;
+    }
 
     &_visible {
       opacity: 1;
@@ -130,6 +143,7 @@
 
     &_disabled {
       color: #ee3465;
+      opacity: 0.6;
       background-color: rgb(66 134 244 / 0%);
       border: 1px solid #ee3465;
     }

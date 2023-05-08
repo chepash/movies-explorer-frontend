@@ -11,8 +11,17 @@ function useFormWithValidation() {
     const { target } = event;
     const { name } = target;
     const { value } = target;
+
+    let errorMessage = '';
+    if (name === 'name' && !/^[a-zA-Zа-яА-Я\s-]+$/.test(value)) {
+      errorMessage =
+        'Поле name может содержать только латиницу, кириллицу, пробел или дефис.';
+    } else {
+      errorMessage = target.validationMessage;
+    }
+
     setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: target.validationMessage });
+    setErrors({ ...errors, [name]: errorMessage });
     setIsValid(target.closest('form').checkValidity());
   };
 

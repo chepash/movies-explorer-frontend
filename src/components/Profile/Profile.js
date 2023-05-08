@@ -1,4 +1,4 @@
-function Profile() {
+function Profile({ onSignOut }) {
   return (
     <main className="profile">
       <div className="profile__container">
@@ -25,6 +25,7 @@ function Profile() {
         <button
           className="profile__button button button_type_logout"
           type="button"
+          onClick={onSignOut}
         >
           Выйти из аккаунта
         </button>

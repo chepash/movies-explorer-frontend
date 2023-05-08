@@ -1,9 +1,13 @@
 import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
 import AuthFormInput from '../_UI_elements/AuthFormInput';
 
 import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
 
-function Login() {
+function Login({ handleLogin, authError, setAuthError }) {
+  useEffect(() => {
+    setAuthError({ status: '', message: '' });
+  }, []);
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 
@@ -14,7 +18,7 @@ function Login() {
       return;
     }
 
-    resetForm();
+    handleLogin(values, resetForm);
   }
 
   return (
@@ -30,7 +34,7 @@ function Login() {
                 placeholder="E-mail"
                 name="email"
                 onChange={handleChange}
-                value={values.email || 'pochta@yandex.ru'}
+                value={values.email || ''}
                 error={errors.email}
                 minLength="2"
                 maxLength="40"
@@ -53,20 +57,35 @@ function Login() {
             </li>
           </ul>
           <ul className="form__errors-list page__list">
-            <li
-              className={`form__error${!isValid ? ' form__error_visible' : ''}`}
-            >
-              {errors.email ? `Поле Email: ${errors.email}` : ''}
+            <li className="form__error-item">
+              <div
+                className={`form__error${
+                  !isValid ? ' form__error_visible' : ''
+                }`}
+              >
+                {errors.email ? `Поле Email: ${errors.email}` : ''}
+              </div>
             </li>
-            <li
-              className={`form__error${!isValid ? ' form__error_visible' : ''}`}
-            >
-              {errors.password ? `Поле Пароль: ${errors.password}` : ''}
+            <li className="form__error-item">
+              <div
+                className={`form__error${
+                  !isValid ? ' form__error_visible' : ''
+                }`}
+              >
+                {errors.password ? `Поле Пароль: ${errors.password}` : ''}
+              </div>
             </li>
           </ul>
         </div>
 
         <div className="form__controls">
+          <div
+            className={`form__error form__error_center${
+              authError.status ? ' form__error_visible' : ''
+            }`}
+          >
+            Что-то пошло не так.
+          </div>
           <button
             className={`button button_type_auth form__button ${
               !isValid ? 'form__button_disabled' : ''
