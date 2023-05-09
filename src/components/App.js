@@ -10,9 +10,9 @@ import { useEffect, useState } from 'react';
 import Header from './Header/Header';
 import Main from './Main/Main';
 import Movies from './Movies/Movies';
-import Profile from './Profile/Profile';
 import Register from './_auth/Register';
 import Login from './_auth/Login';
+import Profile from './_auth/Profile';
 import NotFound from './NotFound/NotFound';
 
 import Footer from './Footer/Footer';
@@ -305,6 +305,23 @@ function App() {
       });
   }
 
+  function handleEditProfile({ name, email }) {
+    mainApi
+      .sendUserInfo(name, email)
+      .then((newUserDataFromServer) => {
+        setAuthError({ status: '', message: '' });
+        setCurrentUser({
+          ...currentUser,
+          name: newUserDataFromServer.name,
+          email: newUserDataFromServer.email,
+        });
+      })
+      .catch((err) => {
+        console.log('Ошибка при изменении данных: ', err);
+        setAuthError({ status: err.status, message: err.message });
+      });
+  }
+
   function handleRegister({ name, email, password }, resetRegistrationForm) {
     mainApi
       .register(name, email, password)
@@ -376,7 +393,15 @@ function App() {
 
         <Route
           path="/profile"
-          element={<Profile onSignOut={handleSignOut} />}
+          element={
+            <Profile
+              onSignOut={handleSignOut}
+              currentUser={currentUser}
+              authError={authError}
+              setAuthError={setAuthError}
+              handleEditProfile={handleEditProfile}
+            />
+          }
         />
 
         <Route

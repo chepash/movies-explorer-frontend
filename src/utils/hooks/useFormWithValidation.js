@@ -15,7 +15,7 @@ function useFormWithValidation() {
     let errorMessage = '';
     if (name === 'name' && !/^[a-zA-Zа-яА-Я\s-]+$/.test(value)) {
       errorMessage =
-        'Поле name может содержать только латиницу, кириллицу, пробел или дефис.';
+        'Можно использовать только латиницу, кириллицу, пробел или дефис.';
     } else {
       errorMessage = target.validationMessage;
     }

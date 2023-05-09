@@ -8,6 +8,7 @@ function Login({ handleLogin, authError, setAuthError }) {
   useEffect(() => {
     setAuthError({ status: '', message: '' });
   }, []);
+
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 
@@ -63,7 +64,7 @@ function Login({ handleLogin, authError, setAuthError }) {
                   !isValid ? ' form__error_visible' : ''
                 }`}
               >
-                {errors.email ? `Поле Email: ${errors.email}` : ''}
+                {errors.email ? `Поле E-mail: ${errors.email}` : ''}
               </div>
             </li>
             <li className="form__error-item">

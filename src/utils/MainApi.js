@@ -60,3 +60,16 @@ export const getUserInfo = () =>
     },
     credentials: 'include',
   }).then(getResponse);
+
+export const sendUserInfo = (name, email) =>
+  fetch(`${MAIN_API_BASE_URL}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name,
+      email,
+    }),
+    credentials: 'include',
+  }).then(getResponse);

@@ -1,16 +1,24 @@
-import { NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
+import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
 import AuthFormInput from '../_UI_elements/AuthFormInput';
 
-import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
+function Profile({
+  onSignOut,
+  currentUser,
+  authError,
+  setAuthError,
+  handleEditProfile,
+}) {
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
 
-function Register({ handleRegister, authError, setAuthError }) {
   useEffect(() => {
     setAuthError({ status: '', message: '' });
   }, []);
 
-  const { values, handleChange, errors, isValid, resetForm } =
-    useFormWithValidation();
+  useEffect(() => {
+    resetForm({ name: currentUser.name, email: currentUser.email }, {}, true);
+  }, [currentUser]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,32 +26,28 @@ function Register({ handleRegister, authError, setAuthError }) {
     if (!isValid) {
       return;
     }
-
-    handleRegister(values, resetForm);
-  }
-
-  let regErrorMessage = '';
-  if (authError.status === '409') {
-    regErrorMessage = 'Пользователь с таким E-mail уже зарезистрирован.';
-  } else {
-    regErrorMessage = 'Что-то пошло не так.';
+    console.log('values : ', values);
+    handleEditProfile(values);
   }
 
   return (
-    <main className="auth">
-      <h1 className="auth__title">Добро пожаловать!</h1>
+    <main className="auth auth_type_profile">
+      <h1 className="auth__title auth__title_type_profile">
+        Привет, {currentUser.name}!
+      </h1>
       <form className="form" onSubmit={handleSubmit}>
         <div className="form__wrap">
-          <ul className="form__list page__list">
-            <li className="form__item">
+          <ul className="page__list form__list form__list_type_profile">
+            <li className="form__item form__item_type_profile">
               <AuthFormInput
                 type="text"
                 label="Имя"
                 placeholder="Имя"
                 name="name"
                 onChange={handleChange}
-                value={values.name || ''}
+                value={values.name || currentUser.name}
                 error={errors.name}
+                additionalClassName="type_profile"
                 minLength="2"
                 maxLength="40"
                 pattern="^[a-zA-Zа-яА-Я\s-]+$"
@@ -53,28 +57,15 @@ function Register({ handleRegister, authError, setAuthError }) {
             <li className="form__item">
               <AuthFormInput
                 type="email"
-                label="E-mail"
+                label="E&#x2011;mail"
                 placeholder="E-mail"
                 name="email"
                 onChange={handleChange}
-                value={values.email || ''}
+                value={values.email || currentUser.email}
                 error={errors.email}
+                additionalClassName="type_profile"
                 minLength="2"
                 maxLength="40"
-                required
-              />
-            </li>
-            <li className="form__item">
-              <AuthFormInput
-                type="password"
-                label="Пароль"
-                placeholder="Пароль"
-                name="password"
-                onChange={handleChange}
-                value={values.password || ''}
-                error={errors.password}
-                minLength="2"
-                maxLength="200"
                 required
               />
             </li>
@@ -98,40 +89,34 @@ function Register({ handleRegister, authError, setAuthError }) {
                 {errors.email ? `Поле E-mail: ${errors.email}` : ''}
               </div>
             </li>
-            <li className="form__error-item">
-              <div
-                className={`form__error${
-                  !isValid ? ' form__error_visible' : ''
-                }`}
-              >
-                {errors.password ? `Поле Пароль: ${errors.password}` : ''}
-              </div>
-            </li>
           </ul>
         </div>
 
-        <div className="form__controls">
+        <div className="form__controls form__controls_type_profile">
           <div
             className={`form__error form__error_center${
               authError.status ? ' form__error_visible' : ''
             }`}
           >
-            {regErrorMessage}
+            Что-то пошло не так.
           </div>
           <button
-            className={`button button_type_auth form__button ${
-              !isValid ? 'form__button_disabled' : ''
+            className={`button button_type_edit ${
+              !isValid ? 'button_type_edit_disabled' : ''
             }`}
             type="submit"
             disabled={!isValid}
           >
-            Зарегистрироваться
+            Редактировать
           </button>
           <div className="form__link-wrapper">
-            <span className="form__link-text">Уже зарегистрированы?</span>
-            <NavLink className="page__link form__link" to="/signin">
-              Войти
-            </NavLink>
+            <button
+              className="button button_type_logout"
+              type="button"
+              onClick={onSignOut}
+            >
+              Выйти&nbsp;из&nbsp;аккаунта
+            </button>
           </div>
         </div>
       </form>
@@ -139,4 +124,4 @@ function Register({ handleRegister, authError, setAuthError }) {
   );
 }
 
-export default Register;
+export default Profile;
