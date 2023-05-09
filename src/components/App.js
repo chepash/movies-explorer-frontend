@@ -124,8 +124,8 @@ function App() {
     };
   }, [isLoggedIn]);
 
-  function handleGoBack() {
-    navigate(-1);
+  function handleNavigateBack() {
+    navigate(-1, { replace: true });
   }
 
   function handleNavigateToMain() {
@@ -432,10 +432,10 @@ function App() {
             path="/signup"
             element={
               <Register
+                isLoggedIn={isLoggedIn}
                 handleRegister={handleRegister}
                 authError={authError}
                 setAuthError={setAuthError}
-                isAuthPage
               />
             }
           />
@@ -443,17 +443,17 @@ function App() {
             path="/signin"
             element={
               <Login
+                isLoggedIn={isLoggedIn}
                 handleLogin={handleLogin}
                 authError={authError}
                 setAuthError={setAuthError}
-                isAuthPage
               />
             }
           />
 
           <Route
             path="/error"
-            element={<NotFound onGoBackClick={handleGoBack} />}
+            element={<NotFound handleNavigateBack={handleNavigateBack} />}
           />
           <Route path="*" element={<Navigate to="/error" replace />} />
         </Routes>

@@ -1,16 +1,21 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import AuthFormInput from '../_UI_elements/AuthFormInput';
 
 import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
 
-function Login({ handleLogin, authError, setAuthError }) {
-  useEffect(() => {
-    setAuthError({ status: '', message: '' });
-  }, []);
-
+function Login({ handleLogin, authError, setAuthError, isLoggedIn }) {
+  const navigate = useNavigate();
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
+
+  useEffect(() => {
+    setAuthError({ status: '', message: '' });
+
+    if (isLoggedIn) {
+      navigate(-1, { replace: true });
+    }
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
