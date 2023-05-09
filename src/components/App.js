@@ -10,17 +10,19 @@ import { useEffect, useState } from 'react';
 import Header from './Header/Header';
 import Main from './Main/Main';
 import Movies from './Movies/Movies';
+import SavedMovies from './Movies/SavedMovies';
 import Register from './_auth/Register';
 import Login from './_auth/Login';
 import Profile from './_auth/Profile';
 import NotFound from './NotFound/NotFound';
-
 import Footer from './Footer/Footer';
 import MobileMenu from './_UI_elements/MobileMenu/MobileMenu';
 import HamburgerButton from './_UI_elements/HamburgerButton/HamburgerButton';
+import ProtectedRoute from './ProtectedRoute';
 
 import getMoviesFromServer from '../utils/MoviesApi';
 import * as mainApi from '../utils/MainApi';
+import Preloader from './Preloader/Preloader';
 
 function App() {
   const navigate = useNavigate();
@@ -37,6 +39,7 @@ function App() {
 
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [isAuthChecking, setAuthChecking] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
@@ -94,10 +97,11 @@ function App() {
       })
       .catch((err) => {
         cleanAllData();
-        if (isProtectedRoute) {
-          navigate('/');
-        }
+
         console.log('Пользователь не авторизован :', err);
+      })
+      .finally(() => {
+        setAuthChecking(false);
       });
   }
 
@@ -373,66 +377,87 @@ function App() {
         />
       )}
 
-      <Routes>
-        <Route path="/" element={<Main onAnchorBtnClick={scrollToSection} />} />
-        <Route
-          path="/movies"
-          element={
-            <Movies
-              isLoading={isLoading}
-              moviesSearchState={moviesSearchState}
-              onSearchFormSubmit={handleSearchFormSubmit}
-              handleToggleCheckbox={handleToggleCheckbox}
-            />
-          }
-        />
-        <Route
-          path="/saved-movies"
-          element={<Movies onSearchFormSubmit={handleSearchFormSubmit} />}
-        />
+      {isAuthChecking ? (
+        <Preloader />
+      ) : (
+        <Routes>
+          <Route
+            path="/"
+            element={<Main onAnchorBtnClick={scrollToSection} />}
+          />
 
-        <Route
-          path="/profile"
-          element={
-            <Profile
-              onSignOut={handleSignOut}
-              currentUser={currentUser}
-              authError={authError}
-              setAuthError={setAuthError}
-              handleEditProfile={handleEditProfile}
-            />
-          }
-        />
+          <Route
+            path="/movies"
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                isLoading={isLoading}
+                moviesSearchState={moviesSearchState}
+                onSearchFormSubmit={handleSearchFormSubmit}
+                handleToggleCheckbox={handleToggleCheckbox}
+                component={Movies}
+              />
+            }
+          />
 
-        <Route
-          path="/signup"
-          element={
-            <Register
-              handleRegister={handleRegister}
-              authError={authError}
-              setAuthError={setAuthError}
-              isAuthPage
-            />
-          }
-        />
-        <Route
-          path="/signin"
-          element={
-            <Login
-              handleLogin={handleLogin}
-              authError={authError}
-              setAuthError={setAuthError}
-              isAuthPage
-            />
-          }
-        />
+          <Route
+            path="/saved-movies"
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                isLoading={isLoading}
+                onSearchFormSubmit={handleSearchFormSubmit}
+                handleToggleCheckbox={handleToggleCheckbox}
+                component={SavedMovies}
+              />
+            }
+          />
 
-        <Route
-          path="/error"
-          element={<NotFound onGoBackClick={handleGoBack} />}
-        />
-        <Route path="*" element={<Navigate to="/error" replace />} />
-      </Routes>
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                onSignOut={handleSignOut}
+                currentUser={currentUser}
+                authError={authError}
+                setAuthError={setAuthError}
+                handleEditProfile={handleEditProfile}
+                component={Profile}
+              />
+            }
+          />
+
+          <Route
+            path="/signup"
+            element={
+              <Register
+                handleRegister={handleRegister}
+                authError={authError}
+                setAuthError={setAuthError}
+                isAuthPage
+              />
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <Login
+                handleLogin={handleLogin}
+                authError={authError}
+                setAuthError={setAuthError}
+                isAuthPage
+              />
+            }
+          />
+
+          <Route
+            path="/error"
+            element={<NotFound onGoBackClick={handleGoBack} />}
+          />
+          <Route path="*" element={<Navigate to="/error" replace />} />
+        </Routes>
+      )}
 
       {!isFooterHidden && <Footer />}
     </div>
