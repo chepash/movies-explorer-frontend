@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCard({ card, onCardLike }) {
+function MoviesCard({ card, onCardLike, onCardDelete }) {
   const [isLiked, setIsLiked] = useState(false);
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
@@ -28,6 +28,10 @@ function MoviesCard({ card, onCardLike }) {
     setIsLiked(!isLiked);
   }
 
+  function handleDeleteClick() {
+    onCardDelete(card);
+  }
+
   return (
     <li className="element">
       <div className="element__wrapper">
@@ -45,6 +49,7 @@ function MoviesCard({ card, onCardLike }) {
         )}
         {isSavedMoviesPage && (
           <button
+            onClick={handleDeleteClick}
             className="element__button button button_type_remove"
             type="button"
           />

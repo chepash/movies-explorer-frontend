@@ -48,10 +48,7 @@ function App() {
     _id: '',
   });
 
-  const [savedCards, setSavedCards] = useState(() => {
-    const lastSavedCards = JSON.parse(localStorage.getItem('savedCards')) || [];
-    return lastSavedCards || [];
-  });
+  const [savedCards, setSavedCards] = useState([]);
 
   const [cardsSearchState, setCardsSearchState] = useState(() => {
     const lastCardsSearchState = JSON.parse(
@@ -134,6 +131,15 @@ function App() {
       });
   }
 
+  function updateLocalStorageObj(key, newData) {
+    const data = JSON.parse(localStorage.getItem(key));
+    if (data) {
+      localStorage.setItem(key, JSON.stringify({ ...data, ...newData }));
+    } else {
+      localStorage.setItem(key, JSON.stringify({ ...newData }));
+    }
+  }
+
   useEffect(() => {
     tokenCheck();
   }, []);
@@ -149,6 +155,10 @@ function App() {
 
           if (!savedCardsSearchState.filterCards) {
             setSavedCardsSearchState({
+              ...savedCardsSearchState,
+              filteredCards: savedCardsFromServer,
+            });
+            updateLocalStorageObj('savedCardsSearchState', {
               ...savedCardsSearchState,
               filteredCards: savedCardsFromServer,
             });
@@ -192,15 +202,6 @@ function App() {
         behavior: 'smooth',
         block: 'start',
       });
-    }
-  }
-
-  function updateLocalStorageObj(key, newData) {
-    const data = JSON.parse(localStorage.getItem(key));
-    if (data) {
-      localStorage.setItem(key, JSON.stringify({ ...data, ...newData }));
-    } else {
-      localStorage.setItem(key, JSON.stringify({ ...newData }));
     }
   }
 
@@ -248,7 +249,7 @@ function App() {
 
       updateLocalStorageObj('cardsSearchState', {
         filteredCards: [],
-        isSearchPerformed: false, // чтобы если обновить страницу пропала надпись
+        isSearchPerformed: false, // false чтобы если обновить страницу пропала надпись
       });
 
       setCardsSearchState({
@@ -273,7 +274,7 @@ function App() {
 
       updateLocalStorageObj('cardsSearchState', {
         filteredCards: [],
-        isSearchPerformed: false, // чтобы пропала надпись если обновить страницу
+        isSearchPerformed: false, // false чтобы пропала надпись если обновить страницу
       });
       setLoading(false);
       return;
@@ -474,6 +475,26 @@ function App() {
     }
   }
 
+  function handleCardDelete(currentCard) {
+    mainApi
+      .sendСardDeleteRequest(currentCard._id)
+      .then((deletedCard) => {
+        console.log('deletedCard : ', deletedCard);
+
+        const newSavedCards = savedCards.filter(
+          (oldCard) => oldCard._id !== currentCard._id
+        );
+        setSavedCards(newSavedCards);
+        setSavedCardsSearchState({
+          ...savedCardsSearchState,
+          filteredCards: newSavedCards,
+        });
+      })
+      .catch((err) => {
+        console.log('Ошибка api промиса sendСardDeleteRequest: ', err);
+      });
+  }
+
   return (
     <div className={`page${isAuthPage ? ' page_auth' : ''}`}>
       {!isHeaderHidden && (
@@ -518,8 +539,9 @@ function App() {
                 cardsSearchState={cardsSearchState}
                 onSearchFormSubmit={handleSearchFormSubmit}
                 handleToggleCheckbox={handleToggleCheckbox}
-                // карточка
+                // для карточки
                 onCardLike={handleCardLike}
+                savedCards={savedCards}
                 component={Movies}
               />
             }
@@ -534,6 +556,9 @@ function App() {
                 savedCardsSearchState={savedCardsSearchState}
                 onSearchFormSubmit={handleSavedCardsSearchSubmit}
                 handleToggleCheckbox={handleToggleCheckbox}
+                // для карточки
+                onCardDelete={handleCardDelete}
+                savedCards={savedCards}
                 component={SavedMovies}
               />
             }
