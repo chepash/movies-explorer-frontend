@@ -3,12 +3,12 @@ import { useState } from 'react';
 import ToggleButton from '../../_UI_elements/ToggleButton/ToggleButton';
 
 function SearchForm({
-  moviesSearchState,
+  cardsSearchState,
   onSearchFormSubmit,
   handleToggleCheckbox,
 }) {
   const [searchQueryText, setSearchQueryText] = useState(
-    moviesSearchState.searchQueryText
+    cardsSearchState.searchQueryText
   );
 
   function handleInputChange(e) {
@@ -43,7 +43,7 @@ function SearchForm({
         <div className="search-form__filter">
           <ToggleButton
             handleToggleCheckbox={handleToggleCheckbox}
-            moviesSearchState={moviesSearchState}
+            cardsSearchState={cardsSearchState}
           />
           <span className="search-form__filter-name">Короткометражки</span>
         </div>

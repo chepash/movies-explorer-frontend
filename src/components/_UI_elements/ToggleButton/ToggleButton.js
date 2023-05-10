@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-function ToggleButton({ moviesSearchState, handleToggleCheckbox }) {
-  const [isChecked, setIsChecked] = useState(moviesSearchState.isToggleChecked);
+function ToggleButton({ cardsSearchState, handleToggleCheckbox }) {
+  const [isChecked, setIsChecked] = useState(cardsSearchState.isToggleChecked);
 
   function handleToggleChange(e) {
     setIsChecked(e.target.checked);

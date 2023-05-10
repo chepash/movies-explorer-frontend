@@ -20,7 +20,7 @@ import MobileMenu from './_UI_elements/MobileMenu/MobileMenu';
 import HamburgerButton from './_UI_elements/HamburgerButton/HamburgerButton';
 import ProtectedRoute from './ProtectedRoute';
 
-import getMoviesFromServer from '../utils/MoviesApi';
+import getCardsFromServer from '../utils/MoviesApi';
 import * as mainApi from '../utils/MainApi';
 import Preloader from './Preloader/Preloader';
 
@@ -41,19 +41,39 @@ function App() {
   const [isLoading, setLoading] = useState(false);
   const [isAuthChecking, setAuthChecking] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const [authError, setAuthError] = useState({ status: '', message: '' });
   const [currentUser, setCurrentUser] = useState({
     name: '',
     email: '',
     _id: '',
   });
 
-  const [moviesSearchState, setMoviesSearchState] = useState(() => {
-    const lastMoviesSearchState = JSON.parse(
-      localStorage.getItem('moviesSearchState')
+  const [savedCards, setSavedCards] = useState(() => {
+    const lastSavedCards = JSON.parse(localStorage.getItem('savedCards')) || [];
+    return lastSavedCards || [];
+  });
+
+  const [cardsSearchState, setCardsSearchState] = useState(() => {
+    const lastCardsSearchState = JSON.parse(
+      localStorage.getItem('cardsSearchState')
     );
     return (
-      lastMoviesSearchState || {
+      lastCardsSearchState || {
+        searchQueryText: '',
+        filteredCards: [],
+        isToggleChecked: false,
+        isSearchPerformed: false,
+        error: '',
+      }
+    );
+  });
+
+  const [savedCardsSearchState, setSavedCardsSearchState] = useState(() => {
+    const lastSavedCardsSearchState = JSON.parse(
+      localStorage.getItem('savedCardsSearchState')
+    );
+    return (
+      lastSavedCardsSearchState || {
         searchQueryText: '',
         filteredCards: [],
         isToggleChecked: false,
@@ -70,7 +90,7 @@ function App() {
       _id: '',
     });
 
-    setMoviesSearchState({
+    setCardsSearchState({
       searchQueryText: '',
       filteredCards: [],
       isToggleChecked: false,
@@ -78,7 +98,16 @@ function App() {
       error: '',
     });
 
-    localStorage.removeItem('moviesSearchState');
+    setSavedCardsSearchState({
+      searchQueryText: '',
+      filteredCards: [],
+      isToggleChecked: false,
+      isSearchPerformed: false,
+      error: '',
+    });
+
+    localStorage.removeItem('savedCardsSearchState');
+    localStorage.removeItem('cardsSearchState');
     localStorage.removeItem('allCards');
   }
 
@@ -109,19 +138,29 @@ function App() {
     tokenCheck();
   }, []);
 
-  // Временная функция для переключения между состояниями loggedIn при нажатии L
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.code === 'KeyL' || event.code === 'KeyД') {
-        setLoggedIn(!isLoggedIn);
-      }
-    };
+    if (isLoggedIn) {
+      // setLoading(true);
+      mainApi
+        .getSavedCards()
+        .then((savedCardsFromServer) => {
+          console.log('savedCardsFromServer : ', savedCardsFromServer);
+          setSavedCards(savedCardsFromServer);
 
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
+          if (!savedCardsSearchState.filterCards) {
+            setSavedCardsSearchState({
+              ...savedCardsSearchState,
+              filteredCards: savedCardsFromServer,
+            });
+          }
+        })
+        .catch((err) => {
+          console.log('Ошибка api промиса getSavedCards: ', err);
+        });
+      // .finally(() => {
+      //   setLoading(false);
+      // });
+    }
   }, [isLoggedIn]);
 
   function handleNavigateBack() {
@@ -177,11 +216,11 @@ function App() {
     });
   }
 
-  function handleSearchCards() {
+  function handleCardsSearch() {
     try {
       const cards = JSON.parse(localStorage.getItem('allCards'));
       const { searchQueryText, isToggleChecked } = JSON.parse(
-        localStorage.getItem('moviesSearchState')
+        localStorage.getItem('cardsSearchState')
       );
 
       const filteredCards = filterCards(
@@ -190,14 +229,14 @@ function App() {
         isToggleChecked
       );
 
-      updateLocalStorageObj('moviesSearchState', {
+      updateLocalStorageObj('cardsSearchState', {
         filteredCards,
         error: '',
         isSearchPerformed: true,
       });
 
-      setMoviesSearchState({
-        ...moviesSearchState,
+      setCardsSearchState({
+        ...cardsSearchState,
         searchQueryText,
         isToggleChecked,
         filteredCards,
@@ -207,42 +246,34 @@ function App() {
     } catch (err) {
       console.log(`Ошибка filterCards: ${err}`);
 
-      updateLocalStorageObj('moviesSearchState', {
+      updateLocalStorageObj('cardsSearchState', {
         filteredCards: [],
         isSearchPerformed: false, // чтобы если обновить страницу пропала надпись
       });
 
-      setMoviesSearchState({
-        ...moviesSearchState,
+      setCardsSearchState({
+        ...cardsSearchState,
         error: err,
       });
     }
   }
 
-  function handleToggleCheckbox(isToggleChecked) {
-    updateLocalStorageObj('moviesSearchState', { isToggleChecked });
-
-    if (moviesSearchState.searchQueryText) {
-      handleSearchCards();
-    }
-  }
-
   function handleSearchFormSubmit(searchQueryText) {
     setLoading(true);
-    updateLocalStorageObj('moviesSearchState', { searchQueryText });
+    updateLocalStorageObj('cardsSearchState', { searchQueryText });
 
     if (!searchQueryText) {
-      setMoviesSearchState({
-        ...moviesSearchState,
+      setCardsSearchState({
+        ...cardsSearchState,
         searchQueryText,
         filteredCards: [],
         isSearchPerformed: true,
         error: '',
       });
 
-      updateLocalStorageObj('moviesSearchState', {
+      updateLocalStorageObj('cardsSearchState', {
         filteredCards: [],
-        isSearchPerformed: false, // чтобы если обновить страницу пропала надпись
+        isSearchPerformed: false, // чтобы пропала надпись если обновить страницу
       });
       setLoading(false);
       return;
@@ -251,25 +282,27 @@ function App() {
     const allCards = JSON.parse(localStorage.getItem('allCards'));
 
     if (allCards) {
-      handleSearchCards();
+      handleCardsSearch();
       setLoading(false);
     } else {
-      getMoviesFromServer()
+      getCardsFromServer()
         .then((allCardsFromServer) => {
           localStorage.setItem('allCards', JSON.stringify(allCardsFromServer));
         })
         .then(() => {
-          handleSearchCards();
+          handleCardsSearch();
         })
         .catch((err) => {
           console.log(`Ошибка MoviesApi : ${err}`);
 
-          updateLocalStorageObj('moviesSearchState', {
+          updateLocalStorageObj('cardsSearchState', {
             error: err.message,
           });
 
-          setMoviesSearchState({
-            ...moviesSearchState,
+          setCardsSearchState({
+            ...cardsSearchState,
+            searchQueryText,
+            isSearchPerformed: true,
             error: err,
           });
         })
@@ -279,7 +312,69 @@ function App() {
     }
   }
 
-  const [authError, setAuthError] = useState({ status: '', message: '' });
+  function handleSavedCardsSearch() {
+    const { searchQueryText, isToggleChecked } = JSON.parse(
+      localStorage.getItem('savedCardsSearchState')
+    );
+
+    const filteredCards = filterCards(
+      savedCards,
+      searchQueryText,
+      isToggleChecked
+    );
+
+    updateLocalStorageObj('savedCardsSearchState', {
+      filteredCards,
+      error: '',
+      // isSearchPerformed: true,
+    });
+
+    setSavedCardsSearchState({
+      ...savedCardsSearchState,
+      searchQueryText,
+      isToggleChecked,
+      filteredCards,
+      isSearchPerformed: true,
+      error: '',
+    });
+  }
+
+  function handleSavedCardsSearchSubmit(searchQueryText) {
+    setLoading(true);
+    updateLocalStorageObj('savedCardsSearchState', { searchQueryText });
+
+    if (!searchQueryText) {
+      setSavedCardsSearchState({
+        ...savedCardsSearchState,
+        searchQueryText,
+        filteredCards: savedCards,
+        // isSearchPerformed: true,
+        error: '',
+      });
+
+      updateLocalStorageObj('savedCardsSearchState', {
+        filteredCards: savedCards,
+        // isSearchPerformed: false, // чтобы пропала надпись если обновить страницу
+      });
+      setLoading(false);
+    }
+
+    handleSavedCardsSearch();
+    setLoading(false);
+  }
+
+  function handleToggleCheckbox(isToggleChecked) {
+    if (location.pathname === '/movies') {
+      updateLocalStorageObj('cardsSearchState', { isToggleChecked });
+      if (cardsSearchState.searchQueryText) {
+        handleCardsSearch();
+      }
+    } else if (location.pathname === '/saved-movies') {
+      updateLocalStorageObj('savedCardsSearchState', { isToggleChecked });
+
+      handleSavedCardsSearch();
+    }
+  }
 
   function handleLogin({ email, password }, resetForm) {
     mainApi
@@ -351,6 +446,34 @@ function App() {
       });
   }
 
+  function handleCardLike(currentCard, isLiked) {
+    if (isLiked === false) {
+      mainApi
+        .sendCard(currentCard)
+        .then((newCardFromServer) => {
+          console.log('newCardFromServer : ', newCardFromServer);
+          // setCards((state) => state.map(
+          //   (oldCard) => (oldCard._id === currentCard._id ? newCardFromServer : oldCard),
+          // ));
+        })
+        .catch((err) => {
+          console.log('Ошибка api промиса sendCard: ', err);
+        });
+    } else {
+      mainApi
+        .sendСardDeleteRequest()
+        .then((deletedCard) => {
+          console.log('deletedCard : ', deletedCard);
+          // setCards((state) => state.map(
+          //   (oldCard) => (oldCard._id === currentCard._id ? newCardFromServer : oldCard),
+          // ));
+        })
+        .catch((err) => {
+          console.log('Ошибка api промиса sendСardDeleteRequest: ', err);
+        });
+    }
+  }
+
   return (
     <div className={`page${isAuthPage ? ' page_auth' : ''}`}>
       {!isHeaderHidden && (
@@ -392,9 +515,11 @@ function App() {
               <ProtectedRoute
                 isLoggedIn={isLoggedIn}
                 isLoading={isLoading}
-                moviesSearchState={moviesSearchState}
+                cardsSearchState={cardsSearchState}
                 onSearchFormSubmit={handleSearchFormSubmit}
                 handleToggleCheckbox={handleToggleCheckbox}
+                // карточка
+                onCardLike={handleCardLike}
                 component={Movies}
               />
             }
@@ -406,7 +531,8 @@ function App() {
               <ProtectedRoute
                 isLoggedIn={isLoggedIn}
                 isLoading={isLoading}
-                onSearchFormSubmit={handleSearchFormSubmit}
+                savedCardsSearchState={savedCardsSearchState}
+                onSearchFormSubmit={handleSavedCardsSearchSubmit}
                 handleToggleCheckbox={handleToggleCheckbox}
                 component={SavedMovies}
               />

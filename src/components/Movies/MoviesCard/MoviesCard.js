@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { MOVIES_API_BASE_URL } from '../../../utils/constants';
 
-function MoviesCard({ card }) {
+function MoviesCard({ card, onCardLike }) {
   const [isLiked, setIsLiked] = useState(false);
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
@@ -25,6 +24,7 @@ function MoviesCard({ card }) {
   };
 
   function handleLikeClick() {
+    onCardLike(card, isLiked);
     setIsLiked(!isLiked);
   }
 
@@ -53,11 +53,7 @@ function MoviesCard({ card }) {
       <div className="element__image-wrapper">
         <img
           className="element__image"
-          src={`${MOVIES_API_BASE_URL}${
-            card.image.formats.small
-              ? card.image.formats.small.url
-              : card.image.formats.thumbnail.url
-          }`}
+          src={card.thumbnail}
           alt={`Обложка фильма "${card.nameRU}"`}
         />
       </div>

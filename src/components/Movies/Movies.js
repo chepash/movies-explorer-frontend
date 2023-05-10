@@ -4,19 +4,25 @@ import Preloader from '../Preloader/Preloader';
 
 function Movies({
   onSearchFormSubmit,
-  moviesSearchState,
+  cardsSearchState,
   handleToggleCheckbox,
   isLoading,
+  onCardLike,
 }) {
   return (
     <main className="movies page__container page__container_wide">
       <SearchForm
-        moviesSearchState={moviesSearchState}
+        cardsSearchState={cardsSearchState}
         onSearchFormSubmit={onSearchFormSubmit}
         handleToggleCheckbox={handleToggleCheckbox}
       />
       {isLoading && <Preloader />}
-      {!isLoading && <MoviesCardList moviesSearchState={moviesSearchState} />}
+      {!isLoading && (
+        <MoviesCardList
+          cardsSearchState={cardsSearchState}
+          onCardLike={onCardLike}
+        />
+      )}
     </main>
   );
 }
