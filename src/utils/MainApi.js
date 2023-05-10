@@ -73,3 +73,26 @@ export const sendUserInfo = (name, email) =>
     }),
     credentials: 'include',
   }).then(getResponse);
+
+export const getSavedCards = () =>
+  fetch(`${MAIN_API_BASE_URL}/movies`, {
+    method: 'GET',
+    credentials: 'include',
+  }).then(getResponse);
+
+export const sendCard = (card) =>
+  fetch(`${MAIN_API_BASE_URL}/movies`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(card),
+  }).then(getResponse);
+
+export const sendСardDeleteRequest = (cardId) =>
+  fetch(`${MAIN_API_BASE_URL}/movies/${cardId}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  }).then(getResponse);
