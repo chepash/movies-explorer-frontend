@@ -1,10 +1,10 @@
-import { useState } from 'react';
-
-function ToggleButton({ cardsSearchState, handleToggleCheckbox }) {
-  const [isChecked, setIsChecked] = useState(cardsSearchState.isToggleChecked);
-
+function ToggleButton({
+  isToggleChecked,
+  setToggleChecked,
+  handleToggleCheckbox,
+}) {
   function handleToggleChange(e) {
-    setIsChecked(e.target.checked);
+    setToggleChecked(e.target.checked);
 
     handleToggleCheckbox(e.target.checked);
   }
@@ -15,7 +15,7 @@ function ToggleButton({ cardsSearchState, handleToggleCheckbox }) {
         id="toggle"
         type="checkbox"
         className="toggle"
-        checked={isChecked || false}
+        checked={isToggleChecked || false}
         onChange={handleToggleChange}
       />
       <label htmlFor="toggle" className="toggle__label">

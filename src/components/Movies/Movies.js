@@ -8,6 +8,7 @@ function Movies({
   handleToggleCheckbox,
   isLoading,
   onCardLike,
+  savedCards,
 }) {
   return (
     <main className="movies page__container page__container_wide">
@@ -19,6 +20,7 @@ function Movies({
       {isLoading && <Preloader />}
       {!isLoading && (
         <MoviesCardList
+          savedCards={savedCards}
           cardsSearchState={cardsSearchState}
           onCardLike={onCardLike}
         />

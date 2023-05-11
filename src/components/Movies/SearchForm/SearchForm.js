@@ -10,6 +10,9 @@ function SearchForm({
   const [searchQueryText, setSearchQueryText] = useState(
     cardsSearchState.searchQueryText
   );
+  const [isToggleChecked, setToggleChecked] = useState(
+    cardsSearchState.isToggleChecked
+  );
 
   function handleInputChange(e) {
     setSearchQueryText(e.target.value);
@@ -18,7 +21,7 @@ function SearchForm({
   function handleSubmit(e) {
     e.preventDefault();
 
-    onSearchFormSubmit(searchQueryText);
+    onSearchFormSubmit(searchQueryText, isToggleChecked);
   }
 
   return (
@@ -42,6 +45,8 @@ function SearchForm({
 
         <div className="search-form__filter">
           <ToggleButton
+            isToggleChecked={isToggleChecked}
+            setToggleChecked={setToggleChecked}
             handleToggleCheckbox={handleToggleCheckbox}
             cardsSearchState={cardsSearchState}
           />

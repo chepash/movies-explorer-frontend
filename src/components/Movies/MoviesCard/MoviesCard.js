@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCard({ card, onCardLike, onCardDelete }) {
-  const [isLiked, setIsLiked] = useState(false);
+function MoviesCard({ card, onCardLike, onCardDelete, savedCards }) {
+  const [isLiked, setIsLiked] = useState(
+    savedCards.some((savedCard) => card.movieId === savedCard.movieId)
+  );
+
+  const _id = savedCards.find(
+    (savedCard) => card.movieId === savedCard.movieId
+  )?._id;
+
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
@@ -24,12 +31,11 @@ function MoviesCard({ card, onCardLike, onCardDelete }) {
   };
 
   function handleLikeClick() {
-    onCardLike(card, isLiked);
-    setIsLiked(!isLiked);
+    onCardLike(card, _id, isLiked, setIsLiked);
   }
 
   function handleDeleteClick() {
-    onCardDelete(card);
+    onCardDelete(card._id);
   }
 
   return (

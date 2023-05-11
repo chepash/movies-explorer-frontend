@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ cardsSearchState, onCardLike, onCardDelete }) {
+function MoviesCardList({
+  cardsSearchState,
+  onCardLike,
+  onCardDelete,
+  savedCards,
+}) {
   const getCardsToShow = () => (window.innerWidth <= 768 ? 5 : 7);
 
   // Задание: "Проверяйте ширину устройства при монтировании компонента результатов"
@@ -24,6 +29,7 @@ function MoviesCardList({ cardsSearchState, onCardLike, onCardDelete }) {
             <MoviesCard
               key={card.movieId}
               card={card}
+              savedCards={savedCards}
               // onCardClick={onCardClick}
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}

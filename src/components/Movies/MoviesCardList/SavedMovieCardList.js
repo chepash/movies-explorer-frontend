@@ -4,6 +4,7 @@ function SavedMoviesCardList({
   savedCardsSearchState,
   onCardLike,
   onCardDelete,
+  savedCards,
 }) {
   return (
     <section className="elements" aria-label="Список фильмов">
@@ -13,6 +14,7 @@ function SavedMoviesCardList({
             <MoviesCard
               key={card.movieId}
               card={card}
+              savedCards={savedCards}
               // onCardClick={onCardClick}
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}
@@ -29,7 +31,6 @@ function SavedMoviesCardList({
       )}
       {!savedCardsSearchState.error &&
         savedCardsSearchState.isSearchPerformed === true &&
-        savedCardsSearchState.searchQueryText !== '' &&
         savedCardsSearchState.filteredCards.length === 0 && (
           <p className="elements__message">Ничего не найдено</p>
         )}

@@ -65,19 +65,12 @@ function App() {
     );
   });
 
-  const [savedCardsSearchState, setSavedCardsSearchState] = useState(() => {
-    const lastSavedCardsSearchState = JSON.parse(
-      localStorage.getItem('savedCardsSearchState')
-    );
-    return (
-      lastSavedCardsSearchState || {
-        searchQueryText: '',
-        filteredCards: [],
-        isToggleChecked: false,
-        isSearchPerformed: false,
-        error: '',
-      }
-    );
+  const [savedCardsSearchState, setSavedCardsSearchState] = useState({
+    searchQueryText: '',
+    filteredCards: [],
+    isToggleChecked: false,
+    isSearchPerformed: false,
+    error: '',
   });
 
   function cleanAllData() {
@@ -103,7 +96,6 @@ function App() {
       error: '',
     });
 
-    localStorage.removeItem('savedCardsSearchState');
     localStorage.removeItem('cardsSearchState');
     localStorage.removeItem('allCards');
   }
@@ -123,7 +115,6 @@ function App() {
       })
       .catch((err) => {
         cleanAllData();
-
         console.log('Пользователь не авторизован :', err);
       })
       .finally(() => {
@@ -146,11 +137,10 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      // setLoading(true);
+      setLoading(true);
       mainApi
         .getSavedCards()
         .then((savedCardsFromServer) => {
-          console.log('savedCardsFromServer : ', savedCardsFromServer);
           setSavedCards(savedCardsFromServer);
 
           if (!savedCardsSearchState.filterCards) {
@@ -158,18 +148,14 @@ function App() {
               ...savedCardsSearchState,
               filteredCards: savedCardsFromServer,
             });
-            updateLocalStorageObj('savedCardsSearchState', {
-              ...savedCardsSearchState,
-              filteredCards: savedCardsFromServer,
-            });
           }
         })
         .catch((err) => {
           console.log('Ошибка api промиса getSavedCards: ', err);
+        })
+        .finally(() => {
+          setLoading(false);
         });
-      // .finally(() => {
-      //   setLoading(false);
-      // });
     }
   }, [isLoggedIn]);
 
@@ -213,7 +199,11 @@ function App() {
         return false;
       }
 
-      return nameRU.toLowerCase().includes(searchQueryText.toLowerCase());
+      if (searchQueryText) {
+        return nameRU.toLowerCase().includes(searchQueryText.toLowerCase());
+      }
+
+      return true;
     });
   }
 
@@ -224,14 +214,14 @@ function App() {
         localStorage.getItem('cardsSearchState')
       );
 
-      const filteredCards = filterCards(
+      const newFilteredCards = filterCards(
         cards,
         searchQueryText,
         isToggleChecked
       );
 
       updateLocalStorageObj('cardsSearchState', {
-        filteredCards,
+        filteredCards: newFilteredCards,
         error: '',
         isSearchPerformed: true,
       });
@@ -240,7 +230,7 @@ function App() {
         ...cardsSearchState,
         searchQueryText,
         isToggleChecked,
-        filteredCards,
+        filteredCards: newFilteredCards,
         isSearchPerformed: true,
         error: '',
       });
@@ -313,54 +303,27 @@ function App() {
     }
   }
 
-  function handleSavedCardsSearch() {
-    const { searchQueryText, isToggleChecked } = JSON.parse(
-      localStorage.getItem('savedCardsSearchState')
-    );
-
-    const filteredCards = filterCards(
+  function handleSavedCardsSearch(searchQueryText, isToggleChecked) {
+    const newfilteredCards = filterCards(
       savedCards,
       searchQueryText,
       isToggleChecked
     );
 
-    updateLocalStorageObj('savedCardsSearchState', {
-      filteredCards,
-      error: '',
-      // isSearchPerformed: true,
-    });
-
     setSavedCardsSearchState({
       ...savedCardsSearchState,
       searchQueryText,
       isToggleChecked,
-      filteredCards,
+      filteredCards: newfilteredCards,
       isSearchPerformed: true,
       error: '',
     });
   }
 
-  function handleSavedCardsSearchSubmit(searchQueryText) {
+  function handleSavedCardsSearchSubmit(searchQueryText, isToggleChecked) {
     setLoading(true);
-    updateLocalStorageObj('savedCardsSearchState', { searchQueryText });
 
-    if (!searchQueryText) {
-      setSavedCardsSearchState({
-        ...savedCardsSearchState,
-        searchQueryText,
-        filteredCards: savedCards,
-        // isSearchPerformed: true,
-        error: '',
-      });
-
-      updateLocalStorageObj('savedCardsSearchState', {
-        filteredCards: savedCards,
-        // isSearchPerformed: false, // чтобы пропала надпись если обновить страницу
-      });
-      setLoading(false);
-    }
-
-    handleSavedCardsSearch();
+    handleSavedCardsSearch(searchQueryText, isToggleChecked);
     setLoading(false);
   }
 
@@ -371,9 +334,10 @@ function App() {
         handleCardsSearch();
       }
     } else if (location.pathname === '/saved-movies') {
-      updateLocalStorageObj('savedCardsSearchState', { isToggleChecked });
-
-      handleSavedCardsSearch();
+      handleSavedCardsSearch(
+        savedCardsSearchState.searchQueryText,
+        isToggleChecked
+      );
     }
   }
 
@@ -390,7 +354,6 @@ function App() {
       })
       .then(() =>
         mainApi.getUserInfo().then((userDataFromServer) => {
-          console.log('userDataFromServer : ', userDataFromServer);
           setCurrentUser({
             ...currentUser,
             name: userDataFromServer.name,
@@ -447,52 +410,50 @@ function App() {
       });
   }
 
-  function handleCardLike(currentCard, isLiked) {
-    if (isLiked === false) {
-      mainApi
-        .sendCard(currentCard)
-        .then((newCardFromServer) => {
-          console.log('newCardFromServer : ', newCardFromServer);
-          // setCards((state) => state.map(
-          //   (oldCard) => (oldCard._id === currentCard._id ? newCardFromServer : oldCard),
-          // ));
-        })
-        .catch((err) => {
-          console.log('Ошибка api промиса sendCard: ', err);
-        });
-    } else {
-      mainApi
-        .sendСardDeleteRequest()
-        .then((deletedCard) => {
-          console.log('deletedCard : ', deletedCard);
-          // setCards((state) => state.map(
-          //   (oldCard) => (oldCard._id === currentCard._id ? newCardFromServer : oldCard),
-          // ));
-        })
-        .catch((err) => {
-          console.log('Ошибка api промиса sendСardDeleteRequest: ', err);
-        });
-    }
-  }
-
-  function handleCardDelete(currentCard) {
-    mainApi
-      .sendСardDeleteRequest(currentCard._id)
-      .then((deletedCard) => {
-        console.log('deletedCard : ', deletedCard);
-
+  function handleCardDelete(_id) {
+    return mainApi
+      .sendСardDeleteRequest(_id)
+      .then(() => {
         const newSavedCards = savedCards.filter(
-          (oldCard) => oldCard._id !== currentCard._id
+          (oldCard) => oldCard._id !== _id
         );
         setSavedCards(newSavedCards);
+
+        const newFilteredCards = savedCardsSearchState.filteredCards.filter(
+          (oldCard) => oldCard._id !== _id
+        );
         setSavedCardsSearchState({
           ...savedCardsSearchState,
-          filteredCards: newSavedCards,
+          filteredCards: newFilteredCards,
         });
       })
       .catch((err) => {
         console.log('Ошибка api промиса sendСardDeleteRequest: ', err);
       });
+  }
+
+  function handleCardLike(currentCard, _id, isLiked, setIsLiked) {
+    if (isLiked === false) {
+      mainApi
+        .sendCard(currentCard)
+        .then((newCardFromServer) => {
+          const newSavedCards = [newCardFromServer, ...savedCards];
+          setSavedCards(newSavedCards);
+
+          setIsLiked(true);
+        })
+        .catch((err) => {
+          console.log('Ошибка api промиса sendCard: ', err);
+        });
+    } else {
+      handleCardDelete(_id)
+        .then(() => {
+          setIsLiked(false);
+        })
+        .catch((err) => {
+          console.log('Ошибка при удалении карточки: ', err);
+        });
+    }
   }
 
   return (
@@ -554,6 +515,7 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 isLoading={isLoading}
                 savedCardsSearchState={savedCardsSearchState}
+                setSavedCardsSearchState={setSavedCardsSearchState}
                 onSearchFormSubmit={handleSavedCardsSearchSubmit}
                 handleToggleCheckbox={handleToggleCheckbox}
                 // для карточки
