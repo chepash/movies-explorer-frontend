@@ -13,7 +13,7 @@ function Login({ handleLogin, authError, setAuthError, isLoggedIn }) {
     setAuthError({ status: '', message: '' });
 
     if (isLoggedIn) {
-      navigate(-1, { replace: true });
+      navigate('/movies', { replace: true });
     }
   }, []);
 
