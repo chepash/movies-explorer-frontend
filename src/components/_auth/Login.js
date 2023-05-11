@@ -36,7 +36,7 @@ function Login({ handleLogin, authError, setAuthError, isLoggedIn }) {
             <li className="form__item">
               <AuthFormInput
                 type="email"
-                label="E-mail"
+                label="E&#x2011;mail"
                 placeholder="E-mail"
                 name="email"
                 onChange={handleChange}

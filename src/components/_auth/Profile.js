@@ -49,7 +49,7 @@ function Profile({
                 error={errors.name}
                 additionalClassName="type_profile"
                 minLength="2"
-                maxLength="40"
+                maxLength="30"
                 pattern="^[a-zA-Zа-яА-Я\s-]+$"
                 required
               />

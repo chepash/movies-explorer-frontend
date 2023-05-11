@@ -50,7 +50,7 @@ function Register({ handleRegister, authError, setAuthError, isLoggedIn }) {
                 value={values.name || ''}
                 error={errors.name}
                 minLength="2"
-                maxLength="40"
+                maxLength="30"
                 pattern="^[a-zA-Zа-яА-Я\s-]+$"
                 required
               />
@@ -58,7 +58,7 @@ function Register({ handleRegister, authError, setAuthError, isLoggedIn }) {
             <li className="form__item">
               <AuthFormInput
                 type="email"
-                label="E-mail"
+                label="E&#x2011;mail"
                 placeholder="E-mail"
                 name="email"
                 onChange={handleChange}
