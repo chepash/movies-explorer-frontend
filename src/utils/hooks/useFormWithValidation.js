@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-
+import { isEmail } from 'validator';
 // хук управления формой и валидации формы
 
 function useFormWithValidation() {
@@ -16,13 +16,22 @@ function useFormWithValidation() {
     if (name === 'name' && !/^[a-zA-Zа-яА-Я\s-]+$/.test(value)) {
       errorMessage =
         'Можно использовать только латиницу, кириллицу, пробел или дефис.';
+    } else if (name === 'email' && !isEmail(value)) {
+      errorMessage = 'Введите корректный E-mail';
     } else {
       errorMessage = target.validationMessage;
     }
 
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: errorMessage });
-    setIsValid(target.closest('form').checkValidity());
+
+    if (name === 'email' && errorMessage) {
+      setIsValid(false);
+    } else if (name === 'name' && errorMessage) {
+      setIsValid(false);
+    } else {
+      setIsValid(target.closest('form').checkValidity());
+    }
   };
 
   const resetForm = useCallback(

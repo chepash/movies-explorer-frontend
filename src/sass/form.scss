@@ -72,6 +72,10 @@
       text-align: left;
       letter-spacing: 0;
     }
+
+    &_type_error {
+      color: #ee3465;
+    }
   }
 
   &__input {

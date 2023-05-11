@@ -51,7 +51,6 @@ function Register({ handleRegister, authError, setAuthError, isLoggedIn }) {
                 error={errors.name}
                 minLength="2"
                 maxLength="30"
-                pattern="^[a-zA-Zа-яА-Я\s-]+$"
                 required
               />
             </li>

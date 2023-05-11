@@ -50,7 +50,6 @@ function Profile({
                 additionalClassName="type_profile"
                 minLength="2"
                 maxLength="30"
-                pattern="^[a-zA-Zа-яА-Я\s-]+$"
                 required
               />
             </li>
