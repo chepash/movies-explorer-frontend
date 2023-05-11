@@ -347,23 +347,26 @@ function App() {
     mainApi
       .authorize(email, password)
 
-      .then(() =>
-        mainApi.getUserInfo().then((userDataFromServer) => {
-          setCurrentUser({
-            ...currentUser,
-            name: userDataFromServer.name,
-            email: userDataFromServer.email,
-            _id: userDataFromServer._id,
+      .then((res) => {
+        if (res.message === 'Successful authorization') {
+          return mainApi.getUserInfo().then((userDataFromServer) => {
+            setCurrentUser({
+              ...currentUser,
+              name: userDataFromServer.name,
+              email: userDataFromServer.email,
+              _id: userDataFromServer._id,
+            });
           });
-        })
-      )
-      .then((data) => {
-        if (data.message === 'Successful authorization') {
-          resetForm();
-          setAuthError({ status: '', message: '' });
-          setLoggedIn(true);
-          navigate('/movies');
         }
+        return Promise.reject(
+          new Error(`Authorization failed: ${res.message}`)
+        );
+      })
+      .then(() => {
+        resetForm();
+        setAuthError({ status: '', message: '' });
+        setLoggedIn(true);
+        navigate('/movies');
       })
       .catch((err) => {
         setLoggedIn(false);
