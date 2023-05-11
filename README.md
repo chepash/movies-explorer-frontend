@@ -10,10 +10,6 @@ https://github.com/chepash/movies-explorer-frontend/pull/10
 
 https://chepamovies.nomoredomains.monster/
 
-### github pages (только вид вёрстки из ветки level-2)
-
-https://chepash.github.io/movies-explorer-frontend/
-
 ### Макет диплома
 
 https://disk.yandex.ru/d/iH5ZRgTY4Hv94g
