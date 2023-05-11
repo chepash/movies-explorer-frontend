@@ -1,8 +1,14 @@
-### Репозиторий ( level-2 branch )
+### Репозиторий ( level-3 branch )
 
-https://github.com/chepash/movies-explorer-frontend/tree/level-2
+https://github.com/chepash/movies-explorer-frontend/tree/level-3
 
-### github pages
+### Репозиторий ссылка на пул реквест, открытый из ветки level-3 в main
+
+...
+
+### Полноценный
+
+### github pages (только вид вёрстки из ветки level-2)
 
 https://chepash.github.io/movies-explorer-frontend/
 
