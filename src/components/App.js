@@ -346,14 +346,7 @@ function App() {
   function handleLogin({ email, password }, resetForm) {
     mainApi
       .authorize(email, password)
-      .then((data) => {
-        if (data.message === 'Successful authorization') {
-          resetForm();
-          setAuthError({ status: '', message: '' });
-          setLoggedIn(true);
-          navigate('/movies');
-        }
-      })
+
       .then(() =>
         mainApi.getUserInfo().then((userDataFromServer) => {
           setCurrentUser({
@@ -364,7 +357,16 @@ function App() {
           });
         })
       )
+      .then((data) => {
+        if (data.message === 'Successful authorization') {
+          resetForm();
+          setAuthError({ status: '', message: '' });
+          setLoggedIn(true);
+          navigate('/movies');
+        }
+      })
       .catch((err) => {
+        setLoggedIn(false);
         console.log('Ошибка при логине: ', err);
         setAuthError({ status: err.status, message: err.message });
       });
