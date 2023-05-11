@@ -537,7 +537,6 @@ function App() {
                 <ProtectedRoute
                   isLoggedIn={isLoggedIn}
                   onSignOut={handleSignOut}
-                  currentUser={currentUser}
                   authError={authError}
                   setAuthError={setAuthError}
                   handleEditProfile={handleEditProfile}
