@@ -30,16 +30,22 @@ function MoviesCard({ card, onCardLike, onCardDelete, savedCards }) {
     return formattedDuration;
   };
 
-  function handleLikeClick() {
+  function handleCardClick() {
+    window.open(card.trailerLink, '_blank');
+  }
+
+  function handleLikeClick(e) {
+    e.stopPropagation();
     onCardLike(card, _id, isLiked, setIsLiked);
   }
 
-  function handleDeleteClick() {
+  function handleDeleteClick(e) {
+    e.stopPropagation();
     onCardDelete(card._id);
   }
 
   return (
-    <li className="element">
+    <li className="element" onClick={handleCardClick}>
       <div className="element__wrapper">
         <p className="element__title">{card.nameRU}</p>
         <p className="element__duration">{formatDuration(card.duration)}</p>
@@ -55,9 +61,9 @@ function MoviesCard({ card, onCardLike, onCardDelete, savedCards }) {
         )}
         {isSavedMoviesPage && (
           <button
-            onClick={handleDeleteClick}
             className="element__button button button_type_remove"
             type="button"
+            onClick={handleDeleteClick}
           />
         )}
       </div>
