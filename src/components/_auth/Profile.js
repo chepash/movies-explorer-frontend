@@ -1,14 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
 import AuthFormInput from '../_UI_elements/AuthFormInput';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function Profile({
-  onSignOut,
-  currentUser,
-  authError,
-  setAuthError,
-  handleEditProfile,
-}) {
+function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
+  const currentUser = useContext(CurrentUserContext);
+
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 

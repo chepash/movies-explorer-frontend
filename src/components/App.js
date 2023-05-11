@@ -20,6 +20,8 @@ import MobileMenu from './_UI_elements/MobileMenu/MobileMenu';
 import HamburgerButton from './_UI_elements/HamburgerButton/HamburgerButton';
 import ProtectedRoute from './ProtectedRoute';
 
+import CurrentUserContext from '../contexts/CurrentUserContext';
+
 import getCardsFromServer from '../utils/MoviesApi';
 import * as mainApi from '../utils/MainApi';
 import Preloader from './Preloader/Preloader';
@@ -457,123 +459,125 @@ function App() {
   }
 
   return (
-    <div className={`page${isAuthPage ? ' page_auth' : ''}`}>
-      {!isHeaderHidden && (
-        <Header
-          onAccountBtnClick={handleNavigateToProfile}
-          onSignInBtnClick={handleNavigateToSignIn}
-          onLogoClick={handleNavigateToMain}
-          loggedIn={isLoggedIn}
-        />
-      )}
-
-      {(isMainRoute || isProtectedRoute) && isLoggedIn && (
-        <HamburgerButton
-          isChecked={isMobileMenuOpen}
-          setIsChecked={setIsMobileMenuOpen}
-        />
-      )}
-
-      {isLoggedIn && (
-        <MobileMenu
-          isMobileMenuOpen={isMobileMenuOpen}
-          onNavLinkClick={handleMobileMenuClose}
-          onAccountBtnClick={handleNavigateToProfile}
-        />
-      )}
-
-      {isAuthChecking ? (
-        <Preloader />
-      ) : (
-        <Routes>
-          <Route
-            path="/"
-            element={<Main onAnchorBtnClick={scrollToSection} />}
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className={`page${isAuthPage ? ' page_auth' : ''}`}>
+        {!isHeaderHidden && (
+          <Header
+            onAccountBtnClick={handleNavigateToProfile}
+            onSignInBtnClick={handleNavigateToSignIn}
+            onLogoClick={handleNavigateToMain}
+            loggedIn={isLoggedIn}
           />
+        )}
 
-          <Route
-            path="/movies"
-            element={
-              <ProtectedRoute
-                isLoggedIn={isLoggedIn}
-                isLoading={isLoading}
-                cardsSearchState={cardsSearchState}
-                onSearchFormSubmit={handleSearchFormSubmit}
-                handleToggleCheckbox={handleToggleCheckbox}
-                // для карточки
-                onCardLike={handleCardLike}
-                savedCards={savedCards}
-                component={Movies}
-              />
-            }
+        {(isMainRoute || isProtectedRoute) && isLoggedIn && (
+          <HamburgerButton
+            isChecked={isMobileMenuOpen}
+            setIsChecked={setIsMobileMenuOpen}
           />
+        )}
 
-          <Route
-            path="/saved-movies"
-            element={
-              <ProtectedRoute
-                isLoggedIn={isLoggedIn}
-                isLoading={isLoading}
-                savedCardsSearchState={savedCardsSearchState}
-                setSavedCardsSearchState={setSavedCardsSearchState}
-                onSearchFormSubmit={handleSavedCardsSearchSubmit}
-                handleToggleCheckbox={handleToggleCheckbox}
-                // для карточки
-                onCardDelete={handleCardDelete}
-                savedCards={savedCards}
-                component={SavedMovies}
-              />
-            }
+        {isLoggedIn && (
+          <MobileMenu
+            isMobileMenuOpen={isMobileMenuOpen}
+            onNavLinkClick={handleMobileMenuClose}
+            onAccountBtnClick={handleNavigateToProfile}
           />
+        )}
 
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute
-                isLoggedIn={isLoggedIn}
-                onSignOut={handleSignOut}
-                currentUser={currentUser}
-                authError={authError}
-                setAuthError={setAuthError}
-                handleEditProfile={handleEditProfile}
-                component={Profile}
-              />
-            }
-          />
+        {isAuthChecking ? (
+          <Preloader />
+        ) : (
+          <Routes>
+            <Route
+              path="/"
+              element={<Main onAnchorBtnClick={scrollToSection} />}
+            />
 
-          <Route
-            path="/signup"
-            element={
-              <Register
-                isLoggedIn={isLoggedIn}
-                handleRegister={handleRegister}
-                authError={authError}
-                setAuthError={setAuthError}
-              />
-            }
-          />
-          <Route
-            path="/signin"
-            element={
-              <Login
-                isLoggedIn={isLoggedIn}
-                handleLogin={handleLogin}
-                authError={authError}
-                setAuthError={setAuthError}
-              />
-            }
-          />
+            <Route
+              path="/movies"
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  isLoading={isLoading}
+                  cardsSearchState={cardsSearchState}
+                  onSearchFormSubmit={handleSearchFormSubmit}
+                  handleToggleCheckbox={handleToggleCheckbox}
+                  // для карточки
+                  onCardLike={handleCardLike}
+                  savedCards={savedCards}
+                  component={Movies}
+                />
+              }
+            />
 
-          <Route
-            path="/error"
-            element={<NotFound handleNavigateBack={handleNavigateBack} />}
-          />
-          <Route path="*" element={<Navigate to="/error" replace />} />
-        </Routes>
-      )}
+            <Route
+              path="/saved-movies"
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  isLoading={isLoading}
+                  savedCardsSearchState={savedCardsSearchState}
+                  setSavedCardsSearchState={setSavedCardsSearchState}
+                  onSearchFormSubmit={handleSavedCardsSearchSubmit}
+                  handleToggleCheckbox={handleToggleCheckbox}
+                  // для карточки
+                  onCardDelete={handleCardDelete}
+                  savedCards={savedCards}
+                  component={SavedMovies}
+                />
+              }
+            />
 
-      {!isFooterHidden && <Footer />}
-    </div>
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  onSignOut={handleSignOut}
+                  currentUser={currentUser}
+                  authError={authError}
+                  setAuthError={setAuthError}
+                  handleEditProfile={handleEditProfile}
+                  component={Profile}
+                />
+              }
+            />
+
+            <Route
+              path="/signup"
+              element={
+                <Register
+                  isLoggedIn={isLoggedIn}
+                  handleRegister={handleRegister}
+                  authError={authError}
+                  setAuthError={setAuthError}
+                />
+              }
+            />
+            <Route
+              path="/signin"
+              element={
+                <Login
+                  isLoggedIn={isLoggedIn}
+                  handleLogin={handleLogin}
+                  authError={authError}
+                  setAuthError={setAuthError}
+                />
+              }
+            />
+
+            <Route
+              path="/error"
+              element={<NotFound handleNavigateBack={handleNavigateBack} />}
+            />
+            <Route path="*" element={<Navigate to="/error" replace />} />
+          </Routes>
+        )}
+
+        {!isFooterHidden && <Footer />}
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
