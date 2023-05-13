@@ -382,8 +382,17 @@ function App() {
 
   function handleEditProfile({ name, email }, setIsSuccess) {
     setLoading(true);
+
+    const userInfo = {};
+    if (name !== currentUser.name) {
+      userInfo.name = name;
+    }
+    if (email !== currentUser.email) {
+      userInfo.email = email;
+    }
+
     mainApi
-      .sendUserInfo(name, email)
+      .sendUserInfo(userInfo)
       .then((newUserDataFromServer) => {
         setAuthError({ status: '', message: '' });
         setCurrentUser({
