@@ -1,4 +1,9 @@
 import { useEffect, useContext } from 'react';
+import {
+  MIN_FIELD_LENGTH,
+  MAX_FIELD_NAME_LENGTH,
+  MAX_FIELD_EMAIL_LENGTH,
+} from '../../utils/constants';
 import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
 import AuthFormInput from '../_UI_elements/AuthFormInput';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
@@ -45,8 +50,8 @@ function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
                 value={values.name || currentUser.name}
                 error={errors.name}
                 additionalClassName="type_profile"
-                minLength="2"
-                maxLength="30"
+                minLength={MIN_FIELD_LENGTH}
+                maxLength={MAX_FIELD_NAME_LENGTH}
                 required
               />
             </li>
@@ -60,8 +65,8 @@ function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
                 value={values.email || currentUser.email}
                 error={errors.email}
                 additionalClassName="type_profile"
-                minLength="2"
-                maxLength="40"
+                minLength={MIN_FIELD_LENGTH}
+                maxLength={MAX_FIELD_EMAIL_LENGTH}
                 required
               />
             </li>

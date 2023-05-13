@@ -1,5 +1,13 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import {
+  CONFLICT_STATUS_CODE,
+  MIN_FIELD_LENGTH,
+  MAX_FIELD_NAME_LENGTH,
+  MAX_FIELD_EMAIL_LENGTH,
+  MAX_FIELD_PASSWORD_LENGTH,
+} from '../../utils/constants';
+
 import AuthFormInput from '../_UI_elements/AuthFormInput';
 
 import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
@@ -28,7 +36,7 @@ function Register({ handleRegister, authError, setAuthError, isLoggedIn }) {
   }
 
   let regErrorMessage = '';
-  if (authError.status === '409') {
+  if (authError.status === CONFLICT_STATUS_CODE) {
     regErrorMessage = 'Пользователь с таким E-mail уже зарезистрирован.';
   } else {
     regErrorMessage = 'Что-то пошло не так.';
@@ -49,8 +57,8 @@ function Register({ handleRegister, authError, setAuthError, isLoggedIn }) {
                 onChange={handleChange}
                 value={values.name || ''}
                 error={errors.name}
-                minLength="2"
-                maxLength="30"
+                minLength={MIN_FIELD_LENGTH}
+                maxLength={MAX_FIELD_NAME_LENGTH}
                 required
               />
             </li>
@@ -63,8 +71,8 @@ function Register({ handleRegister, authError, setAuthError, isLoggedIn }) {
                 onChange={handleChange}
                 value={values.email || ''}
                 error={errors.email}
-                minLength="2"
-                maxLength="40"
+                minLength={MIN_FIELD_LENGTH}
+                maxLength={MAX_FIELD_EMAIL_LENGTH}
                 required
               />
             </li>
@@ -77,8 +85,8 @@ function Register({ handleRegister, authError, setAuthError, isLoggedIn }) {
                 onChange={handleChange}
                 value={values.password || ''}
                 error={errors.password}
-                minLength="2"
-                maxLength="200"
+                minLength={MIN_FIELD_LENGTH}
+                maxLength={MAX_FIELD_PASSWORD_LENGTH}
                 required
               />
             </li>

@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import {
+  MOBILE_CARDS_TO_SHOW,
+  DESKTOP_CARDS_TO_SHOW,
+  MAX_MOBILE_WIDTH,
+} from '../../../utils/constants';
 
 function MoviesCardList({
   cardsSearchState,
@@ -7,7 +12,10 @@ function MoviesCardList({
   onCardDelete,
   savedCards,
 }) {
-  const getCardsToShow = () => (window.innerWidth <= 768 ? 5 : 7);
+  const getCardsToShow = () =>
+    window.innerWidth <= MAX_MOBILE_WIDTH
+      ? MOBILE_CARDS_TO_SHOW
+      : DESKTOP_CARDS_TO_SHOW;
 
   // Задание: "Проверяйте ширину устройства при монтировании компонента результатов"
   // надеюсь пойдет такой способ без использования resize event и налепливания setTimeout

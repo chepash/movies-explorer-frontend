@@ -7,6 +7,8 @@ import {
 } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+import { SHORT_MOVIE_MAX_DURATION } from '../utils/constants';
+
 import Header from './Header/Header';
 import Main from './Main/Main';
 import Movies from './Movies/Movies';
@@ -197,7 +199,7 @@ function App() {
     return cards.filter((card) => {
       const nameRU = card.nameRU ? card.nameRU.toLowerCase() : '';
 
-      if (isToggleChecked && card.duration > 40) {
+      if (isToggleChecked && card.duration > SHORT_MOVIE_MAX_DURATION) {
         return false;
       }
 
