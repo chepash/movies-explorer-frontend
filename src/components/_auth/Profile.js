@@ -10,9 +10,12 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
   const currentUser = useContext(CurrentUserContext);
-
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
+
+  const isFormUnchanged =
+    values.name === currentUser.name && values.email === currentUser.email;
+  const isSubmitDisabled = !isValid || isFormUnchanged;
 
   useEffect(() => {
     setAuthError({ status: '', message: '' });
@@ -28,7 +31,7 @@ function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
     if (!isValid) {
       return;
     }
-    console.log('values : ', values);
+
     handleEditProfile(values);
   }
 
@@ -46,7 +49,9 @@ function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
                 label="Имя"
                 placeholder="Имя"
                 name="name"
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
                 value={values.name || currentUser.name}
                 error={errors.name}
                 additionalClassName="type_profile"
@@ -61,7 +66,9 @@ function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
                 label="E&#x2011;mail"
                 placeholder="E-mail"
                 name="email"
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
                 value={values.email || currentUser.email}
                 error={errors.email}
                 additionalClassName="type_profile"
@@ -103,10 +110,10 @@ function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
           </div>
           <button
             className={`button button_type_edit ${
-              !isValid ? 'button_type_edit_disabled' : ''
+              isSubmitDisabled ? 'button_type_edit_disabled' : ''
             }`}
             type="submit"
-            disabled={!isValid}
+            disabled={isSubmitDisabled}
           >
             Редактировать
           </button>
