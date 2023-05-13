@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {
   MIN_FIELD_LENGTH,
   MAX_FIELD_NAME_LENGTH,
@@ -17,6 +17,8 @@ function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
     values.name === currentUser.name && values.email === currentUser.email;
   const isSubmitDisabled = !isValid || isFormUnchanged;
 
+  const [isSuccess, setIsSuccess] = useState(false);
+
   useEffect(() => {
     setAuthError({ status: '', message: '' });
   }, []);
@@ -32,7 +34,7 @@ function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
       return;
     }
 
-    handleEditProfile(values);
+    handleEditProfile(values, setIsSuccess);
   }
 
   return (
@@ -102,11 +104,12 @@ function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
 
         <div className="form__controls form__controls_type_profile">
           <div
-            className={`form__error form__error_center${
-              authError.status ? ' form__error_visible' : ''
-            }`}
+            className={`form__message
+            ${isSuccess ? ' form__message_visible_success' : ''}
+            ${authError.status ? ' form__message_visible_fail' : ''}`}
           >
-            Что-то пошло не так.
+            {isSuccess && 'Изменения успешно сохранены'}
+            {authError.status && 'Что-то пошло не так'}
           </div>
           <button
             className={`button button_type_edit ${

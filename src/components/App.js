@@ -377,8 +377,8 @@ function App() {
       });
   }
 
-  function handleEditProfile({ name, email }) {
-    mainApi
+  function handleEditProfile({ name, email }, setIsSuccess) {
+    return mainApi
       .sendUserInfo(name, email)
       .then((newUserDataFromServer) => {
         setAuthError({ status: '', message: '' });
@@ -387,10 +387,12 @@ function App() {
           name: newUserDataFromServer.name,
           email: newUserDataFromServer.email,
         });
+        setIsSuccess(true);
       })
       .catch((err) => {
-        console.log('Ошибка при изменении данных: ', err);
-        setAuthError({ status: err.status, message: err.message });
+        setIsSuccess(false);
+        console.log('Ошибка при изменении данных: ', err.status);
+        setAuthError({ status: 'OFFLINE', message: err.message });
       });
   }
 
