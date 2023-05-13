@@ -8,14 +8,20 @@ import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
 import AuthFormInput from '../_UI_elements/AuthFormInput';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
+function Profile({
+  onSignOut,
+  authError,
+  setAuthError,
+  handleEditProfile,
+  isLoading,
+}) {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 
   const isFormUnchanged =
     values.name === currentUser.name && values.email === currentUser.email;
-  const isSubmitDisabled = !isValid || isFormUnchanged;
+  const isSubmitDisabled = !isValid || isFormUnchanged || isLoading;
 
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -59,6 +65,7 @@ function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
                 additionalClassName="type_profile"
                 minLength={MIN_FIELD_LENGTH}
                 maxLength={MAX_FIELD_NAME_LENGTH}
+                disabled={isLoading}
                 required
               />
             </li>
@@ -76,6 +83,7 @@ function Profile({ onSignOut, authError, setAuthError, handleEditProfile }) {
                 additionalClassName="type_profile"
                 minLength={MIN_FIELD_LENGTH}
                 maxLength={MAX_FIELD_EMAIL_LENGTH}
+                disabled={isLoading}
                 required
               />
             </li>

@@ -10,7 +10,13 @@ import AuthFormInput from '../_UI_elements/AuthFormInput';
 
 import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
 
-function Login({ handleLogin, authError, setAuthError, isLoggedIn }) {
+function Login({
+  handleLogin,
+  authError,
+  setAuthError,
+  isLoggedIn,
+  isLoading,
+}) {
   const navigate = useNavigate();
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
@@ -50,6 +56,7 @@ function Login({ handleLogin, authError, setAuthError, isLoggedIn }) {
                 error={errors.email}
                 minLength={MIN_FIELD_LENGTH}
                 maxLength={MAX_FIELD_EMAIL_LENGTH}
+                disabled={isLoading}
                 required
               />
             </li>
@@ -64,6 +71,7 @@ function Login({ handleLogin, authError, setAuthError, isLoggedIn }) {
                 error={errors.password}
                 minLength={MIN_FIELD_LENGTH}
                 maxLength={MAX_FIELD_PASSWORD_LENGTH}
+                disabled={isLoading}
                 required
               />
             </li>
@@ -100,10 +108,10 @@ function Login({ handleLogin, authError, setAuthError, isLoggedIn }) {
           </div>
           <button
             className={`button button_type_auth form__button ${
-              !isValid ? 'form__button_disabled' : ''
+              isLoading || !isValid ? 'form__button_disabled' : ''
             }`}
             type="submit"
-            disabled={!isValid}
+            disabled={isLoading || !isValid}
           >
             Войти
           </button>

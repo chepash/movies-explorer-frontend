@@ -346,9 +346,9 @@ function App() {
   }
 
   function handleLogin({ email, password }, resetForm) {
+    setLoading(true);
     mainApi
       .authorize(email, password)
-
       .then((res) => {
         if (res.message === 'Successful authorization') {
           return mainApi.getUserInfo().then((userDataFromServer) => {
@@ -374,11 +374,15 @@ function App() {
         setLoggedIn(false);
         console.log('Ошибка при логине: ', err);
         setAuthError({ status: err.status, message: err.message });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
   function handleEditProfile({ name, email }, setIsSuccess) {
-    return mainApi
+    setLoading(true);
+    mainApi
       .sendUserInfo(name, email)
       .then((newUserDataFromServer) => {
         setAuthError({ status: '', message: '' });
@@ -393,10 +397,14 @@ function App() {
         setIsSuccess(false);
         console.log('Ошибка при изменении данных: ', err.status);
         setAuthError({ status: 'OFFLINE', message: err.message });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
   function handleRegister({ name, email, password }, resetRegistrationForm) {
+    setLoading(true);
     mainApi
       .register(name, email, password)
       .then(() => {
@@ -405,6 +413,9 @@ function App() {
       .catch((err) => {
         console.log('Ошибка при регистрации: ', err);
         setAuthError({ status: err.status, message: err.message });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
@@ -542,6 +553,7 @@ function App() {
               path="/profile"
               element={
                 <ProtectedRoute
+                  isLoading={isLoading}
                   isLoggedIn={isLoggedIn}
                   onSignOut={handleSignOut}
                   authError={authError}
@@ -556,6 +568,7 @@ function App() {
               path="/signup"
               element={
                 <Register
+                  isLoading={isLoading}
                   isLoggedIn={isLoggedIn}
                   handleRegister={handleRegister}
                   authError={authError}
@@ -567,6 +580,7 @@ function App() {
               path="/signin"
               element={
                 <Login
+                  isLoading={isLoading}
                   isLoggedIn={isLoggedIn}
                   handleLogin={handleLogin}
                   authError={authError}
