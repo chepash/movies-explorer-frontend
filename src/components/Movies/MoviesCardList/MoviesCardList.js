@@ -38,7 +38,6 @@ function MoviesCardList({
               key={card.movieId}
               card={card}
               savedCards={savedCards}
-              // onCardClick={onCardClick}
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}
             />

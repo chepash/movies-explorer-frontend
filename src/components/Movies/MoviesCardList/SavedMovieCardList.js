@@ -15,7 +15,6 @@ function SavedMoviesCardList({
               key={card.movieId}
               card={card}
               savedCards={savedCards}
-              // onCardClick={onCardClick}
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}
             />
