@@ -16,6 +16,7 @@ function Movies({
         cardsSearchState={cardsSearchState}
         onSearchFormSubmit={onSearchFormSubmit}
         handleToggleCheckbox={handleToggleCheckbox}
+        isLoading={isLoading}
       />
       {isLoading && <Preloader />}
       {!isLoading && (

@@ -2,6 +2,7 @@ function ToggleButton({
   isToggleChecked,
   setToggleChecked,
   handleToggleCheckbox,
+  isLoading,
 }) {
   function handleToggleChange(e) {
     setToggleChecked(e.target.checked);
@@ -17,6 +18,7 @@ function ToggleButton({
         className="toggle"
         checked={isToggleChecked || false}
         onChange={handleToggleChange}
+        disabled={isLoading}
       />
       <label htmlFor="toggle" className="toggle__label">
         <span className="toggle__knob" />

@@ -6,6 +6,7 @@ function SearchForm({
   cardsSearchState,
   onSearchFormSubmit,
   handleToggleCheckbox,
+  isLoading,
 }) {
   const [searchQueryText, setSearchQueryText] = useState(
     cardsSearchState.searchQueryText
@@ -35,12 +36,14 @@ function SearchForm({
             className="search-form__input"
             value={searchQueryText || ''}
             onChange={handleInputChange}
+            disabled={isLoading}
           />
         </div>
 
         <button
           className="search-form__button button button_type_search"
           type="submit"
+          disabled={isLoading}
         />
 
         <div className="search-form__filter">
@@ -49,6 +52,7 @@ function SearchForm({
             setToggleChecked={setToggleChecked}
             handleToggleCheckbox={handleToggleCheckbox}
             cardsSearchState={cardsSearchState}
+            isLoading={isLoading}
           />
           <span className="search-form__filter-name">Короткометражки</span>
         </div>

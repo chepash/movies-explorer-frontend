@@ -28,6 +28,7 @@ function SavedMovies({
         cardsSearchState={savedCardsSearchState}
         onSearchFormSubmit={onSearchFormSubmit}
         handleToggleCheckbox={handleToggleCheckbox}
+        isLoading={isLoading}
       />
       {isLoading && <Preloader />}
       {!isLoading && (
