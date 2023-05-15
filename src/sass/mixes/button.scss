@@ -5,6 +5,8 @@
   margin: 0;
   padding: 0;
 
+  white-space: nowrap;
+
   background: none;
   border: none;
   box-shadow: none;
@@ -166,12 +168,25 @@
   }
 
   &_type_edit {
+    width: min-content;
+    margin: 0 auto;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 16px;
     color: #fff;
     text-align: center;
     letter-spacing: 0;
+
+    opacity: 1;
+
+    transition: opacity 0.3s ease;
+
+    &_disabled {
+      pointer-events: none;
+      opacity: 0;
+      background-color: #0000;
+    }
 
     @media screen and (width <= 320px) {
       font-size: 12px;
@@ -180,6 +195,9 @@
   }
 
   &_type_logout {
+    width: min-content;
+    margin: 0 auto;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 16px;

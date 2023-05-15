@@ -13,7 +13,7 @@ function Techs() {
         </p>
         <ul className="techs__list page__list">
           <li className="techs__icon">HTML</li>
-          <li className="techs__icon">CSS</li>
+          <li className="techs__icon">CSS / SASS</li>
           <li className="techs__icon">JS</li>
           <li className="techs__icon">React</li>
           <li className="techs__icon">Git</li>

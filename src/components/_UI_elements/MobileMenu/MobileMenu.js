@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-function MobileMenu({ onAccountBtnClick }) {
+function MobileMenu({ onAccountBtnClick, onNavLinkClick }) {
   return (
     <nav className="mobile-menu">
       <div className="mobile-menu__container">
@@ -13,6 +13,7 @@ function MobileMenu({ onAccountBtnClick }) {
                 }`
               }
               to="/"
+              onClick={onNavLinkClick}
             >
               Главная
             </NavLink>
@@ -25,6 +26,7 @@ function MobileMenu({ onAccountBtnClick }) {
                 }`
               }
               to="/movies"
+              onClick={onNavLinkClick}
             >
               Фильмы
             </NavLink>
@@ -37,6 +39,7 @@ function MobileMenu({ onAccountBtnClick }) {
                 }`
               }
               to="/saved-movies"
+              onClick={onNavLinkClick}
             >
               Сохранённые фильмы
             </NavLink>

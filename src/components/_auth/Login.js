@@ -1,11 +1,33 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import {
+  MIN_FIELD_LENGTH,
+  MAX_FIELD_EMAIL_LENGTH,
+  MAX_FIELD_PASSWORD_LENGTH,
+} from '../../utils/constants';
+
 import AuthFormInput from '../_UI_elements/AuthFormInput';
 
 import useFormWithValidation from '../../utils/hooks/useFormWithValidation';
 
-function Login() {
+function Login({
+  handleLogin,
+  authError,
+  setAuthError,
+  isLoggedIn,
+  isLoading,
+}) {
+  const navigate = useNavigate();
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
+
+  useEffect(() => {
+    setAuthError({ status: '', message: '' });
+
+    if (isLoggedIn) {
+      navigate('/movies', { replace: true });
+    }
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -14,7 +36,7 @@ function Login() {
       return;
     }
 
-    resetForm();
+    handleLogin(values, resetForm);
   }
 
   return (
@@ -26,14 +48,15 @@ function Login() {
             <li className="form__item">
               <AuthFormInput
                 type="email"
-                label="E-mail"
+                label="E&#x2011;mail"
                 placeholder="E-mail"
                 name="email"
                 onChange={handleChange}
-                value={values.email || 'pochta@yandex.ru'}
+                value={values.email || ''}
                 error={errors.email}
-                minLength="2"
-                maxLength="40"
+                minLength={MIN_FIELD_LENGTH}
+                maxLength={MAX_FIELD_EMAIL_LENGTH}
+                disabled={isLoading}
                 required
               />
             </li>
@@ -46,33 +69,49 @@ function Login() {
                 onChange={handleChange}
                 value={values.password || ''}
                 error={errors.password}
-                minLength="2"
-                maxLength="200"
+                minLength={MIN_FIELD_LENGTH}
+                maxLength={MAX_FIELD_PASSWORD_LENGTH}
+                disabled={isLoading}
                 required
               />
             </li>
           </ul>
           <ul className="form__errors-list page__list">
-            <li
-              className={`form__error${!isValid ? ' form__error_visible' : ''}`}
-            >
-              {errors.email ? `Поле Email: ${errors.email}` : ''}
+            <li className="form__error-item">
+              <div
+                className={`form__error${
+                  !isValid ? ' form__error_visible' : ''
+                }`}
+              >
+                {errors.email ? `Поле E-mail: ${errors.email}` : ''}
+              </div>
             </li>
-            <li
-              className={`form__error${!isValid ? ' form__error_visible' : ''}`}
-            >
-              {errors.password ? `Поле Пароль: ${errors.password}` : ''}
+            <li className="form__error-item">
+              <div
+                className={`form__error${
+                  !isValid ? ' form__error_visible' : ''
+                }`}
+              >
+                {errors.password ? `Поле Пароль: ${errors.password}` : ''}
+              </div>
             </li>
           </ul>
         </div>
 
         <div className="form__controls">
+          <div
+            className={`form__error form__error_center${
+              authError.status ? ' form__error_visible' : ''
+            }`}
+          >
+            Что-то пошло не так.
+          </div>
           <button
             className={`button button_type_auth form__button ${
-              !isValid ? 'form__button_disabled' : ''
+              isLoading || !isValid ? 'form__button_disabled' : ''
             }`}
             type="submit"
-            disabled={!isValid}
+            disabled={isLoading || !isValid}
           >
             Войти
           </button>

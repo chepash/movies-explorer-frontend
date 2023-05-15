@@ -1,4 +1,4 @@
-function Login({ onGoBackClick }) {
+function Login({ handleNavigateBack }) {
   return (
     <main className="error-page">
       <h1 className="error-page__title">404</h1>
@@ -7,7 +7,7 @@ function Login({ onGoBackClick }) {
       <button
         type="button"
         className="button error-page__button"
-        onClick={onGoBackClick}
+        onClick={handleNavigateBack}
       >
         Назад
       </button>

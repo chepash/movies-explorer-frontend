@@ -3,8 +3,8 @@
 
 @import "./sass/mixes/page";
 @import "./sass/mixes/button";
-@import "./sass/form";
 @import "./sass/auth";
+@import "./sass/form";
 
 @import "./components/_UI_elements/Navigation/Navigation";
 @import "./components/_UI_elements/HamburgerButton/HamburgerButton";
@@ -25,12 +25,6 @@
 @import "./components/Movies/MoviesCardList/MoviesCardList";
 @import "./components/Movies/MoviesCard/MoviesCard";
 
-@import "./components/Profile/Profile";
-
 @import "./components/Footer/Footer";
 
 @import "./components/NotFound/NotFound";
-
-// * {
-//   outline: 1px solid #f00 !important;
-// }

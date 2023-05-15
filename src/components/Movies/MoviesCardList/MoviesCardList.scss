@@ -39,4 +39,16 @@
       width: 240px;
     }
   }
+
+  &__message {
+    align-self: center;
+
+    width: 100%;
+    max-width: 350px;
+    height: min-content;
+    margin: 10px 0 0;
+    padding: 0;
+
+    text-align: center;
+  }
 }

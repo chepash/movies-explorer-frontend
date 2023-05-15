@@ -167,6 +167,7 @@
     font-weight: 400;
     line-height: 1.38; // 18px
     letter-spacing: 0;
+    white-space: nowrap;
 
     @media screen and (width <= 600px) {
       font-size: 11px;
