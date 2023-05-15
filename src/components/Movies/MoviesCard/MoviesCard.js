@@ -45,7 +45,7 @@ function MoviesCard({ card, onCardLike, onCardDelete, savedCards }) {
   }
 
   return (
-    <li className="element" onClick={handleCardClick}>
+    <li className="element" onClick={handleCardClick} title={card.nameRU}>
       <div className="element__wrapper">
         <p className="element__title">{card.nameRU}</p>
         <p className="element__duration">{formatDuration(card.duration)}</p>
