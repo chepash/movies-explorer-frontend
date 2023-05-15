@@ -126,7 +126,7 @@ function Profile({
             type="submit"
             disabled={isSubmitDisabled}
           >
-            Редактировать
+            Сохранить изменения
           </button>
           <div className="form__link-wrapper">
             <button

@@ -178,9 +178,13 @@
     text-align: center;
     letter-spacing: 0;
 
+    opacity: 1;
+
+    transition: opacity 0.3s ease;
+
     &_disabled {
-      color: #ee3465;
-      opacity: 0.6;
+      pointer-events: none;
+      opacity: 0;
       background-color: #0000;
     }
 
