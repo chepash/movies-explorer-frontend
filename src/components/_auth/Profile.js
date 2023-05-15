@@ -19,15 +19,25 @@ function Profile({
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
 
-  const isFormUnchanged =
-    values.name === currentUser.name && values.email === currentUser.email;
-  const isSubmitDisabled = !isValid || isFormUnchanged || isLoading;
-
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const [isFormUnchanged, setIsFormUnchanged] = useState(true);
+
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
 
   useEffect(() => {
     setAuthError({ status: '', message: '' });
   }, []);
+
+  useEffect(() => {
+    setIsSubmitDisabled(!isValid || isFormUnchanged || isLoading);
+  }, [isFormUnchanged, isLoading, isValid]);
+
+  useEffect(() => {
+    setIsFormUnchanged(
+      values.name === currentUser.name && values.email === currentUser.email
+    );
+  }, [values.name, values.email]);
 
   useEffect(() => {
     resetForm({ name: currentUser.name, email: currentUser.email }, {}, true);
@@ -125,6 +135,16 @@ function Profile({
             }`}
             type="submit"
             disabled={isSubmitDisabled}
+            onClick={(e) => {
+              setIsFormUnchanged(true);
+              setIsSubmitDisabled(true);
+              handleSubmit(e);
+            }}
+            onTouchEnd={(e) => {
+              setIsFormUnchanged(true);
+              setIsSubmitDisabled(true);
+              handleSubmit(e);
+            }}
           >
             Сохранить изменения
           </button>
