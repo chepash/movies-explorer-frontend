@@ -27,9 +27,13 @@
     display: inline-block;
 
     width: 36px;
+    min-width: 36px;
+    max-width: 36px;
     height: 20px;
+    min-height: 20px;
+    max-height: 20px;
 
-    background-color: #ebebeb;
+    background-color: #7e7e7e;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 20px;

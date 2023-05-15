@@ -134,7 +134,7 @@ function Profile({
               type="button"
               onClick={onSignOut}
             >
-              Выйти&nbsp;из&nbsp;аккаунта
+              Выйти из аккаунта
             </button>
           </div>
         </div>
