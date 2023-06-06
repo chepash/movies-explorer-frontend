@@ -27,6 +27,6 @@
 
 https://chepamovies.nomoredomains.monster/
 
-### Макет диплома
+### Макет сайта (figma)
 
 https://disk.yandex.ru/d/iH5ZRgTY4Hv94g
