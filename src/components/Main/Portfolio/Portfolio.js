@@ -26,7 +26,7 @@ function Portfolio() {
               <p className="portfolio__link-icon">↗</p>
             </a>
           </li>
-              <li className="portfolio__item">
+          <li className="portfolio__item">
             <a
               className="portfolio__link page__link"
               href="https://chepash.github.io/kuda-ya-poedu/"
