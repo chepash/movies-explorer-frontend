@@ -1,32 +1,32 @@
-# Сайт поиска фильмов
+# Movie Explorer Website
 
-## Краткое описание
+## Brief Description
 
-Сервис, в котором можно найти фильмы по запросу и сохранить в личном кабинете.
+A service where users can search for movies based on their keywords and save them in their personal account.
 
-## Как он должен работать?
+## How It Should Work
 
-Пользователь вводит в строку поиска ключевые слова и нажимает кнопку «Искать». После этого сайт выполняет два действия:
+The user enters keywords in the search bar and clicks the "Search" button. The website performs the following actions:
 
-- отправить запрос к сервису с данными о фильмах, получить данные и сохранить;
-- согласно введённому тексту в поиск найти все подходящие фильмы и отобразить карточки с ними;
-- когда пользователь сохраняет фильм, он отображается в специальном разделе сайта.
+- Sends a request to a movie service with the movie data, retrieves the data, and saves it.
+- Finds all relevant movies based on the entered search text and displays cards with the movie information.
+- When a user saves a movie, it is displayed in a special section of the website.
 
-Сайт состоит из нескольких страниц:
+The website has several pages:
 
-1. Главная. Содержит информацию о выполненном проекте.
-2. Страница с фильмами. На ней есть форма поиска фильмов и блок с результатами поиска.
-3. Страница с сохранёнными фильмами. Показывает фильмы, сохранённые пользователем.
-4. Страница регистрации. Позволяет пользователю зарегистрировать аккаунт.
-5. Страница авторизации. На ней пользователь может войти в систему.
-6. Страница редактирования профиля. Пользователь может изменить данные своего аккаунта.
+1. Homepage: Contains information about the project.
+2. Movie page: Includes a movie search form and a section for displaying search results.
+3. Saved movies page: Shows movies saved by the user.
+4. Registration page: Allows users to create an account.
+5. Login page: Users can log into the system.
+6. Profile editing page: Allows users to update their account information.
 
-На страницах есть одинаковые блоки: они используются несколько раз в разных частях сайта. Повторно используемые компоненты созданы на «Реакте» и используется БЭМ для описания стилей.
+There are reusable blocks on the pages, which are used multiple times throughout the website. The reusable components are created using React, and BEM is used to describe the styles.
 
-### Лучше один раз увидеть, поэтому вот как проект выглядит:
+### It's better to see it once, so here's how the project looks:
 
 https://chepamovies.nomoredomains.monster/
 
-### Макет сайта (figma)
+### Website Layout (Figma)
 
 https://disk.yandex.ru/d/iH5ZRgTY4Hv94g
