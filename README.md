@@ -30,3 +30,6 @@ https://chepamovies.nomoredomains.monster/
 ### Website Layout (Figma)
 
 https://disk.yandex.ru/d/iH5ZRgTY4Hv94g
+
+### Screenshots:
+<a href="https://postimg.cc/vg6kfz9z" target="_blank"><img src="https://i.postimg.cc/vg6kfz9z/Movie-explorer-react-1.png" alt="Movie-explorer-react-1"/></a> <a href="https://postimg.cc/NynZKVyF" target="_blank"><img src="https://i.postimg.cc/NynZKVyF/Movie-explorer-react-2.png" alt="Movie-explorer-react-2"/></a> <a href="https://postimg.cc/06jL2xyh" target="_blank"><img src="https://i.postimg.cc/06jL2xyh/Movie-explorer-react-3.png" alt="Movie-explorer-react-3"/></a><br/><br/>
