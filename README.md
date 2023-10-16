@@ -2,11 +2,12 @@
 
 ## Brief Description
 
+Frontend of the diploma project at Yandex Practicum.<br/>
 A service where users can search for movies based on their keywords and save them in their personal account.
 
 ## How It Should Work
 
-The user enters keywords in the search bar and clicks the "Search" button. The website performs the following actions:
+After registration and authorization on the website the user is directed to a movie search page with the ability to filter by short films. The user enters keywords in the search bar and clicks the "Search" button. The website performs the following actions:
 
 - Sends a request to a movie service with the movie data, retrieves the data, and saves it.
 - Finds all relevant movies based on the entered search text and displays cards with the movie information.
@@ -23,13 +24,26 @@ The website has several pages:
 
 There are reusable blocks on the pages, which are used multiple times throughout the website. The reusable components are created using React, and BEM is used to describe the styles.
 
-### It's better to see it once, so here's how the project looks:
+Technologies and Tools Used:
 
-https://chepamovies.nomoredomains.monster/
+- HTML5
+- CSS3 with SCSS Preprocessor
+- JavaScript ES6 with React.js Library
+- Node.js for [Backend](https://github.com/chepash/movies-explorer-api)
 
-### Website Layout (Figma)
+---
 
-https://disk.yandex.ru/d/iH5ZRgTY4Hv94g
+To access the main page, you need to register or use the guest account details:
+
+Email: test@me.com<br/>
+Password: test
+
+### [Open the website](https://chepamovies.nomoredomains.monster/)
+
+### [Open the Figma](https://www.figma.com/file/3OE8S3r9Yt9nzpURHTEr1n/Diploma-CHEPA?type=design&t=UMbjtJyd9hwAP22v-6)
+
+---
 
 ### Screenshots:
-<a href="https://postimg.cc/vg6kfz9z" target="_blank"><img src="https://i.postimg.cc/vg6kfz9z/Movie-explorer-react-1.png" alt="Movie-explorer-react-1"/></a> <a href="https://postimg.cc/NynZKVyF" target="_blank"><img src="https://i.postimg.cc/NynZKVyF/Movie-explorer-react-2.png" alt="Movie-explorer-react-2"/></a> <a href="https://postimg.cc/06jL2xyh" target="_blank"><img src="https://i.postimg.cc/06jL2xyh/Movie-explorer-react-3.png" alt="Movie-explorer-react-3"/></a><br/><br/>
+
+<a href="https://ibb.co/0sDL4PC"><img src="https://i.ibb.co/0sDL4PC/Movie-explorer-react-1.png" alt="Movie-explorer-react-1" border="0"></a> <a href="https://ibb.co/GdsHn1k"><img src="https://i.ibb.co/GdsHn1k/Movie-explorer-react-2.png" alt="Movie-explorer-react-2" border="0"></a> <a href="https://ibb.co/WypBw3J"><img src="https://i.ibb.co/WypBw3J/Movie-explorer-react-3.png" alt="Movie-explorer-react-3" border="0"></a>
